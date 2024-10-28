@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import random
 
 # Set up the database connection and session
-DATABASE_URL = "mysql+mysqlconnector://root:Siddha%402234@localhost/YouthRedCross_BloodRequest"
+DATABASE_URL = "mysql+mysqlconnector://root:ocalhost/YouthRedCross_BloodRequest"
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
