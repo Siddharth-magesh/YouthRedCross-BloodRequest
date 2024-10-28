@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Donor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .form-container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        max-width: 400px;
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .table-container {
+        margin-top: 30px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Find a Donor</h1>
+
+    <!-- Input form for blood type -->
+    <div class="form-container">
+      <form
+        id="findDonorForm"
+        method="POST"
+        action="{{ url_for('fetch_donors.get_donors') }}"
+      >
+        <label for="bloodType">Blood Type:</label>
+        <select id="bloodType" name="bloodType" required>
+          <option value="">Select Blood Type</option>
+          <option value="A+">A+</option>
+          <option value="B+">B+</option>
+          <option value="O+">O+</option>
+          <option value="AB+">AB+</option>
+          <option value="A-">A-</option>
+          <option value="B-">B-</option>
+          <option value="O-">O-</option>
+          <option value="AB-">AB-</option>
+        </select>
+        <br /><br />
+        <button type="submit">Find Donor</button>
+      </form>
+    </div>
+
+    <!-- Table to display donor results -->
+    <div class="table-container">
+      <table id="donorTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Blood Group</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Distance (km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if donors %} {% for donor in donors %}
+          <tr>
+            <td>{{ donor.Name }}</td>
+            <td>{{ donor.blood_grp }}</td>
+            <td>{{ donor.city }}</td>
+            <td>{{ donor.address }}</td>
+            <td>{{ donor.status }}</td>
+            <td>{{ donor.distance }}</td>
+          </tr>
+          {% endfor %} {% else %}
+          <tr>
+            <td colspan="6">No donors found.</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
