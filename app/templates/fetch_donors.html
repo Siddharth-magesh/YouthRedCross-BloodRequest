@@ -61,6 +61,10 @@
           <option value="AB-">AB-</option>
         </select>
         <br /><br />
+        <!-- Add hospital address input if needed -->
+        <label for="hospital_address">Hospital Address:</label>
+        <input type="text" id="hospital_address" name="hospital_address" />
+        <br /><br />
         <button type="submit">Find Donor</button>
       </form>
     </div>
@@ -73,7 +77,6 @@
             <th>Name</th>
             <th>Blood Group</th>
             <th>City</th>
-            <th>Address</th>
             <th>Status</th>
             <th>Distance (km)</th>
           </tr>
@@ -84,9 +87,10 @@
             <td>{{ donor.Name }}</td>
             <td>{{ donor.blood_grp }}</td>
             <td>{{ donor.city }}</td>
-            <td>{{ donor.address }}</td>
             <td>{{ donor.status }}</td>
-            <td>{{ donor.distance }}</td>
+            <td>
+              {{ donor.distance if donor.distance is not none else 'N/A' }}
+            </td>
           </tr>
           {% endfor %} {% else %}
           <tr>
