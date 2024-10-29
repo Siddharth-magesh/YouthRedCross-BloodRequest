@@ -11,6 +11,14 @@ def index():
 def render_find_donors_page():
     return render_template('fetch_donors.html')
 
+@main_bp.route('/render_register_new_donor')
+def render_register_new_donor():
+    return render_template('register_donor.html')
+
+@main_bp.route('/render_generate_blood_request')
+def render_generate_blood_request():
+    return render_template('generate_request.html')
+
 '''@main_bp.route('/admin-login')
 def admin_login():
     return render_template('admin_login.html')'''
@@ -22,10 +30,6 @@ def generate_request():
 @main_bp.route('/about-us')
 def about_us():
     return render_template('about_us.html')
-
-@main_bp.route('/register-donor')
-def register_donor():
-    return render_template('register_donor.html')
 
 @main_bp.route('/signing-user')
 def signing_user():

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Donor</title>
+    <style>
+      /* Simple styling for improved readability */
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      fieldset {
+        margin-bottom: 1em;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Add New Donor</h1>
+    <form action="{{ url_for('add_donor.register_new_donors') }}" method="POST">
+      <!-- Section 1: Login Credentials -->
+      <fieldset>
+        <legend>Sign-In Credentials</legend>
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="Email" required /><br />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+        <input type="checkbox" onclick="togglePassword('password')" /> Show
+        Password<br />
+
+        <label for="confirm_password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          required
+        />
+        <input type="checkbox" onclick="togglePassword('confirm_password')" />
+        Show Password<br />
+      </fieldset>
+
+      <!-- Section 2: Personal Details -->
+      <fieldset>
+        <legend>Personal Details</legend>
+        <label for="first_name">First Name (required):</label>
+        <input type="text" id="first_name" name="first_name" required /><br />
+
+        <label for="last_name">Last Name or Initial:</label>
+        <input type="text" id="last_name" name="last_name" /><br />
+
+        <label for="age">Age (required):</label>
+        <input type="number" id="age" name="age" required min="1" /><br />
+
+        <label for="dob">Date of Birth (required):</label>
+        <input type="date" id="dob" name="dob" required /><br />
+
+        <label for="contact_number">Contact Number (required):</label>
+        <input
+          type="tel"
+          id="contact_number"
+          name="contact_number"
+          required
+          pattern="[0-9]{10}"
+          title="Enter a 10-digit phone number"
+        /><br />
+
+        <label for="secondary_contact">Secondary Contact Number:</label>
+        <input
+          type="tel"
+          id="secondary_contact"
+          name="secondary_contact"
+          pattern="[0-9]{10}"
+          title="Enter a 10-digit phone number"
+        /><br />
+
+        <label for="marital_status">Marital Status:</label>
+        <select id="marital_status" name="marital_status">
+          <option value="">-- Select --</option>
+          <option value="single">Single</option>
+          <option value="married">Married</option></select
+        ><br />
+
+        <label for="aadhar_number">Aadhar Number:</label>
+        <input
+          type="text"
+          id="aadhar_number"
+          name="aadhar_number"
+          pattern="[0-9]{12}"
+          title="Enter a 12-digit Aadhar number"
+        /><br />
+
+        <label>Blood Group (required):</label><br />
+        <input
+          type="radio"
+          id="a_positive"
+          name="blood_group"
+          value="A+"
+          required
+        />
+        <label for="a_positive">A+</label>
+        <input
+          type="radio"
+          id="a_negative"
+          name="blood_group"
+          value="A-"
+          required
+        />
+        <label for="a_negative">A-</label><br />
+        <input
+          type="radio"
+          id="b_positive"
+          name="blood_group"
+          value="B+"
+          required
+        />
+        <label for="b_positive">B+</label>
+        <input
+          type="radio"
+          id="b_negative"
+          name="blood_group"
+          value="B-"
+          required
+        />
+        <label for="b_negative">B-</label><br />
+        <input
+          type="radio"
+          id="ab_positive"
+          name="blood_group"
+          value="AB+"
+          required
+        />
+        <label for="ab_positive">AB+</label>
+        <input
+          type="radio"
+          id="ab_negative"
+          name="blood_group"
+          value="AB-"
+          required
+        />
+        <label for="ab_negative">AB-</label><br />
+        <input
+          type="radio"
+          id="o_positive"
+          name="blood_group"
+          value="O+"
+          required
+        />
+        <label for="o_positive">O+</label>
+        <input
+          type="radio"
+          id="o_negative"
+          name="blood_group"
+          value="O-"
+          required
+        />
+        <label for="o_negative">O-</label><br />
+
+        <label for="last_donation">Last Blood Donated Date:</label>
+        <input type="date" id="last_donation" name="last_donation" /><br />
+      </fieldset>
+
+      <!-- Section 3: Address Details -->
+      <fieldset>
+        <legend>Address Details</legend>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required /><br />
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required /><br />
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required /><br />
+
+        <label for="pincode">Pincode:</label>
+        <input
+          type="text"
+          id="pincode"
+          name="pincode"
+          required
+          pattern="[0-9]{6}"
+          title="Enter a valid 6-digit pincode"
+        /><br />
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required /><br />
+      </fieldset>
+
+      <!-- Section 4: Disease Details -->
+      <fieldset>
+        <legend>Disease Details</legend>
+        <label for="disease_name">Disease Name:</label>
+        <input type="text" id="disease_name" name="disease_name" /><br />
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br />
+      </fieldset>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+      }
+    </script>
+  </body>
+</html>

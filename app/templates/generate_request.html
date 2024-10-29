@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate request</title>
+    <link rel="stylesheet" href="request.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body >
+    <section class="Header">
+        <nav>
+            <a   href="home.html"><img src="/imgs/LBS.png" alt="vec logo" class="vec"></a> 
+            <div class="nav-links">
+    
+             <ul>
+                 <li><a  href="home.html">HOME</a></li>
+                 <li><a  href="">ABOUT US</a></li>
+                 <li><a href="">DONOR</a></li>
+             </ul>
+
+             </div> 
+         </nav>
+    </section>
+    <hr>
+    <div class="container">
+        <h1>REQUEST FORM</h1>
+        <form action="#" method="get">
+        <p class="patient">
+            <label for="name">Patient Name:</label>
+            <input type="text" name="patientname"
+            id="name" placeholder="Patient Name" autocomplete="on" required autofocus>
+        </p>
+        <p class="Blood-Group">
+            <label for="blood">Blood Group:</label>
+            <input type="text" name="bloodgroup"
+            id="blood" placeholder="Required Blood Group" required list="blood_group" required>
+            <datalist id="blood_group">
+            <option value="O +ve" selected>O +ve</option>
+            <option value="O -ve"></option>
+            <option value="A +ve"></option>
+            <option value="A -ve"></option>
+            <option value="B +ve"></option>
+            <option value="B -ve"></option>
+            <option value="AB +ve"></option>
+            <option value="AB -ve"></option>
+        </datalist>
+        </p>
+
+        <p class="age">
+            <label for="age">Age:</label>
+            <input type="number" name="age" id="age"
+            placeholder="Enter Your Age" required>
+        </p>
+
+        <p class="hosp-name">
+            <label for="hospital-name">Hospital:</label>
+            <input type="text" name="hospital" id="hospital-name" placeholder="Enter Hospital Name" required>
+        </p>
+
+        <p class="hosp-address">
+            <label for="hospital-address">Hospital Adress:</label>
+            <input type="text" name="hospitaladdress" id="hospital-address" placeholder="Enter Hospital Address" required>
+        </p>
+
+        <p class="phone">
+            <label for="phone">Contact number:</label>
+            <input type="tel" name="phone" id="phone" placeholder="x x x x x x x x x x" pattern="[0-9]{10}" required>
+        </p>
+
+        <p class="attendant-name">
+            <label for="attendant-name">Attendant Name:</label>
+            <input type="text" name="attendant-name"
+            id="attendant-name" placeholder="Attendant Name" required>
+        </p>
+
+        <p class="date">
+            <label for="date">Due Date:</label>
+            <input type="date" name="date" id="date"
+            placeholder="dd-mm-yyyy" required>
+        </p>
+
+        <p class="reason">
+            <label for="reason">Reason:</label>
+            <input type="text" name="reason"
+            id="reason" placeholder="Required Reason" required>
+        </p>
+        <button type="submit">Ask Request</button>
+    </div>
+    </form>
+</body>
+</html>
