@@ -101,5 +101,5 @@ class ResponseDetails(db.Model):
     id = db.Column(db.String(36), primary_key=True)  # Change to VARCHAR
     status = db.Column(db.String(45), nullable=False)
     report = db.Column(db.String(255), nullable=True)
-    units_donated = db.Column(db.Integer, nullable=False)
+    units_donated = db.Column(db.Integer, nullable=True)
     donor_ids = db.Column(db.String(255), nullable=True)  # Stored as a JSON string for donor references

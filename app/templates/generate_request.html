@@ -1,97 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate request</title>
-    <link rel="stylesheet" href="request.css" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body >
-    <section class="Header">
-        <nav>
-            <a   href="home.html"><img src="/imgs/LBS.png" alt="vec logo" class="vec"></a> 
-            <div class="nav-links">
-    
-             <ul>
-                 <li><a  href="home.html">HOME</a></li>
-                 <li><a  href="">ABOUT US</a></li>
-                 <li><a href="">DONOR</a></li>
-             </ul>
-
-             </div> 
-         </nav>
-    </section>
-    <hr>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Blood Request</title>
+    <style>
+      .autocomplete-suggestions {
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 1000;
+        background: white;
+      }
+      .autocomplete-suggestion {
+        padding: 10px;
+        cursor: pointer;
+      }
+      .autocomplete-suggestion:hover {
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <h1>REQUEST FORM</h1>
-        <form action="#" method="get">
-        <p class="patient">
-            <label for="name">Patient Name:</label>
-            <input type="text" name="patientname"
-            id="name" placeholder="Patient Name" autocomplete="on" required autofocus>
-        </p>
-        <p class="Blood-Group">
-            <label for="blood">Blood Group:</label>
-            <input type="text" name="bloodgroup"
-            id="blood" placeholder="Required Blood Group" required list="blood_group" required>
-            <datalist id="blood_group">
-            <option value="O +ve" selected>O +ve</option>
-            <option value="O -ve"></option>
-            <option value="A +ve"></option>
-            <option value="A -ve"></option>
-            <option value="B +ve"></option>
-            <option value="B -ve"></option>
-            <option value="AB +ve"></option>
-            <option value="AB -ve"></option>
-        </datalist>
-        </p>
+      <h2>Generate Blood Request</h2>
+      <form
+        method="POST"
+        action="{{ url_for('generate_blood_request.generate_bloodRequest') }}"
+      >
+        <label for="patient_name">Patient Name:</label><br />
+        <input
+          type="text"
+          id="patient_name"
+          name="patient_name"
+          required
+        /><br />
 
-        <p class="age">
-            <label for="age">Age:</label>
-            <input type="number" name="age" id="age"
-            placeholder="Enter Your Age" required>
-        </p>
+        <label for="attendant_name">Attendant Name:</label><br />
+        <input
+          type="text"
+          id="attendant_name"
+          name="attendant_name"
+          required
+        /><br />
 
-        <p class="hosp-name">
-            <label for="hospital-name">Hospital:</label>
-            <input type="text" name="hospital" id="hospital-name" placeholder="Enter Hospital Name" required>
-        </p>
+        <label for="blood_group">Blood Group:</label><br />
+        <select id="blood_group" name="blood_group" required>
+          <option value="">Select Blood Group</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option></select
+        ><br />
 
-        <p class="hosp-address">
-            <label for="hospital-address">Hospital Adress:</label>
-            <input type="text" name="hospitaladdress" id="hospital-address" placeholder="Enter Hospital Address" required>
-        </p>
+        <label for="hospital_name">Hospital Name:</label><br />
+        <input
+          type="text"
+          id="hospital_name"
+          name="hospital_name"
+          autocomplete="off"
+          required
+        /><br />
+        <input type="hidden" id="hospital_id" name="hospital_id" value="None" />
+        <div id="suggestionsContainer" class="autocomplete-suggestions"></div>
+        <br />
 
-        <p class="phone">
-            <label for="phone">Contact number:</label>
-            <input type="tel" name="phone" id="phone" placeholder="x x x x x x x x x x" pattern="[0-9]{10}" required>
-        </p>
+        <label for="hospital_address">Hospital Address:</label><br />
+        <input
+          type="text"
+          id="hospital_address"
+          name="hospital_address"
+          required
+        /><br />
 
-        <p class="attendant-name">
-            <label for="attendant-name">Attendant Name:</label>
-            <input type="text" name="attendant-name"
-            id="attendant-name" placeholder="Attendant Name" required>
-        </p>
+        <label for="contact_number">Contact Number:</label><br />
+        <input
+          type="tel"
+          id="contact_number"
+          name="contact_number"
+          required
+        /><br />
 
-        <p class="date">
-            <label for="date">Due Date:</label>
-            <input type="date" name="date" id="date"
-            placeholder="dd-mm-yyyy" required>
-        </p>
+        <label for="patient_age">Patient Age:</label><br />
+        <input
+          type="number"
+          id="patient_age"
+          name="patient_age"
+          required
+        /><br />
 
-        <p class="reason">
-            <label for="reason">Reason:</label>
-            <input type="text" name="reason"
-            id="reason" placeholder="Required Reason" required>
-        </p>
-        <button type="submit">Ask Request</button>
+        <label for="pincode">Pincode:</label><br />
+        <input type="text" id="pincode" name="pincode" required /><br />
+
+        <label for="landmark">Landmark:</label><br />
+        <input type="text" id="landmark" name="landmark" /><br />
+
+        <label for="due_date">Due Date:</label><br />
+        <input type="date" id="due_date" name="due_date" required /><br />
+
+        <label for="request_reason">Request Reason:</label><br />
+        <textarea id="request_reason" name="request_reason" required></textarea
+        ><br />
+
+        <label for="units_required">Units Required:</label><br />
+        <input
+          type="number"
+          id="units_required"
+          name="units_required"
+          required
+        /><br />
+
+        <button type="submit">Submit Blood Request</button>
+      </form>
     </div>
-    </form>
-</body>
+    <script>
+      const hospitals = [
+        {
+          id: "HOSP001",
+          name: "Apollo Hospital",
+          address: "No. 21, Greams Lane, Off Greams Road, Chennai, 600006",
+        },
+        {
+          id: "HOSP002",
+          name: "Fortis Malar Hospital",
+          address:
+            "No. 52, 1st Main Road, Gandhi Nagar, Adyar, Chennai, 600020",
+        },
+        {
+          id: "HOSP003",
+          name: "Billroth Hospital",
+          address: "No. 43, B, P. V. B. Road, Shenoy Nagar, Chennai, 600030",
+        },
+        {
+          id: "HOSP004",
+          name: "MIOT International",
+          address: "No. 4, Mount Road, Manapakkam, Chennai, 600116",
+        },
+        {
+          id: "HOSP005",
+          name: "Sri Ramachandra Medical Center",
+          address: "No. 1, Ramachandra Nagar, Porur, Chennai, 600116",
+        },
+        {
+          id: "HOSP006",
+          name: "KMC Hospital",
+          address: "No. 1, Kotturpuram, Chennai, 600085",
+        },
+        {
+          id: "HOSP007",
+          name: "Vijaya Hospital",
+          address: "No. 50, Kottur Garden, Chennai, 600085",
+        },
+        {
+          id: "HOSP008",
+          name: "Gleneagles Global Health City",
+          address: "No. 2, 1st Floor, East Coast Road, Chennai, 600041",
+        },
+        {
+          id: "HOSP009",
+          name: "Sundaram Medical Foundation",
+          address: "No. 2, Padmavathy Nagar, Ayanambakkam, Chennai, 600095",
+        },
+        {
+          id: "HOSP010",
+          name: "Sakthi Hospital",
+          address: "No. 14, K.K. Nagar, Chennai, 600078",
+        },
+      ];
+      const hospitalInput = document.getElementById("hospital_name");
+      const suggestionsContainer = document.getElementById(
+        "suggestionsContainer"
+      );
+
+      hospitalInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase();
+        suggestionsContainer.innerHTML = "";
+        document.getElementById("hospital_id").value = "None";
+        document.getElementById("hospital_address").value = "";
+
+        if (query.length > 0) {
+          const filteredHospitals = hospitals.filter((hospital) =>
+            hospital.name.toLowerCase().includes(query)
+          );
+          if (filteredHospitals.length > 0) {
+            filteredHospitals.forEach((hospital) => {
+              const suggestionDiv = document.createElement("div");
+              suggestionDiv.classList.add("autocomplete-suggestion");
+              suggestionDiv.textContent = hospital.name;
+              suggestionDiv.addEventListener("click", () => {
+                hospitalInput.value = hospital.name;
+                document.getElementById("hospital_id").value = hospital.id;
+                document.getElementById("hospital_address").value =
+                  hospital.address;
+                suggestionsContainer.innerHTML = "";
+              });
+              suggestionsContainer.appendChild(suggestionDiv);
+            });
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
