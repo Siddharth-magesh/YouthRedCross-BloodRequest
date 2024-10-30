@@ -98,8 +98,3 @@ To keep your contributions organized, create a new branch for each feature or fi
 ---
 
 Following these steps, you should be able to set up, configure, and start developing on the Life Blood Squad project with ease. Happy coding!
-
-```
-
-This **setup.md** provides step-by-step instructions for configuring and running the project, with Git instructions for collaboration. Let me know if you'd like any more details added.
-```
