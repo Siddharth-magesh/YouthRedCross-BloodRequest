@@ -19,6 +19,10 @@ def render_register_new_donor():
 def render_generate_blood_request():
     return render_template('generate_request.html')
 
+@main_bp.route('/render_AboutUs_Page')
+def render_AboutUs_Page():
+    return render_template('aboutus.html')
+
 '''@main_bp.route('/admin-login')
 def admin_login():
     return render_template('admin_login.html')'''
