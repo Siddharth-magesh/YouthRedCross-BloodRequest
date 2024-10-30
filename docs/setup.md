@@ -1,9 +1,7 @@
-Here’s a **setup.md** document detailing the setup and configuration process:
-
-````markdown
 # Project Setup Guide for Life Blood Squad
 
-This guide will walk you through the setup process for running the Life Blood Squad project locally on Windows 11. The project uses an Anaconda environment, Python 3.10, and Flask for backend functionality.
+This guide will walk you through the setup process for running the Life Blood Squad project locally on Windows 11. 
+The project uses an Anaconda environment, Python 3.10, and Flask for backend functionality.
 
 ## Prerequisites
 
@@ -23,7 +21,6 @@ Start by cloning the project repository:
 git clone https://github.com/your-repo-url/life-blood-squad.git
 cd life-blood-squad
 ```
-````
 
 ### 2. Create a Virtual Environment
 
@@ -101,8 +98,3 @@ To keep your contributions organized, create a new branch for each feature or fi
 ---
 
 Following these steps, you should be able to set up, configure, and start developing on the Life Blood Squad project with ease. Happy coding!
-
-```
-
-This **setup.md** provides step-by-step instructions for configuring and running the project, with Git instructions for collaboration. Let me know if you'd like any more details added.
-```
