@@ -4,3 +4,5 @@ mysqlclient
 python-dotenv  
 pymysql           
 cryptography
+Werkzeug
+smtplib

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - New Blood Requests</title>
+    <style>
+      .details-row {
+        display: none;
+      }
+      .view-button,
+      .approve-button {
+        cursor: pointer;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 3px;
+      }
+      .view-button:hover,
+      .approve-button:hover {
+        background-color: #0056b3;
+      }
+      .send-requests-button {
+        display: none;
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 3px;
+      }
+      .send-requests-button:hover {
+        background-color: #218838;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+    <script>
+      function toggleDetails(id) {
+        const element = document.getElementById(id);
+        element.style.display =
+          element.style.display === "table-row" ? "none" : "table-row";
+      }
+
+      function showSendRequestButton(id) {
+        document.getElementById(id).style.display = "inline";
+      }
+
+      async function sendEmailToDonors(
+        requestId,
+        bloodGroup,
+        patientName,
+        hospitalName,
+        hospitalAddress,
+        contactNumber,
+        dueDate,
+        attendantName,
+        unitsRequired,
+        requestReason,
+        patientAge
+      ) {
+        try {
+          const response = await fetch("/SendEmailToDonors", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              request_id: requestId,
+              blood_group: bloodGroup,
+              patient_name: patientName,
+              hospital_name: hospitalName,
+              hospital_address: hospitalAddress,
+              contact_number: contactNumber,
+              due_date: dueDate,
+              attendant_name: attendantName,
+              units_required: unitsRequired,
+              request_reason: requestReason,
+              patient_age: patientAge,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert(result.message);
+            window.location.href =
+              "/admin/render_request_approval_confirmation";
+          } else {
+            alert("Failed to send email requests.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred while sending email requests.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>New Blood Requests</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Blood Group</th>
+            <th>Hospital Name</th>
+            <th>Contact Number</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in requests %}
+          <tr>
+            <td>{{ request.patient_name }}</td>
+            <td>{{ request.blood_group }}</td>
+            <td>{{ request.hospital_name }}</td>
+            <td>{{ request.contact_number }}</td>
+            <td>{{ request.status }}</td>
+            <td>
+              <button
+                class="view-button"
+                onclick="toggleDetails('details{{ request.request_id }}')"
+              >
+                View Request
+              </button>
+            </td>
+          </tr>
+          <tr id="details{{ request.request_id }}" class="details-row">
+            <td colspan="6">
+              <div class="details-content">
+                <table>
+                  <tr>
+                    <td><strong>Request ID:</strong></td>
+                    <td>{{ request.request_id }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Patient Name:</strong></td>
+                    <td>{{ request.patient_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Patient Age:</strong></td>
+                    <td>{{ request.patient_age }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Blood Group:</strong></td>
+                    <td>{{ request.blood_group }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Units Required:</strong></td>
+                    <td>{{ request.units_required }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital Name:</strong></td>
+                    <td>{{ request.hospital_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital Address:</strong></td>
+                    <td>{{ request.hospital_address }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital ID:</strong></td>
+                    <td>{{ request.hospital_id }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Status:</strong></td>
+                    <td>{{ request.status }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Due Date:</strong></td>
+                    <td>{{ request.due_date }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Contact Number:</strong></td>
+                    <td>{{ request.contact_number }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Attendant Name:</strong></td>
+                    <td>{{ request.attendant_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Request Reason:</strong></td>
+                    <td>{{ request.request_reason }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Available Active Donors:</strong></td>
+                    <td>{{ request.active_donor_count }}</td>
+                  </tr>
+                </table>
+                <br />
+                <button
+                  class="approve-button"
+                  onclick="showSendRequestButton('sendRequest{{ request.request_id }}')"
+                >
+                  Approve Request
+                </button>
+                <button
+                  id="sendRequest{{ request.request_id }}"
+                  class="send-requests-button"
+                  onclick="sendEmailToDonors(
+                    '{{ request.request_id }}',
+                    '{{ request.blood_group }}',
+                    '{{ request.patient_name }}',
+                    '{{ request.hospital_name }}',
+                    '{{ request.hospital_address }}',
+                    '{{ request.contact_number }}',
+                    '{{ request.due_date }}',
+                    '{{ request.attendant_name }}',
+                    '{{ request.units_required }}',
+                    '{{ request.request_reason }}',
+                    '{{ request.patient_age }}'
+                  )"
+                >
+                  Send Requests
+                </button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

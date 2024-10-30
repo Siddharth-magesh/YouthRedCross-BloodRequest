@@ -12,7 +12,6 @@ def send_email(subject, recipient, body):
     msg['Subject'] = subject
     msg['From'] = cred.BASE_MAIL_ADDRESS  # Use cred instead of current_app.config
     msg['To'] = recipient
-    print(cred.MAIL_PASSWORD)
 
     # Connect to the email server
     with smtplib.SMTP(cred.MAIL_SERVER, cred.MAIL_PORT) as server:
@@ -63,12 +62,11 @@ def generate_bloodRequest():
             db.session.commit() 
 
             hospital_id = new_hospital_id  
-            print(hospital_id)
 
         response_id = get_next_id(ResponseDetails, 'RESP')
         response = ResponseDetails(
             id=response_id,
-            status='Pending',
+            status='Not_Approved',
             report=None,
             units_donated=None,
             donor_ids=None
@@ -78,7 +76,6 @@ def generate_bloodRequest():
 
         # Proceed with creating the blood request
         bloodrequest_id = get_next_id(BloodRequestDetails, 'BR')
-        print("hospital id: ", hospital_id)
         blood_request = BloodRequestDetails(
             id=bloodrequest_id,
             patient_name=patient_name,
@@ -91,7 +88,7 @@ def generate_bloodRequest():
             due_date=due_date,
             request_reason=request_reason,
             units_required=units_required,
-            status='Pending',
+            status='Not_Approved',
             donor_ids=None,
             response_id=response_id
         )
@@ -102,7 +99,7 @@ def generate_bloodRequest():
         # Send email notification to admin
         subject = "New Blood Request Generated"
         recipient = cred.ADMIN_MAIL_ADDRESS
-        link = "http://localhost:5000/authorize_blood_request"  # Placeholder link
+        link = "http://127.0.0.1:5000/admin/render_admin_login"  # Placeholder link
         body = f"""
         Dear Admin,
 
@@ -116,6 +113,6 @@ def generate_bloodRequest():
         """
         send_email(subject, recipient, body)
 
-        return "Success"
+        return render_template('bloodrequest_confirmation.html')
 
     return render_template('generate_blood_request.html')
