@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request , redirect , url_for , jsonify
-from app.database import DonorDetail, db 
+from app.models import DonorDetail, db 
 from app.config import Config
 import smtplib
 from email.mime.text import MIMEText

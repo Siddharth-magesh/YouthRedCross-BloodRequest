@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash
 from werkzeug.security import generate_password_hash
-from app.database import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
+from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
 
 new_donor = Blueprint('add_donor', __name__)
 

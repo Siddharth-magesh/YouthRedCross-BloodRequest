@@ -1,6 +1,6 @@
 from flask import Flask
 from .config import Config
-from .database import db
+from .models import db
 from .routes import init_blueprints
 
 def create_app():

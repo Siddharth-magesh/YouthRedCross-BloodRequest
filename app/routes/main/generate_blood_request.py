@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from app.database import db, BloodRequestDetails, HospitalDetails, ResponseDetails
+from app.models import db, BloodRequestDetails, HospitalDetails, ResponseDetails
 from app.config import Config
 import smtplib
 from email.mime.text import MIMEText

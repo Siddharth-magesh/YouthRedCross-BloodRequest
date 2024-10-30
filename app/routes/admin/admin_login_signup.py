@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template , request , redirect , url_for
-from app.database import AdminDetails
+from app.models import AdminDetails
 from werkzeug.security import check_password_hash
 
 admin_authentications = Blueprint('admin_auth',__name__)

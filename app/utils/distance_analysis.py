@@ -1,6 +1,6 @@
 import requests
 import re
-from app.database import *
+from app.models import *
 
 class DistanceConfiguration:
     def __init__(self, api_key, base_url, ) -> None:

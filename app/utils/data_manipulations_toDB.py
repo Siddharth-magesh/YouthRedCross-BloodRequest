@@ -1,4 +1,4 @@
-from app.database import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails,db
+from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails,db
 
 class FetchDetails:
     @staticmethod
