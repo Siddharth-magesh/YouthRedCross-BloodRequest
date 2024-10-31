@@ -42,6 +42,15 @@ def register_new_donors():
             aadhar_number = request.form.get('aadhar_number')
             blood_group = request.form.get('blood_group')
             last_donation = request.form.get('last_donation')
+            previous_blood_donation_status = request.form.get('previous_blood_donation_status')
+            blood_donation_count = request.form.get('blood_donated_count')
+
+            if previous_blood_donation_status == '0':
+                blood_donation_count = '0'
+                last_donation=None
+
+            if last_donation == '':
+                last_donation=None
 
             # Create and add PersonalDetails entry
             personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
@@ -114,17 +123,18 @@ def register_new_donors():
                 active_status = True,
                 disease_id = disease_id,
                 authentication_id = auth_id,
-                last_donated_date = last_donation
+                last_donated_date = last_donation,
+                number_of_times_donated = blood_donation_count
             )
             db.session.add(donor_detail)
 
-            # Commit transaction
             db.session.commit()
             flash('Donor successfully added!', 'success')
             return render_template('index.html')
 
         except Exception as e:
             db.session.rollback()
+            print(e)
             flash(f'Error adding donor: {e}', 'danger')
             return render_template('register_donor.html')
 

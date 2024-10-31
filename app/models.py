@@ -7,7 +7,7 @@ class DonorDetail(db.Model):
     id = db.Column(db.String(36), primary_key=True)  # Change to VARCHAR
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100),unique = True,nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(500), nullable=False)
     blood_group = db.Column(db.String(10), nullable=False)
     personal_details_id = db.Column(db.String(36), db.ForeignKey('PersonalDetailsUser.id'), nullable=False)
     address_id = db.Column(db.String(36), db.ForeignKey('AddressDetailsUser.id'), nullable=False)
@@ -15,6 +15,7 @@ class DonorDetail(db.Model):
     disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'))
     authentication_id = db.Column(db.String(36), db.ForeignKey('AuthenticationDetailsDonor.id'), nullable=False)
     last_donated_date = db.Column(db.DateTime, nullable=True)
+    number_of_times_donated = db.Column(db.String(36),nullable=False)
 
 class AuthenticationDetailsDonor(db.Model):
     __tablename__ = 'AuthenticationDetailsDonor'
