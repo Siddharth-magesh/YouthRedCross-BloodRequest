@@ -1,21 +1,20 @@
 from flask import Blueprint, render_template, request
-from app.models import db, BloodRequestDetails, HospitalDetails, ResponseDetails
+from app.models import db, BloodRequestDetails, HospitalDetails, ResponseDetails , AdminDetails
 from app.config import Config
 import smtplib
 from email.mime.text import MIMEText
 
-cred = Config()  # Configuration instance
+cred = Config() 
 generate_blood_request = Blueprint('generate_blood_request', __name__)
 
 def send_email(subject, recipient, body):
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = cred.BASE_MAIL_ADDRESS  # Use cred instead of current_app.config
+    msg['From'] = cred.BASE_MAIL_ADDRESS 
     msg['To'] = recipient
 
-    # Connect to the email server
     with smtplib.SMTP(cred.MAIL_SERVER, cred.MAIL_PORT) as server:
-        server.starttls()  # Secure the connection
+        server.starttls() 
         server.login(cred.MAIL_USERNAME, cred.MAIL_PASSWORD)
         server.sendmail(cred.BASE_MAIL_ADDRESS, recipient, msg.as_string())
 
@@ -30,7 +29,6 @@ def get_next_id(table, prefix):
 @generate_blood_request.route('/generate_bloodRequest', methods=['POST', 'GET'])
 def generate_bloodRequest():
     if request.method == 'POST':
-        # Fetch values from the form
         patient_name = request.form.get('patient_name')
         attendant_name = request.form.get('attendant_name')
         blood_group = request.form.get('blood_group')
@@ -45,7 +43,7 @@ def generate_bloodRequest():
         request_reason = request.form.get('request_reason')
         units_required = request.form.get('units_required')
 
-        if hospital_id in [None, '', 'None']:  # Check for None, empty string, and string 'None'
+        if hospital_id in [None, '', 'None']: 
             new_hospital_id = get_next_id(HospitalDetails, 'HOSP')
             new_hospital = HospitalDetails(
                 id=new_hospital_id,
@@ -74,7 +72,6 @@ def generate_bloodRequest():
         db.session.add(response)
         db.session.commit()
 
-        # Proceed with creating the blood request
         bloodrequest_id = get_next_id(BloodRequestDetails, 'BR')
         blood_request = BloodRequestDetails(
             id=bloodrequest_id,
@@ -89,29 +86,32 @@ def generate_bloodRequest():
             request_reason=request_reason,
             units_required=units_required,
             status='Not_Approved',
-            donor_ids=None,
             response_id=response_id
         )
 
         db.session.add(blood_request)
         db.session.commit()
 
+        active_admins = AdminDetails.query.filter_by(active_status='Active').all()
+        active_admin_emails = [admin.email for admin in active_admins]
+
         # Send email notification to admin
-        subject = "New Blood Request Generated"
-        recipient = cred.ADMIN_MAIL_ADDRESS
-        link = "http://127.0.0.1:5000/admin/render_admin_login"  # Placeholder link
-        body = f"""
-        Dear Admin,
+        for admin_email in active_admin_emails:
+            subject = "New Blood Request Generated"
+            recipient = admin_email
+            link = "http://127.0.0.1:5000/admin/render_admin_login"  # Placeholder link
+            body = f"""
+            Dear Admin,
 
-        A new blood request has been generated and is pending your authorization.
-        Please review the request at the following link:
+            A new blood request has been generated and is pending your authorization.
+            Please review the request at the following link:
 
-        {link}
+            {link}
 
-        Regards,
-        Youth Red Cross Blood Donation Site
-        """
-        send_email(subject, recipient, body)
+            Regards,
+            Youth Red Cross Blood Donation Site
+            """
+            send_email(subject, recipient, body)
 
         return render_template('bloodrequest_confirmation.html')
 

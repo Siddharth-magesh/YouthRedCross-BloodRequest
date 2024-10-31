@@ -33,13 +33,12 @@ INSERT INTO DiseaseDetailsUser (id, name, description) VALUES
 
 -- Inserting into AuthenticationDetailsAdmin
 INSERT INTO AuthenticationDetailsAdmin (id, auth_id, name, login_date, login_time) VALUES
-(1,'AUTHADM001', 'Admin One', '2024-01-01', '09:00:00'),
-(2,'AUTHADM002', 'Admin Two', '2024-01-02', '10:00:00');
+(1,'AUTHADM001', 'Admin One', '2024-01-01', '09:00:00');
 
 -- Inserting into AdminDetails
-INSERT INTO AdminDetails (id, email, password, username, authentication_id, last_login_date, approved_donation) VALUES
-('ADMIN001', 'admin1@example.com', 'password1', 'admin1', 'AUTHADM001', '2024-01-01', FALSE),
-('ADMIN002', 'admin2@example.com', 'password2', 'admin2', 'AUTHADM002', '2024-01-02', TRUE);
+INSERT INTO AdminDetails (id, email, password, username, authentication_id, vec_registration_number, data_of_birth , mobile_number , department , active_status ,last_login_date, approved_donation) VALUES
+('ADMIN001', 'siddharthmagesh007@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'Siddharth Magesh', 'AUTHADM001', '113222072xxx', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 2),
+('ADMIN002', 'siddha2234@gmail.com', 'scrypt:32768:8:1$O1tTJmR4WSfVwesv$16f2e93c67d374cf3a4cb2f127accac6ffb3cf079748a77e4383cf1b5dd71d6d3b475a85df459ba314101004bf10072811b83ea85dbb4420e4ad11f1a873875e', 'Admin 2', 'AUTHADM002', '113222072xxy', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 0);
 
 -- Inserting into HospitalDetails
 INSERT INTO HospitalDetails (id, hospital_name, hospital_address, pincode, city, state, country, branch, landmark) VALUES
