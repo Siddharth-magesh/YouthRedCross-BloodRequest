@@ -24,7 +24,8 @@ def render_request_approval_confirmation():
 
 @admin_bp.route('/render_ongoing_requests_page')
 def render_ongoing_requests_page():
-    return render_template('ongoing_requests_admin.html')
+    requests = FetchDetails.fetch_ongoing_requests()
+    return render_template('ongoing_requests_admin.html',requests = requests)
 
 @admin_bp.route('/render_closed_requests_page')
 def render_closed_requests_page():

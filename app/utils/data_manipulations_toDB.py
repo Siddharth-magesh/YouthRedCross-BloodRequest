@@ -111,7 +111,61 @@ class FetchDetails:
         return expired_results
     
     @staticmethod
+    def fetch_ongoing_requests():
+        expired_results = (
+            db.session.query(
+                BloodRequestDetails.id,
+                BloodRequestDetails.patient_name,
+                BloodRequestDetails.blood_group,
+                BloodRequestDetails.hospital_name,
+                BloodRequestDetails.contact_number,
+                BloodRequestDetails.patient_age,
+                BloodRequestDetails.due_date,
+                BloodRequestDetails.request_reason,
+                BloodRequestDetails.status,
+                BloodRequestDetails.units_required,
+                BloodRequestDetails.attendant_name,
+                BloodRequestDetails.response_id,
+                ResponseDetails.status.label("response_status"),
+                ResponseDetails.report,
+                ResponseDetails.units_donated,
+                ResponseDetails.donor_ids.label("response_donor_ids"),
+                HospitalDetails.hospital_address,
+                HospitalDetails.id.label("hospital_id")
+            )
+            .join(ResponseDetails, BloodRequestDetails.response_id == ResponseDetails.id)
+            .join(HospitalDetails, BloodRequestDetails.hospital_id == HospitalDetails.id)
+            .filter(BloodRequestDetails.status == 'Pending')
+            .all()
+        )
+        return expired_results
+    
+    @staticmethod
     def update_expired_request(request_id,response_status,report,units_donated,response_donor_ids):
+        try:
+            blood_request = BloodRequestDetails.query.filter_by(id=request_id).first()
+            if not blood_request:
+                raise ValueError("Blood request with the given ID does not exist.")
+
+            blood_request.status = "Closed"
+
+            response_detail = ResponseDetails.query.filter_by(id=blood_request.response_id).first()
+            if response_detail:
+                response_detail.status = response_status
+                response_detail.report = report
+                response_detail.units_donated = units_donated
+                response_detail.donor_ids = response_donor_ids
+            else:
+                raise ValueError("No response found for the given blood request.")
+
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(f"An error occurred: {e}")
+            raise
+
+    @staticmethod
+    def update_ongoing_request(request_id,response_status,report,units_donated,response_donor_ids):
         try:
             blood_request = BloodRequestDetails.query.filter_by(id=request_id).first()
             if not blood_request:
