@@ -26,6 +26,15 @@ def render_request_approval_confirmation():
 def render_ongoing_requests_page():
     return render_template('ongoing_requests_admin.html')
 
+@admin_bp.route('/render_closed_requests_page')
+def render_closed_requests_page():
+    requests = FetchDetails.fetch_closed_requests()
+    return render_template('closed_requests_admin.html',requests = requests)
+
+@admin_bp.route('/render_expired_requests_page')
+def render_expired_requests_page():
+    return render_template('expired_requests_admin.html')
+
 @admin_bp.route('/render_analytics_page')
 def render_analytics_page():
     return render_template('analytics_admin.html')

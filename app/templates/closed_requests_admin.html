@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Closed Blood Requests</title>
+    <style>
+      .details-row {
+        display: none;
+      }
+      .view-button {
+        cursor: pointer;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 3px;
+      }
+      .view-button:hover {
+        background-color: #0056b3;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+    <script>
+      function toggleDetails(id) {
+        const element = document.getElementById(id);
+        element.style.display =
+          element.style.display === "table-row" ? "none" : "table-row";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Closed Blood Requests</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Blood Group</th>
+            <th>Hospital Name</th>
+            <th>Contact Number</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in requests %}
+          <tr>
+            <td>{{ request.patient_name }}</td>
+            <td>{{ request.blood_group }}</td>
+            <td>{{ request.hospital_name }}</td>
+            <td>{{ request.contact_number }}</td>
+            <td>{{ request.status }}</td>
+            <td>
+              <button
+                class="view-button"
+                onclick="toggleDetails('details{{ request.id }}')"
+              >
+                View Details
+              </button>
+            </td>
+          </tr>
+          <tr id="details{{ request.id }}" class="details-row">
+            <td colspan="6">
+              <div class="details-content">
+                <table>
+                  <tr>
+                    <td><strong>Request ID:</strong></td>
+                    <td>{{ request.id }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Patient Name:</strong></td>
+                    <td>{{ request.patient_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Patient Age:</strong></td>
+                    <td>{{ request.patient_age }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Blood Group:</strong></td>
+                    <td>{{ request.blood_group }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Contact Number</strong></td>
+                    <td>{{ request.contact_number }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Attendant Name</strong></td>
+                    <td>{{ request.attendant_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Units Required</strong></td>
+                    <td>{{ request.units_required }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Request Reason</strong></td>
+                    <td>{{ request.request_reason }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Due Date</strong></td>
+                    <td>{{ request.due_date }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital ID</strong></td>
+                    <td>{{ request.hospital_id }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital Name</strong></td>
+                    <td>{{ request.hospital_name }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hospital Address</strong></td>
+                    <td>{{ request.hospital_address }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Response ID</strong></td>
+                    <td>{{ request.response_id }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Response Status</strong></td>
+                    <td>{{ request.response_status }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Response Report</strong></td>
+                    <td>{{ request.report }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Units Donated</strong></td>
+                    <td>{{ request.units_donated }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Responed Donors ID</strong></td>
+                    <td>{{ request.response_donor_ids }}</td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

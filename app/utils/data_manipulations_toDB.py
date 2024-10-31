@@ -49,3 +49,34 @@ class FetchDetails:
         except Exception as e:
             db.session.rollback()
             print(f"Error updating request {request_id}: {e}")
+
+    @staticmethod
+    def fetch_closed_requests():
+        closed_results = (
+            db.session.query(
+                BloodRequestDetails.id,
+                BloodRequestDetails.patient_name,
+                BloodRequestDetails.blood_group,
+                BloodRequestDetails.hospital_name,
+                BloodRequestDetails.contact_number,
+                BloodRequestDetails.patient_age,
+                BloodRequestDetails.due_date,
+                BloodRequestDetails.request_reason,
+                BloodRequestDetails.status,
+                BloodRequestDetails.units_required,
+                BloodRequestDetails.attendant_name,
+                BloodRequestDetails.response_id,
+                ResponseDetails.status.label("response_status"),
+                ResponseDetails.report,
+                ResponseDetails.units_donated,
+                ResponseDetails.donor_ids.label("response_donor_ids"),
+                HospitalDetails.hospital_name,
+                HospitalDetails.hospital_address,
+                HospitalDetails.id.label("hospital_id")
+            )
+            .join(ResponseDetails, BloodRequestDetails.response_id == ResponseDetails.id)
+            .join(HospitalDetails, BloodRequestDetails.hospital_id == HospitalDetails.id)
+            .filter(BloodRequestDetails.status == 'Closed')
+            .all()
+        )
+        return closed_results

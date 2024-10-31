@@ -81,7 +81,6 @@ class BloodRequestDetails(db.Model):
     status = db.Column(db.String(45), nullable=False)
     units_required = db.Column(db.Integer, nullable=False)
     attendant_name = db.Column(db.String(100), nullable=True)
-    donor_ids = db.Column(db.String(255), nullable=True)  # Stored as a JSON string for donor references
     response_id = db.Column(db.String(36), db.ForeignKey('ResponseDetails.id') , nullable=False)  # Change to VARCHAR
 
 class HospitalDetails(db.Model):
@@ -99,7 +98,7 @@ class HospitalDetails(db.Model):
 class ResponseDetails(db.Model):
     __tablename__ = 'ResponseDetails'
     id = db.Column(db.String(36), primary_key=True)  # Change to VARCHAR
-    status = db.Column(db.String(45), nullable=False)
+    status = db.Column(db.String(45), nullable=True)
     report = db.Column(db.String(255), nullable=True)
     units_donated = db.Column(db.Integer, nullable=True)
     donor_ids = db.Column(db.String(255), nullable=True)  # Stored as a JSON string for donor references
