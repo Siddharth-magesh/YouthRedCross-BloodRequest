@@ -32,9 +32,9 @@ INSERT INTO DiseaseDetailsUser (id, name, description) VALUES
 ('DIS002', 'Hypertension', 'A condition in which the blood vessels have persistently raised pressure.');
 
 -- Inserting into AuthenticationDetailsAdmin
-INSERT INTO AuthenticationDetailsAdmin (id, name, login_date, login_time) VALUES
-('AUTHADM001', 'Admin One', '2024-01-01', '09:00:00'),
-('AUTHADM002', 'Admin Two', '2024-01-02', '10:00:00');
+INSERT INTO AuthenticationDetailsAdmin (id, auth_id, name, login_date, login_time) VALUES
+(1,'AUTHADM001', 'Admin One', '2024-01-01', '09:00:00'),
+(2,'AUTHADM002', 'Admin Two', '2024-01-02', '10:00:00');
 
 -- Inserting into AdminDetails
 INSERT INTO AdminDetails (id, email, password, username, authentication_id, last_login_date, approved_donation) VALUES
