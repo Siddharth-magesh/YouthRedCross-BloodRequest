@@ -14,7 +14,7 @@ class DonorDetail(db.Model):
     active_status = db.Column(db.Boolean, nullable=False, default=True)
     disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'))
     authentication_id = db.Column(db.String(36), db.ForeignKey('AuthenticationDetailsDonor.id'), nullable=False)
-    last_donated_date = db.Column(db.DateTime, nullable=True)
+    last_donated_date = db.Column(db.DateTime, nullable=True) 
     number_of_times_donated = db.Column(db.String(36),nullable=False)
 
 class AuthenticationDetailsDonor(db.Model):
@@ -64,7 +64,8 @@ class AdminDetails(db.Model):
     department = db.Column(db.String(50),nullable=True)
     active_status = db.Column(db.String(36),nullable=False)
     last_login_date = db.Column(db.DateTime, nullable=True)
-    approved_donation = db.Column(db.String(36), nullable=True)
+    approved_donation = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
+    closed_requests = db.Column(db.String(36), nullable=True)#Need To handle This value using Sessions
 
 class AuthenticationDetailsAdmin(db.Model):
     __tablename__ = 'AuthenticationDetailsAdmin'
@@ -88,7 +89,9 @@ class BloodRequestDetails(db.Model):
     status = db.Column(db.String(45), nullable=False)
     units_required = db.Column(db.Integer, nullable=False)
     attendant_name = db.Column(db.String(100), nullable=True)
-    response_id = db.Column(db.String(36), db.ForeignKey('ResponseDetails.id') , nullable=False) 
+    response_id = db.Column(db.String(36), db.ForeignKey('ResponseDetails.id') , nullable=False)
+    approved_admin_id = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
+    closed_admin_id = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
 
 class HospitalDetails(db.Model):
     __tablename__ = 'HospitalDetails'
