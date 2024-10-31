@@ -8,6 +8,10 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 def render_admin_login():
     return render_template('admin_login.html')
 
+@admin_bp.route('/render_admin_signup')
+def render_admin_signup():
+    return render_template('admin_signup.html')
+
 @admin_bp.route('/render_main_admin_page')
 def render_main_admin_page():
     return render_template('admin_main_page.html')

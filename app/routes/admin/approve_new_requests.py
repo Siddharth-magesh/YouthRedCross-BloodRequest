@@ -34,6 +34,7 @@ def SendEmailToDonors():
     request_reason = data.get('request_reason')
     patient_age = data.get('patient_age')
 
+
     active_donors = DonorDetail.query.filter_by(blood_group=blood_group, active_status=True).all()
     donor_names = [donor.name for donor in active_donors]
     donor_emails = [donor.email for donor in active_donors]
@@ -76,6 +77,7 @@ def SendEmailToDonors():
 
         send_email(subject, email, body)
     FetchDetails.update_the_new_requests(request_id)
+    #Also Update which Admin Approved
 
     success = True  # Set to False if the email sending fails
     

@@ -55,11 +55,16 @@ class AdminDetails(db.Model):
     __tablename__ = 'AdminDetails'
     id = db.Column(db.String(36), primary_key=True) 
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(250), nullable=False)
     username = db.Column(db.String(45), nullable=False)
     authentication_id = db.Column(db.String(36),unique=True, nullable=False)
+    vec_registration_number = db.Column(db.String(36),unique=True,nullable=False)
+    data_of_birth = db.Column(db.Date,nullable=False)
+    mobile_number = db.Column(db.String(36),nullable=False)
+    department = db.Column(db.String(50),nullable=True)
+    active_status = db.Column(db.String(36),nullable=False)
     last_login_date = db.Column(db.DateTime, nullable=True)
-    approved_donation = db.Column(db.Boolean, nullable=False, default=False)
+    approved_donation = db.Column(db.String(36), nullable=True)
 
 class AuthenticationDetailsAdmin(db.Model):
     __tablename__ = 'AuthenticationDetailsAdmin'
