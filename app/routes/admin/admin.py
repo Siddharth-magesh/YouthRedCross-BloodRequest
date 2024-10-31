@@ -33,7 +33,8 @@ def render_closed_requests_page():
 
 @admin_bp.route('/render_expired_requests_page')
 def render_expired_requests_page():
-    return render_template('expired_requests_admin.html')
+    requests = FetchDetails.fetch_expired_requests()
+    return render_template('expired_requests_admin.html',requests = requests)
 
 @admin_bp.route('/render_analytics_page')
 def render_analytics_page():
