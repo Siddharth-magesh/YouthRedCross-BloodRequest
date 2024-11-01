@@ -43,7 +43,13 @@ def render_expired_requests_page():
 
 @admin_bp.route('/render_analytics_page')
 def render_analytics_page():
-    return render_template('analytics_admin.html')
+    data = FetchDetails.generate_analytics()
+    return render_template(
+        'analytics_admin.html',
+        hospital_count=data['hospital_count'],
+        recent_donor_count=data['recent_donor_count'],
+        recent_request_count=data['recent_request_count']
+    )
 
 @admin_bp.route('/render_manage_donors_admin_page')
 def render_manage_donors_admin_page():
