@@ -1,4 +1,4 @@
-from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails,db
+from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails, PersonalDetailsUser , AddressDetailsUser, DiseaseDetailsUser,db
 
 class FetchDetails:
     @staticmethod
@@ -185,5 +185,47 @@ class FetchDetails:
             db.session.commit()
         except Exception as e:
             db.session.rollback()
+            print(f"An error occurred: {e}")
+            raise
+
+    @staticmethod
+    def fetch_donor_details(donor_id):
+        try:
+            donor_detail = (
+                db.session.query(
+                    DonorDetail.id,
+                    DonorDetail.name,
+                    DonorDetail.email,
+                    DonorDetail.password,
+                    DonorDetail.blood_group,
+                    DonorDetail.personal_details_id,
+                    DonorDetail.active_status,
+                    DonorDetail.last_donated_date,
+                    DonorDetail.number_of_times_donated,
+                    DonorDetail.last_login_date,
+                    PersonalDetailsUser.first_name,
+                    PersonalDetailsUser.last_name,
+                    PersonalDetailsUser.age,
+                    PersonalDetailsUser.contact_number,
+                    PersonalDetailsUser.date_of_birth,
+                    PersonalDetailsUser.marital_status,
+                    PersonalDetailsUser.secondary_contact_number,
+                    PersonalDetailsUser.aadhar_number,
+                    AddressDetailsUser.address,
+                    AddressDetailsUser.city,
+                    AddressDetailsUser.country,
+                    AddressDetailsUser.state,
+                    AddressDetailsUser.pincode,
+                    DiseaseDetailsUser.name.label('disease_name'),
+                    DiseaseDetailsUser.description.label('disease_description')
+                )
+                .join(PersonalDetailsUser , DonorDetail.personal_details_id==PersonalDetailsUser.id)
+                .join(AddressDetailsUser , DonorDetail.address_id == AddressDetailsUser.id)
+                .join(DiseaseDetailsUser , DonorDetail.disease_id == DiseaseDetailsUser.id)
+                .filter(DonorDetail.id == donor_id)
+                .first()
+            )
+            return donor_detail
+        except Exception as e:
             print(f"An error occurred: {e}")
             raise

@@ -26,3 +26,7 @@ def render_AboutUs_Page():
 @main_bp.route('/render_donor_login')
 def render_donor_login():
     return render_template('donor_login.html')
+
+@main_bp.route('/render_forget_password_page')
+def render_forget_password_page():
+    return render_template('forget_password_donor.html')
