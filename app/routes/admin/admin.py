@@ -1,5 +1,5 @@
 # app/routes/admin.py
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template , request , redirect , url_for
 from app.utils.data_manipulations_toDB import FetchDetails
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -53,4 +53,11 @@ def render_analytics_page():
 
 @admin_bp.route('/render_manage_donors_admin_page')
 def render_manage_donors_admin_page():
-    return render_template('manage_donors_admin.html')
+    donors = FetchDetails.fetch_all_donors()
+    return render_template('manage_donors_admin.html',donors=donors)
+
+@admin_bp.route('/render_donor_modification_page',methods=['POST','GET'])
+def render_donor_modification_page():
+    donor_id = request.form.get('donor_id')
+    details = FetchDetails.fetch_donor_details(donor_id)
+    return render_template('manage_each_donor_admin.html',details=details)

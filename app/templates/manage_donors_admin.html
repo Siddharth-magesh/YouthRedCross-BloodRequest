@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Donors</title>
+  </head>
+  <body>
+    <h1>Manage Donors</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Blood Group</th>
+          <th>Active Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donor in donors %}
+        <tr>
+          <td>{{ donor.id }}</td>
+          <td>{{ donor.name }}</td>
+          <td>{{ donor.email }}</td>
+          <td>{{ donor.blood_group }}</td>
+          <td>{{ 'Active' if donor.active_status else 'Inactive' }}</td>
+          <td>
+            <form
+              action="{{ url_for('admin.render_donor_modification_page') }}"
+              method="POST"
+            >
+              <input type="hidden" name="donor_id" value="{{ donor.id }}" />
+              <button type="submit">Modify Donor</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

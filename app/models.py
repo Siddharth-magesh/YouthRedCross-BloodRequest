@@ -12,7 +12,7 @@ class DonorDetail(db.Model):
     personal_details_id = db.Column(db.String(36), db.ForeignKey('PersonalDetailsUser.id'), nullable=False)
     address_id = db.Column(db.String(36), db.ForeignKey('AddressDetailsUser.id'), nullable=False)
     active_status = db.Column(db.Boolean, nullable=False, default=True)
-    disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'))
+    disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'),nullable=False)
     authentication_id = db.Column(db.String(36),unique=True, nullable=False)
     last_donated_date = db.Column(db.DateTime, nullable=True) 
     number_of_times_donated = db.Column(db.String(36),nullable=False)
