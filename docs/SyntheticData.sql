@@ -69,13 +69,13 @@ INSERT INTO BloodRequestDetails (id, patient_name, blood_group, hospital_name, h
 
 
 INSERT INTO AuthenticationDetailsDonor (id, auth_id ,name, login_date, login_time) VALUES
-(1 , 'AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00'),
+(1 , 'AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00');
 
 
 -- Inserting into DonorDetail
 INSERT INTO DonorDetail (id, name, email, password, blood_group, personal_details_id, address_id, active_status, disease_id, authentication_id, last_donated_date,number_of_times_donated,last_login_date) VALUES
-('DNR001', 'John Doe', 'john.doe@example.com', 'password123', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15',0,NULL),
-('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'password123', 'A-', 'PDDNR002', 'ADDR002', TRUE, NULL, 'AUTHDNR002', '2023-05-20',2,NULL),
+('DNR001', 'John Doe', 'john.doe@example.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15',0,NULL),
+('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'A-', 'PDDNR002', 'ADDR002', TRUE, NULL, 'AUTHDNR002', '2023-05-20',2,NULL),
 ('DNR003', 'Alice Johnson', 'alice.johnson@example.com', 'password123', 'B+', 'PDDNR003', 'ADDR003', TRUE, 'DIS002', 'AUTHDNR003', '2023-03-10',0,NULL),
 ('DNR004', 'Bob Williams', 'bob.williams@example.com', 'password123', 'AB-', 'PDDNR004', 'ADDR004', TRUE, NULL, 'AUTHDNR004', '2023-07-20',0,NULL),
 ('DNR005', 'Charlie Brown', 'charlie.brown@example.com', 'password123', 'O-', 'PDDNR005', 'ADDR005', TRUE, 'DIS001', 'AUTHDNR005', '2023-11-30',0,NULL),
