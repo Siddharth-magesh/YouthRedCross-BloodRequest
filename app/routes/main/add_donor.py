@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, flash
 from werkzeug.security import generate_password_hash
 from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
+from werkzeug.security import check_password_hash
+from datetime import datetime
 
 new_donor = Blueprint('add_donor', __name__)
 
@@ -102,13 +104,6 @@ def register_new_donors():
 
             # Create and add AuthenticationDetails entry
             auth_id = get_next_id(AuthenticationDetailsDonor, 'AUTHDNR')
-            auth_details = AuthenticationDetailsDonor(
-                id=auth_id,
-                name=name,
-                login_date=None,
-                login_time=None
-            )
-            db.session.add(auth_details)
 
             # Create and add DonorDetail entry
             donor_id = get_next_id(DonorDetail, 'DNR')
@@ -124,7 +119,8 @@ def register_new_donors():
                 disease_id = disease_id,
                 authentication_id = auth_id,
                 last_donated_date = last_donation,
-                number_of_times_donated = blood_donation_count
+                number_of_times_donated = blood_donation_count,
+                last_login_date = None
             )
             db.session.add(donor_detail)
 
@@ -139,3 +135,27 @@ def register_new_donors():
             return render_template('register_donor.html')
 
     return render_template('register_donor.html')
+
+@new_donor.route('/donor_login_validation',methods=['POST','GET'])
+def donor_login_validation():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    donor = DonorDetail.query.filter_by(email=email).first()
+    
+    if donor and check_password_hash(donor.password,password):
+        current_datetime = datetime.now()
+        current_date = current_datetime.date()
+        current_time = current_datetime.time()
+        donor.last_login_date = current_datetime
+        logging_details = AuthenticationDetailsDonor(
+            auth_id = donor.authentication_id,
+            name = donor.name,
+            login_date = current_date,
+            login_time = current_time
+        )
+        db.session.add(logging_details)
+        db.session.commit()
+        return render_template('donor_dashboard.html')
+    else:
+        return "Invalid email or password", 401

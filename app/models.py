@@ -13,13 +13,15 @@ class DonorDetail(db.Model):
     address_id = db.Column(db.String(36), db.ForeignKey('AddressDetailsUser.id'), nullable=False)
     active_status = db.Column(db.Boolean, nullable=False, default=True)
     disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'))
-    authentication_id = db.Column(db.String(36), db.ForeignKey('AuthenticationDetailsDonor.id'), nullable=False)
+    authentication_id = db.Column(db.String(36),unique=True, nullable=False)
     last_donated_date = db.Column(db.DateTime, nullable=True) 
     number_of_times_donated = db.Column(db.String(36),nullable=False)
+    last_login_date = db.Column(db.DateTime, nullable=True)
 
 class AuthenticationDetailsDonor(db.Model):
     __tablename__ = 'AuthenticationDetailsDonor'
-    id = db.Column(db.String(36), primary_key=True) 
+    id = db.Column(db.Integer,primary_key=True)
+    auth_id = db.Column(db.String(36),nullable=False)  
     name = db.Column(db.String(100), nullable=False)
     login_date = db.Column(db.Date, nullable=True)
     login_time = db.Column(db.Time, nullable=True)
