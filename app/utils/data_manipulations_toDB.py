@@ -1,4 +1,10 @@
 from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails, PersonalDetailsUser , AddressDetailsUser, DiseaseDetailsUser,db
+from sqlalchemy import func
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import os
+from datetime import datetime , timedelta
 
 class FetchDetails:
     @staticmethod
@@ -229,3 +235,127 @@ class FetchDetails:
         except Exception as e:
             print(f"An error occurred: {e}")
             raise
+
+    '''@staticmethod
+    def donor_analytics():
+        results = db.session.query(
+            DonorDetail.blood_group,
+            func.count().label("total_count"),
+            func.sum(func.if_(DonorDetail.active_status, 1, 0)).label("active_count"),
+            func.sum(func.if_(~DonorDetail.active_status, 1, 0)).label("inactive_count")
+        ).group_by(DonorDetail.blood_group).all()
+
+        blood_groups = [result.blood_group for result in results]
+        active_counts = [result.active_count for result in results]
+        inactive_counts = [result.inactive_count for result in results]
+
+        plt.figure(figsize=(10, 6))
+        x = range(len(blood_groups))
+        plt.bar(x, active_counts, width=0.4, label="Active Donors", color="skyblue", align='center')
+        plt.bar(x, inactive_counts, width=0.4, label="Inactive Donors", color="salmon", align='edge')
+        plt.xlabel("Blood Group")
+        plt.ylabel("Number of Donors")
+        plt.title("Donor Analytics by Blood Group")
+        plt.xticks(x, blood_groups)
+        plt.legend()
+
+        image_path = os.path.join("app/static/images/admin_analytics", "donor_analytics_chart.png")
+        plt.savefig(image_path)
+        plt.close()
+
+        return image_path
+    
+    @staticmethod
+    def generate_blood_request_analytics():
+        statuses = ['Closed', 'Not_Approved', 'Expired', 'Pending']
+        counts = {status: db.session.query(BloodRequestDetails).filter_by(status=status).count() for status in statuses}
+
+        plt.figure(figsize=(8, 5))
+        plt.bar(counts.keys(), counts.values(), color=['green', 'red', 'orange', 'blue'])
+        plt.xlabel('Request Status')
+        plt.ylabel('Count')
+        plt.title('Blood Request Status Distribution')
+        
+        image_path = os.path.join("app/static/images/admin_analytics", "blood_request_status.png")
+        plt.savefig(image_path)
+        plt.close()
+
+        return image_path'''
+    
+    @staticmethod
+    def donor_analytics():
+        hospital_count = db.session.query(HospitalDetails).count()
+
+        last_30_days = datetime.now() - timedelta(days=30)
+
+        recent_donor_count = db.session.query(DonorDetail).filter(
+            DonorDetail.last_login_date >= last_30_days
+        ).count()
+
+        recent_request_count = db.session.query(BloodRequestDetails).filter(
+            BloodRequestDetails.due_date >= last_30_days
+        ).count()
+
+        return {
+            'hospital_count': hospital_count,
+            'recent_donor_count': recent_donor_count,
+            'recent_request_count': recent_request_count
+        }
+    
+    @staticmethod
+    def generate_analytics():
+        donor_results = db.session.query(
+            DonorDetail.blood_group,
+            func.count().label("total_count"),
+            func.sum(func.if_(DonorDetail.active_status, 1, 0)).label("active_count"),
+            func.sum(func.if_(~DonorDetail.active_status, 1, 0)).label("inactive_count")
+        ).group_by(DonorDetail.blood_group).all()
+
+        blood_groups = [result.blood_group for result in donor_results]
+        active_counts = [result.active_count for result in donor_results]
+        inactive_counts = [result.inactive_count for result in donor_results]
+
+        statuses = ['Closed', 'Not_Approved', 'Expired', 'Pending']
+        counts = {status: db.session.query(BloodRequestDetails).filter_by(status=status).count() for status in statuses}
+
+        plt.figure(figsize=(10, 6))
+        x = range(len(blood_groups))
+        plt.bar(x, active_counts, width=0.4, label="Active Donors", color="skyblue", align='center')
+        plt.bar(x, inactive_counts, width=0.4, label="Inactive Donors", color="salmon", align='edge')
+        plt.xlabel("Blood Group")
+        plt.ylabel("Number of Donors")
+        plt.title("Donor Analytics by Blood Group")
+        plt.xticks(x, blood_groups)
+        plt.legend()
+
+        image_path = os.path.join("app/static/images/admin_analytics", "donor_analytics_chart.png")
+        plt.savefig(image_path)
+        plt.close()
+
+        plt.figure(figsize=(8, 5))
+        plt.bar(counts.keys(), counts.values(), color=['green', 'red', 'orange', 'blue'])
+        plt.xlabel('Request Status')
+        plt.ylabel('Count')
+        plt.title('Blood Request Status Distribution')
+        
+        image_path = os.path.join("app/static/images/admin_analytics", "blood_request_status.png")
+        plt.savefig(image_path)
+        plt.close()
+
+        hospital_count = db.session.query(HospitalDetails).count()
+
+        last_30_days = datetime.now() - timedelta(days=30)
+
+        recent_donor_count = db.session.query(DonorDetail).filter(
+            DonorDetail.last_login_date >= last_30_days
+        ).count()
+
+        recent_request_count = db.session.query(BloodRequestDetails).filter(
+            BloodRequestDetails.due_date >= last_30_days
+        ).count()
+
+        return {
+            'hospital_count': hospital_count,
+            'recent_donor_count': recent_donor_count,
+            'recent_request_count': recent_request_count
+        }
