@@ -68,28 +68,20 @@ INSERT INTO BloodRequestDetails (id, patient_name, blood_group, hospital_name, h
 ('BR004', 'Jane Doe 2', 'AB-', 'City Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
 
 
-INSERT INTO AuthenticationDetailsDonor (id, name, login_date, login_time) VALUES
-('AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00'),
-('AUTHDNR002', 'Jane Smith', '2024-01-02', '10:00:00'),
-('AUTHDNR003', 'Alice Johnson', '2024-01-03', '11:00:00'),
-('AUTHDNR004', 'Bob Williams', '2024-01-04', '12:00:00'),
-('AUTHDNR005', 'Charlie Brown', '2024-01-05', '13:00:00'),
-('AUTHDNR006', 'Emily Davis', '2024-01-06', '14:00:00'),
-('AUTHDNR007', 'Michael Miller', '2024-01-07', '15:00:00'),
-('AUTHDNR008', 'Sarah Garcia', '2024-01-08', '16:00:00'),
-('AUTHDNR009', 'David Rodriguez', '2024-01-09', '17:00:00'),
-('AUTHDNR010', 'Sophia Martinez', '2024-01-10', '18:00:00');
+INSERT INTO AuthenticationDetailsDonor (id, auth_id ,name, login_date, login_time) VALUES
+(1 , 'AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00'),
+
 
 -- Inserting into DonorDetail
-INSERT INTO DonorDetail (id, name, email, password, blood_group, personal_details_id, address_id, active_status, disease_id, authentication_id, last_donated_date,number_of_times_donated) VALUES
-('DNR001', 'John Doe', 'john.doe@example.com', 'password123', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15',0),
-('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'password123', 'A-', 'PDDNR002', 'ADDR002', TRUE, NULL, 'AUTHDNR002', '2023-05-20',2),
-('DNR003', 'Alice Johnson', 'alice.johnson@example.com', 'password123', 'B+', 'PDDNR003', 'ADDR003', TRUE, 'DIS002', 'AUTHDNR003', '2023-03-10',0),
-('DNR004', 'Bob Williams', 'bob.williams@example.com', 'password123', 'AB-', 'PDDNR004', 'ADDR004', TRUE, NULL, 'AUTHDNR004', '2023-07-20',0),
-('DNR005', 'Charlie Brown', 'charlie.brown@example.com', 'password123', 'O-', 'PDDNR005', 'ADDR005', TRUE, 'DIS001', 'AUTHDNR005', '2023-11-30',0),
-('DNR006', 'Emily Davis', 'emily.davis@example.com', 'password123', 'A+', 'PDDNR006', 'ADDR006', TRUE, NULL, 'AUTHDNR006', '2023-05-21',0),
-('DNR007', 'Michael Miller', 'michael.miller@example.com', 'password123', 'B-', 'PDDNR007', 'ADDR007', TRUE, 'DIS002', 'AUTHDNR007', '2023-09-15',0),
-('DNR008', 'Sarah Garcia', 'sarah.garcia@example.com', 'password123', 'O+', 'PDDNR008', 'ADDR008', TRUE, NULL, 'AUTHDNR008', '2023-04-28',2),
-('DNR009', 'David Rodriguez', '22f3002579@ds.study.iitm.ac.in', 'password123', 'A-', 'PDDNR009', 'ADDR009', TRUE, 'DIS001', 'AUTHDNR009', '2023-08-19',0),
-('DNR010', 'Siddharth Magesh', 'siddharthmagesh007@gmail.com', 'password123', 'AB+', 'PDDNR010', 'ADDR010', TRUE, NULL, 'AUTHDNR010', '2023-01-15',0);
+INSERT INTO DonorDetail (id, name, email, password, blood_group, personal_details_id, address_id, active_status, disease_id, authentication_id, last_donated_date,number_of_times_donated,last_login_date) VALUES
+('DNR001', 'John Doe', 'john.doe@example.com', 'password123', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15',0,NULL),
+('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'password123', 'A-', 'PDDNR002', 'ADDR002', TRUE, NULL, 'AUTHDNR002', '2023-05-20',2,NULL),
+('DNR003', 'Alice Johnson', 'alice.johnson@example.com', 'password123', 'B+', 'PDDNR003', 'ADDR003', TRUE, 'DIS002', 'AUTHDNR003', '2023-03-10',0,NULL),
+('DNR004', 'Bob Williams', 'bob.williams@example.com', 'password123', 'AB-', 'PDDNR004', 'ADDR004', TRUE, NULL, 'AUTHDNR004', '2023-07-20',0,NULL),
+('DNR005', 'Charlie Brown', 'charlie.brown@example.com', 'password123', 'O-', 'PDDNR005', 'ADDR005', TRUE, 'DIS001', 'AUTHDNR005', '2023-11-30',0,NULL),
+('DNR006', 'Emily Davis', 'emily.davis@example.com', 'password123', 'A+', 'PDDNR006', 'ADDR006', TRUE, NULL, 'AUTHDNR006', '2023-05-21',0,NULL),
+('DNR007', 'Michael Miller', 'michael.miller@example.com', 'password123', 'B-', 'PDDNR007', 'ADDR007', TRUE, 'DIS002', 'AUTHDNR007', '2023-09-15',0,NULL),
+('DNR008', 'Sarah Garcia', 'sarah.garcia@example.com', 'password123', 'O+', 'PDDNR008', 'ADDR008', TRUE, NULL, 'AUTHDNR008', '2023-04-28',2,NULL),
+('DNR009', 'David Rodriguez', '22f3002579@ds.study.iitm.ac.in', 'password123', 'A-', 'PDDNR009', 'ADDR009', TRUE, 'DIS001', 'AUTHDNR009', '2023-08-19',0,NULL),
+('DNR010', 'Siddharth Magesh', 'siddharthmagesh007@gmail.com', 'password123', 'AB+', 'PDDNR010', 'ADDR010', TRUE, NULL, 'AUTHDNR010', '2023-01-15',0,NULL);
 
