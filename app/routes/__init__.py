@@ -7,6 +7,7 @@ from .admin.admin_login_signup import admin_authentications
 from .admin.approve_new_requests import approveNewRequest
 from .admin.close_requests import closing_requests
 from .admin.manage_donors import manage_donors
+from .admin.manage_hospitals import manage_hospital
 
 def init_blueprints(app):
     app.register_blueprint(main_bp)
@@ -18,3 +19,4 @@ def init_blueprints(app):
     app.register_blueprint(approveNewRequest)
     app.register_blueprint(closing_requests)
     app.register_blueprint(manage_donors)
+    app.register_blueprint(manage_hospital)
