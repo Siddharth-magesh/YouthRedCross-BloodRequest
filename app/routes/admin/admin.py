@@ -61,3 +61,7 @@ def render_donor_modification_page():
     donor_id = request.form.get('donor_id')
     details = FetchDetails.fetch_donor_details(donor_id)
     return render_template('manage_each_donor_admin.html',details=details)
+
+@admin_bp.route('/render_forget_password_admin')
+def render_forget_password_admin():
+    return render_template('forget_password_admin.html')

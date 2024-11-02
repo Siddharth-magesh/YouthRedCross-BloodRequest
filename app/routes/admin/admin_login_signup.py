@@ -85,7 +85,6 @@ def register_new_admin():
             return render_template('register_donor.html')
         
         one_time_password = generate_secure_numeric_otp()
-        print(one_time_password)
 
         active_admins = AdminDetails.query.filter_by(active_status='Active').all()
         active_admin_emails = [admin.email for admin in active_admins]
@@ -170,3 +169,63 @@ def verify_otp_and_data_injection():
         return redirect(url_for('admin.render_admin_login'))
     else:
         flash('Invalid Otp')
+
+@admin_authentications.route('/manage_forget_password_admin',methods=['POST','GET'])
+def manage_forget_password_admin():
+    email = request.form.get('email')
+    one_time_password = generate_secure_numeric_otp()
+
+    fetched_donor = AdminDetails.query.filter_by(email=email).first()
+
+    if fetched_donor and fetched_donor.email == email:
+        subject = "Request for Password Change"
+        recipient = email
+        link = "http://127.0.0.1:5000/main/render_query_page"
+        body = f"""
+        Dear Admin,
+
+        We Have got a Request from your YRC-LBS Account for Changing your password.
+        if You haven't generated it , let us Know in the below link
+        {link}
+        if You have requested for it , use the below OTP to change your password
+
+        One Time Password ! Don't Share it with any third parties !
+        {one_time_password}
+
+        Regards,
+        Youth Red Cross Blood Donation Site
+        """
+        send_email(subject, recipient, body)
+
+        return render_template('otp_validation_admin.html',one_time_password=one_time_password,email=email)
+    else:
+        flash("An error occurred:")
+        return "An error occurred while updating the donor details", 500
+    
+@admin_authentications.route('/otp_validation_admin',methods=['POST','GET'])
+def otp_validation_admin():
+    generate_otp = request.form.get('generated_otp')
+    typed_otp = request.form.get('typed_otp')
+    email = request.form.get('email')
+    print("here also")
+
+    if str(generate_otp) == str(typed_otp):
+        return render_template('admin_new_password.html',email=email)
+    else :
+        return "Wrong One Time Password"
+    
+@admin_authentications.route('/new_password_admin',methods=['POST','GET'])
+def new_password_admin():
+    password = request.form.get('password')
+    confirmpassword = request.form.get('confirmpassword')
+    email = request.form.get('email')
+
+    if password==confirmpassword:
+        donor = AdminDetails.query.filter_by(email=email).first()
+        hashed_password = generate_password_hash(password)
+        donor.password = hashed_password
+        db.session.commit()
+        print("here")
+        return redirect(url_for('admin.render_admin_login'))
+    else:
+        return "Couldnt Update the password"
