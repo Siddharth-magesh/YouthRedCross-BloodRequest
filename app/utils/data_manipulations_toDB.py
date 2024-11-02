@@ -304,3 +304,36 @@ class FetchDetails:
             DonorDetail.active_status
         ).all()
         return donors
+    
+    @staticmethod
+    def fetch_all_hospitals():
+        hospitals = db.session.query(
+            HospitalDetails.id,
+            HospitalDetails.hospital_name,
+            HospitalDetails.city,
+            HospitalDetails.state
+        ).all()
+        return hospitals
+    
+    @staticmethod
+    def fetch_hospital_detail(hospital_id):
+        try:
+            hospital_details = (
+                db.session.query(
+                    HospitalDetails.id,
+                    HospitalDetails.hospital_name,
+                    HospitalDetails.hospital_address,
+                    HospitalDetails.city,
+                    HospitalDetails.state,
+                    HospitalDetails.country,
+                    HospitalDetails.pincode,
+                    HospitalDetails.branch,
+                    HospitalDetails.landmark
+                )
+                .filter(HospitalDetails.id == hospital_id)
+                .first()
+            )
+            return hospital_details
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise

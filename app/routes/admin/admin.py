@@ -65,3 +65,14 @@ def render_donor_modification_page():
 @admin_bp.route('/render_forget_password_admin')
 def render_forget_password_admin():
     return render_template('forget_password_admin.html')
+
+@admin_bp.route('/render_hospital_details_admin')
+def render_hospital_details_admin():
+    datas = FetchDetails.fetch_all_hospitals()
+    return render_template('manage_hospital_details.html',datas=datas)
+
+@admin_bp.route('/render_hospital_modification',methods=['POST','GET'])
+def render_hospital_modification():
+    hospital_id = request.form.get('id')
+    details = FetchDetails.fetch_hospital_detail(hospital_id)
+    return render_template('manage_each_hospital_admin.html',details=details)
