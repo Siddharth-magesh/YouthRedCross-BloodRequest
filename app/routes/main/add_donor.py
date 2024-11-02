@@ -1,11 +1,31 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash , redirect , url_for
 from werkzeug.security import generate_password_hash
 from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
 from werkzeug.security import check_password_hash
 from datetime import datetime
 from app.utils.data_manipulations_toDB import FetchDetails
+import secrets
+import smtplib
+from email.mime.text import MIMEText
+from app.config import Config
 
+cred = Config()
 new_donor = Blueprint('add_donor', __name__)
+
+def generate_secure_numeric_otp(length=6):
+    otp = ''.join(str(secrets.randbelow(10)) for _ in range(length))
+    return otp
+
+def send_email(subject, recipient, body):
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = cred.BASE_MAIL_ADDRESS
+    msg['To'] = recipient
+
+    with smtplib.SMTP(cred.MAIL_SERVER, cred.MAIL_PORT) as server:
+        server.starttls() 
+        server.login(cred.MAIL_USERNAME, cred.MAIL_PASSWORD)
+        server.sendmail(cred.BASE_MAIL_ADDRESS, recipient, msg.as_string())
 
 def get_next_id(table, prefix):
     # Fetch the current maximum ID, strip the prefix and convert to an integer
@@ -241,3 +261,61 @@ def modify_donor_details():
         db.session.rollback()
         flash(f"An error occurred: {e}")
         return "An error occurred while updating the donor details", 500
+    
+@new_donor.route('/manage_forget_password_donor',methods=['POST','GET'])
+def manage_forget_password_donor():
+    email = request.form.get('email')
+    one_time_password = generate_secure_numeric_otp()
+
+    fetched_donor = DonorDetail.query.filter_by(email=email).first()
+
+    if fetched_donor and fetched_donor.email == email:
+        subject = "Request for Password Change"
+        recipient = email
+        link = "http://127.0.0.1:5000/main/render_query_page"
+        body = f"""
+        Dear User,
+
+        We Have got a Request from your YRC-LBS Account for Changing your password.
+        if You haven't generated it , let us Know in the below link
+        {link}
+        if You have requested for it , use the below OTP to change your password
+
+        One Time Password ! Don't Share it with any third parties !
+        {one_time_password}
+
+        Regards,
+        Youth Red Cross Blood Donation Site
+        """
+        send_email(subject, recipient, body)
+
+        return render_template('otp_validation_donor.html',one_time_password=one_time_password,email=email)
+    else:
+        flash("An error occurred:")
+        return "An error occurred while updating the donor details", 500
+
+@new_donor.route('/otp_validation',methods=['POST','GET'])
+def otp_validation():
+    generate_otp = request.form.get('generated_otp')
+    typed_otp = request.form.get('typed_otp')
+    email = request.form.get('email')
+
+    if str(generate_otp) == str(typed_otp):
+        return render_template('donor_new_password.html',email=email)
+    else :
+        return "Wrong One Time Password"
+    
+@new_donor.route('/new_password_donor',methods=['POST','GET'])
+def new_password_donor():
+    password = request.form.get('password')
+    confirmpassword = request.form.get('confirmpassword')
+    email = request.form.get('email')
+
+    if password==confirmpassword:
+        donor = DonorDetail.query.filter_by(email=email).first()
+        hashed_password = generate_password_hash(password)
+        donor.password = hashed_password
+        db.session.commit()
+        return redirect(url_for('main.render_donor_login'))
+    else:
+        return "Couldnt Update the password"
