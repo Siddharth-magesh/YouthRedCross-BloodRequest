@@ -76,3 +76,7 @@ def render_hospital_modification():
     hospital_id = request.form.get('id')
     details = FetchDetails.fetch_hospital_detail(hospital_id)
     return render_template('manage_each_hospital_admin.html',details=details)
+
+@admin_bp.route('/render_add_new_hospital')
+def render_add_new_hospital():
+    return render_template('add_new_hospital.html')
