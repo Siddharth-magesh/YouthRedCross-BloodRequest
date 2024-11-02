@@ -8,7 +8,7 @@ The project uses an Anaconda environment, Python 3.10, and Flask for backend fun
 Ensure that the following are installed on your system:
 
 - **Anaconda**: For creating and managing the environment.
-- **Python 3.10**
+- **Python 3.10.7 or above**
 - **Git**: For version control.
 
 ## Setup Steps
