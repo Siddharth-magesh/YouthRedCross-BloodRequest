@@ -62,18 +62,18 @@ INSERT INTO HospitalDetails (id, hospital_name, hospital_address, pincode, city,
 ('HOSP010', 'Sakthi Hospital', 'No. 14, K.K. Nagar', '600078', 'Chennai', 'Tamil Nadu', 'India', 'Branch', 'Near K.K. Nagar');
 
 -- Inserting into ResponseDetails
-INSERT INTO ResponseDetails (id, status, report, units_donated, donor_ids) VALUES
-('RESP001', 'Success', 'Blood successfully donated', 2, 'DNR001,DNR002'),
-('RESP002', NULL, NULL, 0, NULL),
-('RESP003', NULL, NULL, 0, NULL),
-('RESP004', NULL, NULL, 0, NULL);
+INSERT INTO ResponseDetails (id, status, report, units_donated, certificate_status, donor_ids) VALUES
+('RESP001', 'Success', 'Blood successfully donated', 2, 'SENT' ,'DNR001,DNR002'),
+('RESP002', NULL, NULL, 0,'NOTSENT',NULL),
+('RESP003', NULL, NULL, 0,'NOTSENT',NULL),
+('RESP004', NULL, NULL, 0,'NOTSENT',NULL);
 
 -- Inserting into BloodRequestDetails
 INSERT INTO BloodRequestDetails (id, patient_name, blood_group, hospital_name, hospital_id, contact_number, patient_age, due_date, request_reason, status, units_required, attendant_name, response_id) VALUES
-('BR001', 'John Smith', 'O+', 'General Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
-('BR002', 'Jane Doe', 'A-', 'City Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
-('BR003', 'Jane Doe 1', 'A-', 'City Hospital', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
-('BR004', 'Jane Doe 2', 'AB-', 'City Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
+('BR001', 'John Smith', 'O+', 'Apollo Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
+('BR002', 'Jane Doe', 'A-', 'Fortis Malar Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
+('BR003', 'Jane Doe 1', 'A-', 'MIOT International', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
+('BR004', 'Jane Doe 2', 'AB-', 'Vijaya Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
 
 
 INSERT INTO AuthenticationDetailsDonor (id, auth_id ,name, login_date, login_time) VALUES

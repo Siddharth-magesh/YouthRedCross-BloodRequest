@@ -1,8 +1,38 @@
 from flask import Blueprint , render_template , request , flash , redirect , url_for
 from app.utils.data_manipulations_toDB import FetchDetails
 from app.models import DonorDetail , PersonalDetailsUser , DiseaseDetailsUser , db , AddressDetailsUser
+from app.utils.certificate_generation import generate_certificate
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import smtplib
+from app.config import Config
+import os
 
+cred = Config()
 manage_donors = Blueprint('manageDonor',__name__)
+
+def send_email(subject, recipient, body, attachment_path):
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = cred.BASE_MAIL_ADDRESS
+    msg['To'] = recipient
+
+    msg.attach(MIMEText(body, 'plain'))
+
+    with open(attachment_path, 'rb') as attachment:
+        mime_base = MIMEBase('application', 'octet-stream')
+        mime_base.set_payload(attachment.read())
+        encoders.encode_base64(mime_base)
+        mime_base.add_header('Content-Disposition', f'attachment; filename="{os.path.basename(attachment_path)}"')
+        msg.attach(mime_base)
+
+    with smtplib.SMTP(cred.MAIL_SERVER, cred.MAIL_PORT) as server:
+        server.starttls()
+        server.login(cred.MAIL_USERNAME, cred.MAIL_PASSWORD)
+        server.sendmail(cred.BASE_MAIL_ADDRESS, recipient, msg.as_string())
+    #print("Email sent with attachment")
 
 @manage_donors.route('/manage_donor_details',methods=['POST','GET'])
 def manage_donor_details():
@@ -90,3 +120,38 @@ def manage_donor_details():
         db.session.rollback()
         flash(f"An error occurred: {e}")
         return "An error occurred while updating the donor details", 500
+    
+@manage_donors.route('/generate_and_send_certificate',methods=['POST','GET'])
+def generate_and_send_certificate():
+    donor_name = request.form.get('donor_name')
+    donor_email = request.form.get('donor_email')
+    donation_date = request.form.get('donation_date')
+    blood_group = request.form.get('blood_group')
+    location = request.form.get('location')
+    certificate_path = generate_certificate(donor_name,donation_date,blood_group,location)
+
+    subject = "Your Blood Donation Certificate"
+    body = f"""
+    Dear {donor_name},
+
+    Thank you for your generous blood donation! Your contribution has made a meaningful difference,
+    and we deeply appreciate your support.
+
+    Please find your donation certificate attached as a token of our gratitude. 
+    We hope it serves as a reminder of the lives you've helped.
+
+    With warm regards,
+    Youth Red Cross Team
+
+    Contact us
+    Phone: 9876543210
+    Email: yrclifebloodsupport@gmail.com
+    """
+
+    send_email(subject, donor_email, body, certificate_path)
+
+    return "Success"
+
+@manage_donors.route('/generate_certificates_regsitered_donors',methods=['POST','GET'])
+def generate_certificates_regsitered_donors():
+    return "Success"
