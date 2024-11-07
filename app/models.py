@@ -15,7 +15,7 @@ class DonorDetail(db.Model):
     disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'),nullable=False)
     authentication_id = db.Column(db.String(36),unique=True, nullable=False)
     last_donated_date = db.Column(db.DateTime, nullable=True) 
-    number_of_times_donated = db.Column(db.String(36),nullable=False)
+    number_of_times_donated = db.Column(db.Integer,nullable=False)
     last_login_date = db.Column(db.DateTime, nullable=True)
 
 class AuthenticationDetailsDonor(db.Model):
@@ -113,4 +113,5 @@ class ResponseDetails(db.Model):
     status = db.Column(db.String(45), nullable=True)
     report = db.Column(db.String(255), nullable=True)
     units_donated = db.Column(db.Integer, nullable=True)
+    certificate_status = db.Column(db.String(36),nullable=True)
     donor_ids = db.Column(db.String(255), nullable=True) 

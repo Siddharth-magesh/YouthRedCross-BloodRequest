@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificate Generation</title>
+  </head>
+  <body>
+    <h2>Generate Manual Certificates</h2>
+    <br />
+    <form
+      action="{{ url_for('manageDonor.generate_and_send_certificate') }}"
+      method="POST"
+    >
+      <label for="Donor_name">Donor Name</label>
+      <input type="text" name="donor_name" id="donor_name" required />
+      <br />
+
+      <label for="Donor_email">Donor Email</label>
+      <input type="email" name="donor_email" id="donor_email" required />
+      <br />
+
+      <label for="donation_date">Donation Date</label>
+      <input type="date" name="donation_date" id="donation_date" required />
+      <br />
+
+      <label for="blood_group">Blood Group</label>
+      <input type="text" name="blood_group" id="blood_group" required />
+      <br />
+
+      <label for="location">Location</label>
+      <input type="text" name="location" id="location" />
+      <br />
+
+      <button type="submit">Send Certificate</button>
+    </form>
+  </body>
+</html>

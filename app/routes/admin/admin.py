@@ -80,3 +80,7 @@ def render_hospital_modification():
 @admin_bp.route('/render_add_new_hospital')
 def render_add_new_hospital():
     return render_template('add_new_hospital.html')
+
+@admin_bp.route('/render_generate_certificate')
+def render_generate_certificate():
+    return render_template('generate_certificate.html')
