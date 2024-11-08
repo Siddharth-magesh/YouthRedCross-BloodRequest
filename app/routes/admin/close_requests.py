@@ -46,9 +46,7 @@ def close_expired_requests():
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
-        if str(response_donor_ids) == 'None':
-            return "Havent entered any Donor Id"
-
+        
         FetchDetails.update_expired_request(
             request_id=request_id,
             response_status=response_status,
@@ -58,14 +56,14 @@ def close_expired_requests():
             response_donor_ids=response_donor_ids
         )
 
-        for donor_id in donor_id_list:
-            donor_detail = db.session.query(DonorDetail).filter(DonorDetail.id==donor_id).first()
-            if donor_detail:
-                donor_detail.active_status=False
-                donor_detail.last_donated_date=datetime.now()
-                donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
-                print("Done")
-                db.session.commit()
+        if str(response_donor_ids) != 'None':
+            for donor_id in donor_id_list:
+                donor_detail = db.session.query(DonorDetail).filter(DonorDetail.id==donor_id).first()
+                if donor_detail:
+                    donor_detail.active_status=False
+                    donor_detail.last_donated_date=datetime.now()
+                    donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
+                    db.session.commit()
         
         return render_template('expired_requests_updation_confirmation.html')
     return render_template('index.html')
@@ -81,8 +79,6 @@ def close_ongoing_requests():
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
-        if str(response_donor_ids) == 'None':
-            return "Havent entered any Donor Id"
 
         FetchDetails.update_ongoing_request(
             request_id=request_id,
@@ -93,14 +89,14 @@ def close_ongoing_requests():
             response_donor_ids=response_donor_ids
         )
 
-        for donor_id in donor_id_list:
-            donor_detail = db.session.query(DonorDetail).filter(DonorDetail.id==donor_id).first()
-            if donor_detail:
-                donor_detail.active_status=False
-                donor_detail.last_donated_date=datetime.now()
-                donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
-                print("Done")
-                db.session.commit()
+        if str(response_donor_ids) != 'None':
+            for donor_id in donor_id_list:
+                donor_detail = db.session.query(DonorDetail).filter(DonorDetail.id==donor_id).first()
+                if donor_detail:
+                    donor_detail.active_status=False
+                    donor_detail.last_donated_date=datetime.now()
+                    donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
+                    db.session.commit()
         
         return render_template('ongoing_requests_updation_confirmation.html')
     return render_template('index.html')
@@ -127,7 +123,6 @@ def close_ongoing_requests_and_send_certificates():
             certificate_status=certificate_status,
             response_donor_ids=response_donor_ids
         )
-        #update the last donation date first
 
         for donor_id in donor_id_list:
             donor_details = (
@@ -174,7 +169,8 @@ def close_ongoing_requests_and_send_certificates():
 
             send_email(subject, donor_email, body, certificate_path)
 
-    return render_template('ongoing_requests_updation_confirmation.html')
+        return render_template('ongoing_requests_updation_confirmation.html')
+    return render_template('index.html')
 
 
 @closing_requests.route('/close_expired_requests_and_send_certificates', methods=['POST', 'GET'])
@@ -200,7 +196,6 @@ def close_expired_requests_and_send_certificates():
             certificate_status=certificate_status,
             response_donor_ids=response_donor_ids
         )
-        #update the last donation date first
 
         if str(response_donor_ids) == 'None':
             return "Havent entered any Donor Id"
@@ -249,6 +244,6 @@ def close_expired_requests_and_send_certificates():
             """
 
             send_email(subject, donor_email, body, certificate_path)
-    
-    # You can add a response or redirect here
-    return render_template('expired_requests_updation_confirmation.html')
+
+        return render_template('expired_requests_updation_confirmation.html')
+    return render_template('index.html')
