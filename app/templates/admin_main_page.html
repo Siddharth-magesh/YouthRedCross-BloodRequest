@@ -39,6 +39,9 @@
   <body>
     <div class="dashboard-container">
       <h1>Admin Dashboard</h1>
+      <form action="{{ url_for('admin.admin_logout') }}">
+        <button type="submit">Logout</button>
+      </form>
       <div class="nav-links">
         <a href="{{ url_for('admin.render_new_requests_page') }}"
           >New Requests</a
@@ -61,6 +64,9 @@
         >
         <a href="{{ url_for('admin.render_generate_certificate') }}"
           >Generate Certificates</a
+        >
+        <a href="{{ url_for('admin.render_admin_profile_page') }}"
+          >Admin Profile</a
         >
       </div>
     </div>
