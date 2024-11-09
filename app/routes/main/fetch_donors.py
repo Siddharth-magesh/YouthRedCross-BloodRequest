@@ -19,6 +19,7 @@ def get_donors():
 
         # Fetch matched donors based on blood group
         unsorted_data = distance_calculator.fetch_matched_data(blood_group)
+        print(unsorted_data)
         
         if hospital_address:
             # If a hospital address is provided, sort the donors by proximity

@@ -1,4 +1,4 @@
-from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails, PersonalDetailsUser , AddressDetailsUser, DiseaseDetailsUser,db
+from app.models import BloodRequestDetails, HospitalDetails, DonorDetail, ResponseDetails, PersonalDetailsUser , AddressDetailsUser, DiseaseDetailsUser,AdminDetails,db
 from sqlalchemy import func
 import matplotlib
 matplotlib.use('Agg')
@@ -237,6 +237,31 @@ class FetchDetails:
                 .first()
             )
             return donor_detail
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
+
+    @staticmethod
+    def fetch_admin_details(admin_id):
+        try:
+            admin_details = (
+                db.session.query(
+                    AdminDetails.id,
+                    AdminDetails.email,
+                    AdminDetails.password,
+                    AdminDetails.username,
+                    AdminDetails.vec_registration_number,
+                    AdminDetails.data_of_birth,
+                    AdminDetails.mobile_number,
+                    AdminDetails.department,
+                    AdminDetails.active_status,
+                    AdminDetails.approved_donation,
+                    AdminDetails.closed_requests
+                )
+                .filter(AdminDetails.id == admin_id)
+                .first()
+            )
+            return admin_details
         except Exception as e:
             print(f"An error occurred: {e}")
             raise

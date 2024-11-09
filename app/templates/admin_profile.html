@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Profile</title>
+  </head>
+  <body>
+    <h2>Donor Dashboard</h2>
+    <form
+      action="{{ url_for('admin_auth.update_admin_details') }}"
+      method="POST"
+    >
+      <label for="id">Admin ID:</label>
+      <input type="text" name="id" value="{{ details.id }}" readonly /><br />
+
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="{{ details.username }}" /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" value="{{ details.email }}" /><br />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+        value="{{ details.password }}"
+        readonly
+      /><br />
+
+      <label for="vec_registration_number">VEC registration number:</label>
+      <input
+        type="number"
+        name="vec_registration_number"
+        value="{{ details.vec_registration_number }}"
+      /><br />
+
+      <label for="active_status">Active Status:</label>
+      <input
+        type="text"
+        name="active_status"
+        value="{{ details.active_status }}"
+      /><br />
+
+      <label for="department">Department:</label>
+      <input
+        type="text"
+        name="department"
+        value="{{ details.department }}"
+      /><br />
+
+      <label for="approved_donation">approved donation:</label>
+      <input
+        type="text"
+        name="approved_donation"
+        value="{{ details.approved_donation }}"
+        readonly
+      /><br />
+
+      <label for="closed_requests">closed requests:</label>
+      <input
+        type="text"
+        name="closed_requests"
+        value="{{ details.closed_requests }}"
+        readonly
+      /><br />
+
+      <label for="contact_number">Contact Number:</label>
+      <input
+        type="text"
+        name="contact_number"
+        value="{{ details.mobile_number }}"
+      /><br />
+
+      <label for="date_of_birth">Date of Birth:</label>
+      <input
+        type="date"
+        name="date_of_birth"
+        value="{{ details.date_of_birth }}"
+      /><br />
+
+      <button type="submit">Update Details</button>
+    </form>
+    <a href="{{ url_for('admin.render_main_admin_page') }}">Back To Dashboard</a
+    ><br />
+  </body>
+</html>

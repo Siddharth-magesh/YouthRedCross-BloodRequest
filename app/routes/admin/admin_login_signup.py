@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template , request , redirect , url_for , flash
+from flask import Blueprint, render_template , request , redirect , url_for , flash , session
 from app.models import AdminDetails , AuthenticationDetailsAdmin , db
 from werkzeug.security import check_password_hash , generate_password_hash
 from datetime import datetime
@@ -53,6 +53,11 @@ def validate_admin():
         current_date = current_datetime.date()
         current_time = current_datetime.time()
         admin.last_login_date = current_datetime
+
+        session['admin_id'] = admin.id
+        session['logged_in'] = True
+        session.permanent = True
+
         logging_details = AuthenticationDetailsAdmin(
             auth_id = admin.authentication_id,
             name = admin.username,
@@ -229,3 +234,46 @@ def new_password_admin():
         return redirect(url_for('admin.render_admin_login'))
     else:
         return "Couldnt Update the password"
+    
+
+@admin_authentications.route('/update_admin_details',methods=['POST','GET'])
+def update_admin_details():
+    admin_id = request.form.get('id')
+    name = request.form.get('name')
+    email = request.form.get('email')
+    vec_registration_number = request.form.get('vec_registration_number')
+    active_status = request.form.get('active_status')
+    department = request.form.get('department')
+    approved_donation = request.form.get('approved_donation')
+    closed_requests = request.form.get('closed_requests')
+    contact_number = request.form.get('contact_number')
+    date_of_birth = request.form.get('date_of_birth')
+
+    admin_details = AdminDetails.query.get(admin_id)
+    if name and name != admin_details.id:
+        admin_details.username = name
+    if email and email != admin_details.email:
+        admin_details.email = email
+    if vec_registration_number and vec_registration_number != admin_details.vec_registration_number:
+        admin_details.vec_registration_number = vec_registration_number
+    if active_status and active_status != admin_details.active_status:
+        admin_details.active_status = active_status
+    if department and department != admin_details.department:
+        admin_details.department = department
+    if approved_donation and approved_donation != admin_details.approved_donation:
+        admin_details.approved_donation = approved_donation
+    if closed_requests and closed_requests != admin_details.closed_requests:
+        admin_details.closed_requests = closed_requests
+    if contact_number and contact_number != admin_details.mobile_number:
+        admin_details.mobile_number = contact_number
+    if date_of_birth and date_of_birth != admin_details.date_of_birth:
+        admin_details.date_of_birth = date_of_birth
+    
+    try:
+        db.session.commit()
+        flash("Donor details updated successfully.")
+        return redirect(url_for('admin.render_main_admin_page'))
+    except Exception as e:
+        db.session.rollback()
+        flash(f"An error occurred: {e}")
+        return "An error occurred while updating the donor details", 500

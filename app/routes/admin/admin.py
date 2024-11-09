@@ -1,12 +1,16 @@
 # app/routes/admin.py
-from flask import Blueprint, render_template , request , redirect , url_for
+from flask import Blueprint, render_template , request , redirect , url_for , session
 from app.utils.data_manipulations_toDB import FetchDetails
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin_bp.route('/render_admin_login')
 def render_admin_login():
-    return render_template('admin_login.html')
+    if not session.get('logged_in'):
+        print("Here")
+        return render_template('admin_login.html')
+    print("session worked")
+    return redirect(url_for('admin.render_main_admin_page'))
 
 @admin_bp.route('/render_admin_signup')
 def render_admin_signup():
@@ -84,3 +88,14 @@ def render_add_new_hospital():
 @admin_bp.route('/render_generate_certificate')
 def render_generate_certificate():
     return render_template('generate_certificate.html')
+
+@admin_bp.route('/render_admin_profile_page')
+def render_admin_profile_page():
+    admin_id = session.get('admin_id')
+    details = FetchDetails.fetch_admin_details(admin_id)
+    return render_template('admin_profile.html',details=details)
+
+@admin_bp.route('/admin_logout')
+def admin_logout():
+    session.clear()
+    return redirect(url_for('main.index'))
