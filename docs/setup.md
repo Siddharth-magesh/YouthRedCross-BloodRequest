@@ -1,6 +1,6 @@
 # Project Setup Guide for Life Blood Squad
 
-This guide will walk you through the setup process for running the Life Blood Squad project locally on Windows 11. 
+This guide will walk you through the setup process for running the Life Blood Squad project locally on Windows 11.
 The project uses an Anaconda environment, Python 3.10, and Flask for backend functionality.
 
 ## Prerequisites
@@ -97,4 +97,4 @@ To keep your contributions organized, create a new branch for each feature or fi
 
 ---
 
-Following these steps, you should be able to set up, configure, and start developing on the Life Blood Squad project with ease. Happy coding!
+Following these steps, you should be able to set up, configure, and start developing on the Life Blood Squad project with ease.
