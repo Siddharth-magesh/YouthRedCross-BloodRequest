@@ -1,8 +1,19 @@
 # app/routes/admin.py
-from flask import Blueprint, render_template
+import os
+from flask import Blueprint, render_template ,request
+from flask_wtf import FlaskForm
+from wtforms import SubmitField ,FileField
+from wtforms.validators import InputRequired
 from app.utils.data_manipulations_toDB import FetchDetails
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
+import pandas as pd
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
+
+class AddDonorCSV(FlaskForm):
+    donor_file = FileField('Donor CSV File', validators=[InputRequired()])
+    submit = SubmitField('Upload')
 
 @admin_bp.route('/render_admin_login')
 def render_admin_login():
@@ -44,3 +55,19 @@ def render_analytics_page():
 @admin_bp.route('/render_manage_donors_admin_page')
 def render_manage_donors_admin_page():
     return render_template('manage_donors_admin.html')
+
+@admin_bp.route('/add_donor_csv', methods=['POST','GET'])
+def add_donor_csv():
+    form = AddDonorCSV()
+    if request.method == 'POST' and form.validate_on_submit():
+        donor_file = form.donor_file.data
+        donor_file.save(os.path.join(os.path.abspath("app/static/files/"),secure_filename(donor_file.filename)))
+        try:
+            donorDetails = pd.read_csv(os.path.join(os.path.abspath("app/static/files/"),secure_filename(donor_file.filename)))
+            first_name = donorDetails['First Name']
+            last_name = donorDetails['Last Name or Initial']
+            donor_names = [f"{first.strip()} {last.strip()}" for first, last in zip(first_name, last_name)]
+            print(donor_names)
+        except Exception as e:
+            print(e)
+            return render_template('manage_donors_admin.html', form=form)

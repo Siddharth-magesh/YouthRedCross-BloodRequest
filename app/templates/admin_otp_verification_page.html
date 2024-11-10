@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+  </head>
+  <body>
+    <h2>OTP Verification</h2>
+    <form
+      action="{{ url_for('admin_auth.verify_otp_and_data_injection') }}"
+      method="POST"
+    >
+      <label for="otp">Enter OTP:</label>
+      <input type="text" id="otp" name="otp" required />
+      <input type="hidden" name="email" value="{{ email }}" />
+      <input type="hidden" name="password" value="{{ password }}" />
+      <input type="hidden" name="username" value="{{ username }}" />
+      <input
+        type="hidden"
+        name="vec_registration_number"
+        value="{{ vec_registration_number }}"
+      />
+      <input type="hidden" name="date_of_birth" value="{{ date_of_birth }}" />
+      <input type="hidden" name="mobile_number" value="{{ mobile_number }}" />
+      <input type="hidden" name="department" value="{{ department }}" />
+      <input type="hidden" name="admin_id" value="{{ admin_id }}" />
+      <input
+        type="hidden"
+        name="authentication_id"
+        value="{{ authentication_id }}"
+      />
+      <input
+        type="hidden"
+        name="generated_otp"
+        value="{{ one_time_password }}"
+      />
+
+      <button type="submit">Verify OTP</button>
+    </form>
+  </body>
+</html>

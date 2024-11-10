@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Hospitals</title>
+  </head>
+  <body>
+    <h1>Manage Hospitals</h1>
+    <a href="{{ url_for('admin.render_add_new_hospital') }}">Add New Hospital</a
+    ><br />
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in datas %}
+        <tr>
+          <td>{{ data.id }}</td>
+          <td>{{ data.hospital_name }}</td>
+          <td>{{ data.city }}</td>
+          <td>{{ data.state }}</td>
+          <td>
+            <form
+              action="{{ url_for('admin.render_hospital_modification') }}"
+              method="POST"
+            >
+              <input type="hidden" name="id" value="{{ data.id }}" />
+              <button type="submit">Modify Hospital Details</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

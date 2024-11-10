@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Details</title>
+  </head>
+  <body>
+    <form
+      action="{{ url_for('manage_hospital.modify_hospital_details') }}"
+      method="POST"
+    >
+      <h2>Hospital Details</h2>
+      <label for="ID">Hospital ID:</label>
+      <input type="text" name="id" value="{{ details.id }}" /><br />
+
+      <label for="hospital_name">Hospital Name:</label>
+      <input
+        type="text"
+        name="hospital_name"
+        value="{{ details.hospital_name }}"
+      /><br />
+
+      <label for="hospital_address">Hospital Address:</label>
+      <input
+        type="text"
+        name="hospital_address"
+        value="{{ details.hospital_address }}"
+      /><br />
+
+      <label for="city">City:</label>
+      <input type="text" name="city" value="{{ details.city }}" /><br />
+
+      <label for="state">State:</label>
+      <input type="text" name="state" value="{{ details.state }}" /><br />
+
+      <label for="country">Country:</label>
+      <input type="text" name="country" value="{{ details.country }}" /><br />
+
+      <label for="pincode">Pincode:</label>
+      <input type="text" name="pincode" value="{{ details.pincode }}" /><br />
+
+      <label for="branch">Branch:</label>
+      <input type="text" name="branch" value="{{ details.branch }}" /><br />
+
+      <label for="landmark">Landmark:</label>
+      <input type="text" name="landmark" value="{{ details.landmark }}" /><br />
+
+      <button type="submit">Update Details</button>
+    </form>
+
+    <a href="{{ url_for('admin.render_main_admin_page') }}">Back To Dashboard</a
+    ><br />
+    <a href="{{ url_for('admin.render_hospital_details_admin') }}"
+      >Back To Hospital List</a
+    >
+  </body>
+</html>

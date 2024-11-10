@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Sign Up</title>
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>Admin Sign Up</h2>
+      <form
+        action="{{ url_for('admin_auth.register_new_admin') }}"
+        method="POST"
+      >
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required /><br />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required /><br />
+
+        <label for="password">Confirm Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="confirm_password"
+          required
+        /><br />
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required /><br />
+
+        <label for="vec_registration_number">VEC Registration Number:</label>
+        <input
+          type="text"
+          id="vec_registration_number"
+          name="vec_registration_number"
+          required
+        /><br />
+
+        <label for="date_of_birth">Date of Birth:</label>
+        <input
+          type="date"
+          id="date_of_birth"
+          name="date_of_birth"
+          required
+        /><br />
+
+        <label for="mobile_number">Mobile Number:</label>
+        <input
+          type="tel"
+          id="mobile_number"
+          name="mobile_number"
+          required
+        /><br />
+
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" /><br />
+
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </body>
+</html>

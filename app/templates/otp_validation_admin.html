@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Validation</title>
+  </head>
+  <body>
+    <h2>OTP Verification</h2>
+    <form
+      action="{{ url_for('admin_auth.otp_validation_admin') }}"
+      method="POST"
+    >
+      <label for="otp">Enter the One Time Password :</label>
+      <input type="password" id="otp" name="typed_otp" required /><br />
+
+      <input
+        type="hidden"
+        name="generated_otp"
+        value="{{ one_time_password }}"
+      />
+
+      <input type="hidden" name="email" value="{{ email }}" />
+
+      <button type="submit">Validate OTP</button>
+    </form>
+  </body>
+</html>

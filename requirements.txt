@@ -5,4 +5,4 @@ python-dotenv
 pymysql           
 cryptography
 Werkzeug
-smtplib
+pandas
