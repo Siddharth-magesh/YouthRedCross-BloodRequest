@@ -32,6 +32,17 @@
       .send-requests-button:hover {
         background-color: #218838;
       }
+      .decline-button {
+        cursor: pointer;
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 3px;
+      }
+      .decline-button:hover {
+        background-color: #c82333;
+      }
       .container {
         max-width: 800px;
         margin: auto;
@@ -111,6 +122,24 @@
           console.error("Error:", error);
           alert("An error occurred while sending email requests.");
         }
+      }
+
+      function declineRequest(requestId) {
+        fetch("/decline_request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ request_id: requestId }),
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.success) {
+              alert("Request declined successfully.");
+              location.reload(); // Reloads the page to update the list
+            } else {
+              alert("Failed to decline request.");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
       }
     </script>
   </head>
@@ -234,6 +263,12 @@
                   )"
                 >
                   Send Requests
+                </button>
+                <button
+                  class="decline-button"
+                  onclick="declineRequest('{{ request.request_id }}')"
+                >
+                  Decline Request
                 </button>
               </div>
             </td>

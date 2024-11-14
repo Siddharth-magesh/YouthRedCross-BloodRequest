@@ -86,3 +86,18 @@ def SendEmailToDonors():
         return jsonify({"success": True, "message": "Email requests sent successfully!"})
     else:
         return jsonify({"success": False, "message": "Failed to send email requests."}), 500
+
+
+@approveNewRequest.route('/decline_request', methods=['POST', 'GET'])
+def decline_request():
+    data = request.get_json()
+    if not data or 'request_id' not in data:
+        return jsonify({"success": False, "message": "Invalid request data"}), 400
+
+    request_id = data.get('request_id')
+    success, message = FetchDetails.Decline_new_requests(request_id)
+    
+    if success:
+        return jsonify({"success": True, "message": message})
+    else:
+        return jsonify({"success": False, "message": message}), 500
