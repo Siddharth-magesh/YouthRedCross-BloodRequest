@@ -57,6 +57,35 @@ class FetchDetails:
             print(f"Error updating request {request_id}: {e}")
 
     @staticmethod
+    def Decline_new_requests(request_id):
+        try:
+            request_to_update = db.session.query(BloodRequestDetails).filter(BloodRequestDetails.id == request_id).first()
+            
+            if not request_to_update:
+                print(f"Request {request_id} not found.")
+                return False, f"Request {request_id} not found."
+            
+            request_to_update.status = "Declined"
+            db.session.commit()
+
+            response_to_update = db.session.query(ResponseDetails).filter(ResponseDetails.id == request_to_update.response_id).first()
+            
+            if not response_to_update:
+                print(f"No response found for request {request_id}.")
+                return False, f"No response found for request {request_id}."
+            
+            response_to_update.status = "Declined"
+            db.session.commit()
+            
+            return True, "Request and response successfully declined."
+            
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error updating request {request_id}: {e}")
+            return False, f"Error updating request {request_id}: {e}"
+
+
+    @staticmethod
     def fetch_closed_requests():
         closed_results = (
             db.session.query(
@@ -118,6 +147,37 @@ class FetchDetails:
         )
         return expired_results
     
+    @staticmethod
+    def fetch_declined_requests():
+        closed_results = (
+            db.session.query(
+                BloodRequestDetails.id,
+                BloodRequestDetails.patient_name,
+                BloodRequestDetails.blood_group,
+                BloodRequestDetails.hospital_name,
+                BloodRequestDetails.contact_number,
+                BloodRequestDetails.patient_age,
+                BloodRequestDetails.due_date,
+                BloodRequestDetails.request_reason,
+                BloodRequestDetails.status,
+                BloodRequestDetails.units_required,
+                BloodRequestDetails.attendant_name,
+                BloodRequestDetails.response_id,
+                ResponseDetails.status.label("response_status"),
+                ResponseDetails.report,
+                ResponseDetails.units_donated,
+                ResponseDetails.certificate_status,
+                ResponseDetails.donor_ids.label("response_donor_ids"),
+                HospitalDetails.hospital_address,
+                HospitalDetails.id.label("hospital_id")
+            )
+            .join(ResponseDetails, BloodRequestDetails.response_id == ResponseDetails.id)
+            .join(HospitalDetails, BloodRequestDetails.hospital_id == HospitalDetails.id)
+            .filter(BloodRequestDetails.status == 'Declined')
+            .all()
+        )
+        return closed_results
+
     @staticmethod
     def fetch_ongoing_requests():
         expired_results = (
