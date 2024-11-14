@@ -36,6 +36,13 @@
     </style>
   </head>
   <body>
+    <a href="{{ url_for('main.index') }}">Return to Main Page</a>
+    <br />
+    <a href="{{ url_for('main.render_generate_blood_request') }}"
+      >Generate Blood Request</a
+    >
+    <br />
+    <a href="{{ url_for('main.render_find_donors_page') }}">Find Donors Page</a>
     <h2>Blood Banks in the City</h2>
 
     <table>
