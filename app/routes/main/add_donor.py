@@ -38,6 +38,18 @@ def get_next_id(table, prefix):
     # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
+#used only for generating authentication ID
+def get_next_id_secondary_function(table, prefix):
+    # Fetch the current maximum ID, strip the prefix and convert to an integer
+    max_id = db.session.query(table.authentication_id).order_by(table.authentication_id.desc()).first()
+    next_id_num = 1
+    if max_id:
+        # Extract the numeric part of the ID
+        current_num = int(max_id[0][len(prefix):])
+        next_id_num = current_num + 1
+    # Format the new ID
+    return f"{prefix}{str(next_id_num).zfill(3)}"
+
 @new_donor.route('/register_new_donors', methods=['GET', 'POST'])
 def register_new_donors():
     if request.method == 'POST':
@@ -86,7 +98,7 @@ def register_new_donors():
                 contact_number=contact_number,
                 secondary_contact_number=secondary_contact,
                 marital_status=marital_status,
-                aadhar_number=aadhar_number
+                aadhar_number=str(aadhar_number)
             )
             db.session.add(personal_details)
 
@@ -124,7 +136,7 @@ def register_new_donors():
             db.session.add(disease_details)
 
             # Create and add AuthenticationDetails entry
-            auth_id = get_next_id(AuthenticationDetailsDonor, 'AUTHDNR')
+            auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
 
             # Create and add DonorDetail entry
             donor_id = get_next_id(DonorDetail, 'DNR')
@@ -147,7 +159,7 @@ def register_new_donors():
 
             db.session.commit()
             flash('Donor successfully added!', 'success')
-            return render_template('index.html')
+            return render_template('new_donor_registration_confirmation.html')
 
         except Exception as e:
             db.session.rollback()
@@ -256,7 +268,7 @@ def modify_donor_details():
     try:
         db.session.commit()
         flash("Donor details updated successfully.")
-        return render_template('index.html')
+        return render_template('donor_details_updation_confirmation.html')
     except Exception as e:
         db.session.rollback()
         flash(f"An error occurred: {e}")
