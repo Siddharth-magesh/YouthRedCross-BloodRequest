@@ -34,6 +34,7 @@ def SendEmailToDonors():
     request_reason = data.get('request_reason')
     patient_age = data.get('patient_age')
 
+
     active_donors = DonorDetail.query.filter_by(blood_group=blood_group, active_status=True).all()
     donor_names = [donor.name for donor in active_donors]
     donor_emails = [donor.email for donor in active_donors]
@@ -76,6 +77,7 @@ def SendEmailToDonors():
 
         send_email(subject, email, body)
     FetchDetails.update_the_new_requests(request_id)
+    #Also Update which Admin Approved
 
     success = True  # Set to False if the email sending fails
     
@@ -84,3 +86,18 @@ def SendEmailToDonors():
         return jsonify({"success": True, "message": "Email requests sent successfully!"})
     else:
         return jsonify({"success": False, "message": "Failed to send email requests."}), 500
+
+
+@approveNewRequest.route('/decline_request', methods=['POST', 'GET'])
+def decline_request():
+    data = request.get_json()
+    if not data or 'request_id' not in data:
+        return jsonify({"success": False, "message": "Invalid request data"}), 400
+
+    request_id = data.get('request_id')
+    success, message = FetchDetails.Decline_new_requests(request_id)
+    
+    if success:
+        return jsonify({"success": True, "message": message})
+    else:
+        return jsonify({"success": False, "message": message}), 500

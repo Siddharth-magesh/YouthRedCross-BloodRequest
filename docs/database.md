@@ -1,170 +1,207 @@
-# Youth Red Cross Blood Request Database Documentation
+# Database Structure for Youth Red Cross Blood Donation Site
 
-## Database: `YouthRedCross_BloodRequest`
+This document describes the database schema, including tables, columns, primary keys, and relationships between tables.
 
-This database is designed to manage blood donation requests, donor records, hospital information, and other related data. Below are detailed descriptions of each table, including columns, data types, and relationships.
+## Table Structure Overview
 
----
-
-### Table: `PersonalDetailsUser`
-
-**Purpose**: Stores personal information about users.
-
-| Column                     | Type        | Description                                        |
+| Table Name                 | Primary Key | Description                                        |
 | -------------------------- | ----------- | -------------------------------------------------- |
-| `id`                       | VARCHAR(10) | Primary key, unique identifier (e.g., `PDDNR001`). |
-| `first_name`               | VARCHAR(45) | First name of the user.                            |
-| `last_name`                | VARCHAR(45) | Last name or initial of the user.                  |
-| `age`                      | INT         | Age of the user.                                   |
-| `date_of_birth`            | DATE        | Date of birth of the user.                         |
-| `contact_number`           | VARCHAR(15) | Primary contact number of the user.                |
-| `secondary_contact_number` | VARCHAR(15) | Secondary contact number (optional).               |
-| `marital_status`           | VARCHAR(10) | Marital status of the user (optional).             |
-| `aadhar_number`            | VARCHAR(20) | Aadhar number (optional).                          |
-| `blood_group`              | VARCHAR(10) | Blood group of the user.                           |
-| `last_donated_date`        | DATE        | Date of last donation (optional).                  |
+| DonorDetail                | id          | Stores information about donors.                   |
+| AuthenticationDetailsDonor | id          | Logs donor login details.                          |
+| PersonalDetailsUser        | id          | Stores personal details of each user.              |
+| AddressDetailsUser         | id          | Stores address information of each user.           |
+| DiseaseDetailsUser         | id          | Records diseases associated with users.            |
+| AdminDetails               | id          | Stores information about admin users.              |
+| AuthenticationDetailsAdmin | id          | Logs admin login details.                          |
+| BloodRequestDetails        | id          | Holds details of blood requests made by patients.  |
+| HospitalDetails            | id          | Stores information about hospitals.                |
+| ResponseDetails            | id          | Contains responses and statuses of blood requests. |
 
----
+## Detailed Table Structure and Relationships
 
-### Table: `AddressDetailsUser`
+### DonorDetail
 
-**Purpose**: Stores address information for users.
+| Column                  | Type         | Description                                      |
+| ----------------------- | ------------ | ------------------------------------------------ |
+| id                      | VARCHAR(36)  | Primary Key, unique identifier for each donor.   |
+| name                    | VARCHAR(100) | Donor's name.                                    |
+| email                   | VARCHAR(100) | Donor's email (unique).                          |
+| password                | VARCHAR(500) | Hashed password for donor login.                 |
+| blood_group             | VARCHAR(10)  | Donor's blood group.                             |
+| personal_details_id     | VARCHAR(36)  | Foreign Key referencing `PersonalDetailsUser.id` |
+| address_id              | VARCHAR(36)  | Foreign Key referencing `AddressDetailsUser.id`  |
+| active_status           | BOOLEAN      | Indicates if donor is active.                    |
+| disease_id              | VARCHAR(36)  | Foreign Key referencing `DiseaseDetailsUser.id`  |
+| authentication_id       | VARCHAR(36)  | Unique ID for donor authentication.              |
+| last_donated_date       | DateTime     | Date of last donation.                           |
+| number_of_times_donated | INT          | Number of donations made by donor.               |
+| last_login_date         | DateTime     | Date of last login.                              |
 
-| Column    | Type         | Description                                       |
-| --------- | ------------ | ------------------------------------------------- |
-| `id`      | VARCHAR(10)  | Primary key, unique identifier (e.g., `ADDR001`). |
-| `address` | VARCHAR(200) | Full address (address, city, state, pincode).     |
-| `pincode` | VARCHAR(10)  | Postal code for the address.                      |
-| `country` | VARCHAR(45)  | Country of residence.                             |
-| `state`   | VARCHAR(45)  | State or province of residence.                   |
-| `city`    | VARCHAR(45)  | City of residence.                                |
+- **Relationships**:
+  - `personal_details_id` links to `PersonalDetailsUser.id`.
+  - `address_id` links to `AddressDetailsUser.id`.
+  - `disease_id` links to `DiseaseDetailsUser.id`.
 
----
+### AuthenticationDetailsDonor
 
-### Table: `DiseaseDetailsUser`
+| Column     | Type         | Description                                 |
+| ---------- | ------------ | ------------------------------------------- |
+| id         | INT          | Primary Key.                                |
+| auth_id    | VARCHAR(36)  | References `DonorDetail.authentication_id`. |
+| name       | VARCHAR(100) | Name of donor.                              |
+| login_date | Date         | Date of login.                              |
+| login_time | Time         | Time of login.                              |
 
-**Purpose**: Stores disease information for users, if applicable.
+### PersonalDetailsUser
 
-| Column        | Type         | Description                                      |
-| ------------- | ------------ | ------------------------------------------------ |
-| `id`          | VARCHAR(10)  | Primary key, unique identifier (e.g., `DIS001`). |
-| `name`        | VARCHAR(100) | Name of the disease or condition.                |
-| `description` | VARCHAR(200) | Description of the disease.                      |
+| Column                   | Type        | Description                   |
+| ------------------------ | ----------- | ----------------------------- |
+| id                       | VARCHAR(36) | Primary Key.                  |
+| first_name               | VARCHAR(45) | Donor's first name.           |
+| last_name                | VARCHAR(45) | Donor's last name.            |
+| age                      | INT         | Donor's age.                  |
+| date_of_birth            | Date        | Donor's date of birth.        |
+| contact_number           | VARCHAR(15) | Primary contact number.       |
+| secondary_contact_number | VARCHAR(15) | Secondary contact (optional). |
+| marital_status           | VARCHAR(10) | Marital status (optional).    |
+| aadhar_number            | VARCHAR(20) | Aadhaar ID (optional).        |
 
----
+### AddressDetailsUser
 
-### Table: `DonorDetail`
+| Column  | Type         | Description     |
+| ------- | ------------ | --------------- |
+| id      | VARCHAR(36)  | Primary Key.    |
+| address | VARCHAR(200) | Street address. |
+| pincode | VARCHAR(10)  | Postal code.    |
+| country | VARCHAR(45)  | Country.        |
+| state   | VARCHAR(45)  | State.          |
+| city    | VARCHAR(45)  | City.           |
 
-**Purpose**: Stores blood donor information, including personal and address details.
+### DiseaseDetailsUser
 
-| Column                | Type        | Description                                        |
-| --------------------- | ----------- | -------------------------------------------------- |
-| `id`                  | VARCHAR(10) | Primary key, unique identifier (e.g., `DNR001`).   |
-| `personal_details_id` | VARCHAR(10) | Foreign key referencing `PersonalDetailsUser(id)`. |
-| `address_id`          | VARCHAR(10) | Foreign key referencing `AddressDetailsUser(id)`.  |
-| `disease_id`          | VARCHAR(10) | Foreign key referencing `DiseaseDetailsUser(id)`.  |
-| `blood_group`         | VARCHAR(10) | Blood group of the donor.                          |
-| `last_donated_date`   | DATE        | Date of the last blood donation.                   |
-| `active_status`       | BOOLEAN     | Indicates if the donor is actively donating.       |
+| Column      | Type         | Description                       |
+| ----------- | ------------ | --------------------------------- |
+| id          | VARCHAR(36)  | Primary Key.                      |
+| name        | VARCHAR(100) | Disease name.                     |
+| description | VARCHAR(200) | Additional details about disease. |
 
----
+### AdminDetails
 
-### Table: `AdminDetails`
+| Column                  | Type         | Description                         |
+| ----------------------- | ------------ | ----------------------------------- |
+| id                      | VARCHAR(36)  | Primary Key.                        |
+| email                   | VARCHAR(100) | Admin's email (unique).             |
+| password                | VARCHAR(250) | Hashed password for admin login.    |
+| username                | VARCHAR(45)  | Admin's username.                   |
+| authentication_id       | VARCHAR(36)  | Unique ID for admin authentication. |
+| vec_registration_number | VARCHAR(36)  | Admin's unique registration number. |
+| date_of_birth           | Date         | Admin's date of birth.              |
+| mobile_number           | VARCHAR(36)  | Contact number.                     |
+| department              | VARCHAR(50)  | Admin's department (optional).      |
+| active_status           | VARCHAR(36)  | Status of admin (active/inactive).  |
+| last_login_date         | DateTime     | Date of last login.                 |
+| approved_donation       | VARCHAR(36)  | Number of approved donations.       |
+| closed_requests         | VARCHAR(36)  | Number of closed requests.          |
 
-**Purpose**: Stores details of administrators with access to the system.
+### AuthenticationDetailsAdmin
 
-| Column              | Type         | Description                                        |
-| ------------------- | ------------ | -------------------------------------------------- |
-| `id`                | VARCHAR(10)  | Primary key, unique identifier (e.g., `ADM001`).   |
-| `username`          | VARCHAR(45)  | Username for admin login.                          |
-| `email`             | VARCHAR(100) | Email address of the admin.                        |
-| `password`          | VARCHAR(100) | Encrypted password for admin access.               |
-| `last_login_date`   | DATETIME     | Last login timestamp.                              |
-| `approved_donation` | BOOLEAN      | Indicates if admin has approved donation requests. |
+| Column     | Type         | Description                                  |
+| ---------- | ------------ | -------------------------------------------- |
+| id         | INT          | Primary Key.                                 |
+| auth_id    | VARCHAR(36)  | References `AdminDetails.authentication_id`. |
+| name       | VARCHAR(100) | Name of admin.                               |
+| login_date | Date         | Date of login.                               |
+| login_time | Time         | Time of login.                               |
 
----
+### BloodRequestDetails
 
-### Table: `AuthenticationDetailsAdmin`
+| Column            | Type         | Description                                        |
+| ----------------- | ------------ | -------------------------------------------------- |
+| id                | VARCHAR(36)  | Primary Key.                                       |
+| patient_name      | VARCHAR(100) | Name of the patient.                               |
+| blood_group       | VARCHAR(10)  | Required blood group.                              |
+| hospital_name     | VARCHAR(100) | Name of hospital.                                  |
+| hospital_id       | VARCHAR(36)  | Foreign Key referencing `HospitalDetails.id`.      |
+| contact_number    | VARCHAR(15)  | Contact number of requestor.                       |
+| patient_age       | INT          | Patient’s age.                                     |
+| due_date          | DateTime     | Date by which blood is needed.                     |
+| request_reason    | VARCHAR(200) | Reason for request (optional).                     |
+| status            | VARCHAR(45)  | Status of the request (open/closed).               |
+| units_required    | INT          | Number of blood units required.                    |
+| attendant_name    | VARCHAR(100) | Name of attendant (optional).                      |
+| response_id       | VARCHAR(36)  | Foreign Key referencing `ResponseDetails.id`.      |
+| approved_admin_id | VARCHAR(36)  | Admin ID who approved (session managed).           |
+| closed_admin_id   | VARCHAR(36)  | Admin ID who closed the request (session managed). |
 
-**Purpose**: Tracks login details for administrators.
+### HospitalDetails
 
-| Column       | Type         | Description                                 |
-| ------------ | ------------ | ------------------------------------------- |
-| `admin_id`   | VARCHAR(10)  | Foreign key referencing `AdminDetails(id)`. |
-| `name`       | VARCHAR(100) | Name of the admin logging in.               |
-| `login_date` | DATE         | Date of login.                              |
-| `login_time` | TIME         | Time of login.                              |
+| Column           | Type         | Description                 |
+| ---------------- | ------------ | --------------------------- |
+| id               | VARCHAR(36)  | Primary Key.                |
+| hospital_name    | VARCHAR(100) | Name of the hospital.       |
+| hospital_address | VARCHAR(200) | Address of the hospital.    |
+| pincode          | VARCHAR(10)  | Postal code.                |
+| city             | VARCHAR(45)  | City.                       |
+| state            | VARCHAR(45)  | State.                      |
+| country          | VARCHAR(45)  | Country.                    |
+| branch           | VARCHAR(45)  | Branch name (optional).     |
+| landmark         | VARCHAR(100) | Nearby landmark (optional). |
 
----
+### ResponseDetails
 
-### Table: `HospitalDetails`
-
-**Purpose**: Stores information about hospitals involved in the system.
-
-| Column             | Type         | Description                                       |
-| ------------------ | ------------ | ------------------------------------------------- |
-| `id`               | VARCHAR(10)  | Primary key, unique identifier (e.g., `HOSP001`). |
-| `hospital_name`    | VARCHAR(100) | Name of the hospital.                             |
-| `hospital_address` | VARCHAR(200) | Address of the hospital.                          |
-| `pincode`          | VARCHAR(10)  | Postal code of the hospital.                      |
-| `city`             | VARCHAR(45)  | City where the hospital is located.               |
-| `state`            | VARCHAR(45)  | State where the hospital is located.              |
-| `country`          | VARCHAR(45)  | Country where the hospital is located.            |
-| `branch`           | VARCHAR(45)  | Branch name if applicable.                        |
-| `landmark`         | VARCHAR(100) | Nearby landmark if applicable.                    |
-
----
-
-### Table: `BloodRequestDetails`
-
-**Purpose**: Tracks blood donation requests, including patient details and hospital information.
-
-| Column           | Type         | Description                                      |
-| ---------------- | ------------ | ------------------------------------------------ |
-| `id`             | VARCHAR(10)  | Primary key, unique identifier (e.g., `REQ001`). |
-| `patient_name`   | VARCHAR(100) | Name of the patient in need.                     |
-| `blood_group`    | VARCHAR(10)  | Required blood group.                            |
-| `hospital_id`    | VARCHAR(10)  | Foreign key referencing `HospitalDetails(id)`.   |
-| `contact_number` | VARCHAR(15)  | Contact number for the blood request.            |
-| `patient_age`    | INT          | Age of the patient.                              |
-| `due_date`       | DATETIME     | Deadline for the blood requirement.              |
-| `request_reason` | VARCHAR(200) | Reason for the blood request.                    |
-| `status`         | VARCHAR(45)  | Current status of the request (e.g., pending).   |
-| `units_required` | INT          | Number of blood units needed.                    |
-| `attendant_name` | VARCHAR(100) | Name of the attendant overseeing the patient.    |
-| `donor_ids`      | VARCHAR(255) | JSON-like list of donor IDs who have donated.    |
-| `response_id`    | VARCHAR(10)  | Foreign key referencing `ResponseDetails(id)`.   |
-
----
-
-### Table: `ResponseDetails`
-
-**Purpose**: Logs responses to blood donation requests.
-
-| Column             | Type         | Description                                        |
-| ------------------ | ------------ | -------------------------------------------------- |
-| `id`               | VARCHAR(10)  | Primary key, unique identifier (e.g., `RESP001`).  |
-| `blood_request_id` | VARCHAR(10)  | Foreign key referencing `BloodRequestDetails(id)`. |
-| `status`           | VARCHAR(45)  | Status of the response (e.g., completed).          |
-| `report`           | VARCHAR(255) | Summary report of the donation event.              |
-| `units_donated`    | INT          | Number of units donated.                           |
-| `donor_ids`        | VARCHAR(255) | JSON-like list of donor IDs who donated.           |
+| Column             | Type         | Description                               |
+| ------------------ | ------------ | ----------------------------------------- |
+| id                 | VARCHAR(36)  | Primary Key.                              |
+| status             | VARCHAR(45)  | Current status of response.               |
+| report             | VARCHAR(255) | Report on the response (optional).        |
+| units_donated      | INT          | Number of units donated.                  |
+| certificate_status | VARCHAR(36)  | Certificate status (generated/pending).   |
+| donor_ids          | VARCHAR(255) | IDs of donors involved (comma-separated). |
 
 ---
 
 ## Relationships
 
-- **One-to-Many Relationships**:
+1. **`DonorDetail` Table**:
 
-  - `PersonalDetailsUser` to `DonorDetail`
-  - `AddressDetailsUser` to `DonorDetail`
-  - `AdminDetails` to `AuthenticationDetailsAdmin`
-  - `HospitalDetails` to `BloodRequestDetails`
-  - `BloodRequestDetails` to `ResponseDetails`
+   - `personal_details_id` -> `PersonalDetailsUser.id`
+   - `address_id` -> `AddressDetailsUser.id`
+   - `disease_id` -> `DiseaseDetailsUser.id`
 
-- **Many-to-One Relationships**:
-  - `DonorDetail` to `DiseaseDetailsUser`
-  - `DonorDetail` to `AddressDetailsUser`
-  - `ResponseDetails` to `BloodRequestDetails`
+2. \*\*`BloodRequestDetails` Table
 
----
+\*\*:
+
+- `hospital_id` -> `HospitalDetails.id`
+- `response_id` -> `ResponseDetails.id`
+
+## Primary Key IDs:
+
+1. **PersonalDetailsUser**: `id` (e.g., `PDDNR001`)
+2. **AddressDetailsUser**: `id` (e.g., `ADDR001`)
+3. **DiseaseDetailsUser**: `id` (e.g., `DIS001`)
+4. **AuthenticationDetailsAdmin**: `id` (e.g., `AUTHADM001`)
+5. **AdminDetails**: `id` (e.g., `ADMIN001`)
+6. **HospitalDetails**: `id` (e.g., `HOSP001`)
+7. **ResponseDetails**: `id` (e.g., `RESP001`)
+8. **BloodRequestDetails**: `id` (e.g., `BR001`)
+9. **AuthenticationDetailsDonor**: `id` (e.g., `AUTHDNR001`)
+10. **DonorDetail**: `id` (e.g., `DNR001`)
+
+## Primary Key Id Generation Function
+
+```bash
+def get_next_id(table, prefix):
+    # Fetch the current maximum ID, strip the prefix and convert to an integer
+    max_id = db.session.query(table.id).order_by(table.id.desc()).first()
+    next_id_num = 1
+    if max_id:
+        # Extract the numeric part of the ID
+        current_num = int(max_id[0][len(prefix):])
+        next_id_num = current_num + 1
+    # Format the new ID
+    return f"{prefix}{str(next_id_num).zfill(3)}"
+
+#Call This function to generate the next ID for the Following table you have passed
+personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
+```

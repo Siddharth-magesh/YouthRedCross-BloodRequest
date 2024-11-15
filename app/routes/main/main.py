@@ -23,18 +23,18 @@ def render_generate_blood_request():
 def render_AboutUs_Page():
     return render_template('aboutus.html')
 
-'''@main_bp.route('/admin-login')
-def admin_login():
-    return render_template('admin_login.html')'''
+@main_bp.route('/render_donor_login')
+def render_donor_login():
+    return render_template('donor_login.html')
 
-'''@main_bp.route('/generate-request')
-def generate_request():
-    return render_template('generate_request.html')
+@main_bp.route('/render_forget_password_page')
+def render_forget_password_page():
+    return render_template('forget_password_donor.html')
 
-@main_bp.route('/about-us')
-def about_us():
-    return render_template('about_us.html')
+@main_bp.route('/render_blood_banks_page')
+def render_blood_banks_page():
+    return render_template('blood_banks.html')
 
-@main_bp.route('/signing-user')
-def signing_user():
-    return render_template('signing_user.html')'''
+@main_bp.route('/render_forget_password_donor')
+def render_forget_password_donor():
+    return render_template('forget_password_donor.html')

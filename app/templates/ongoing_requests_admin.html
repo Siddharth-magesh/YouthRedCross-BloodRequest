@@ -56,6 +56,9 @@
     </script>
   </head>
   <body>
+    <a href="{{ url_for('admin.render_main_admin_page') }}"
+      >Back to Dashboard</a
+    >
     <div class="container">
       <h1>Ongoing Blood Requests</h1>
       <table>
@@ -160,6 +163,7 @@
                           name="response_status"
                           id="status_success_{{ request.id }}"
                           value="Success"
+                          required
                         />
                         <label for="status_success_{{ request.id }}"
                           >Success</label
@@ -169,6 +173,7 @@
                           name="response_status"
                           id="status_partial_{{ request.id }}"
                           value="Partial Success"
+                          required
                         />
                         <label for="status_partial_{{ request.id }}"
                           >Partial Success</label
@@ -178,6 +183,7 @@
                           name="response_status"
                           id="status_failure_{{ request.id }}"
                           value="Failure"
+                          required
                         />
                         <label for="status_failure_{{ request.id }}"
                           >Failure</label
@@ -206,6 +212,18 @@
                           required
                         />
 
+                        <label for="certificate_status"
+                          ><strong>Certificate Status</strong></label
+                        >
+                        <input
+                          class="input-field"
+                          type="text"
+                          name="certificate_status"
+                          id="certificate_status"
+                          value="NOTSENT"
+                          required
+                        />
+
                         <label for="response_donor_ids"
                           ><strong>Responsed Donor IDs</strong></label
                         >
@@ -219,6 +237,13 @@
 
                         <button type="submit" class="close-button">
                           Close Request
+                        </button>
+                        <button
+                          type="submit"
+                          class="close-button"
+                          formaction="{{ url_for('close_request.close_ongoing_requests_and_send_certificates') }}"
+                        >
+                          Close Request and Send Certificate
                         </button>
                       </form>
                     </td>

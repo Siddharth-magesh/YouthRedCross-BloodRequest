@@ -56,6 +56,9 @@
     </script>
   </head>
   <body>
+    <a href="{{ url_for('admin.render_main_admin_page') }}"
+      >Back to Dashboard</a
+    >
     <div class="container">
       <h1>Expired Blood Requests</h1>
       <table>
@@ -206,6 +209,18 @@
                           required
                         />
 
+                        <label for="Certificate_Status"
+                          ><strong>Certificate Status</strong></label
+                        >
+                        <input
+                          class="input-field"
+                          type="text"
+                          name="certificate_status"
+                          id="certificate_status"
+                          value="NOTSENT"
+                          required
+                        />
+
                         <label for="response_donor_ids"
                           ><strong>Responsed Donor IDs</strong></label
                         >
@@ -219,6 +234,13 @@
 
                         <button type="submit" class="close-button">
                           Close Request
+                        </button>
+                        <button
+                          type="submit"
+                          class="close-button"
+                          formaction="{{ url_for('close_request.close_expired_requests_and_send_certificates') }}"
+                        >
+                          Close Request and Send Certificate
                         </button>
                       </form>
                     </td>

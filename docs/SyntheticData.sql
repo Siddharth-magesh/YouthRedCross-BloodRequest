@@ -26,20 +26,27 @@ INSERT INTO AddressDetailsUser (id, address, pincode, country, state, city) VALU
 ('ADDR009', '1/232B, Omakulam Street, Shakthi Nagar, Periya Mathur, Chennai - 600068', '600009', 'India', 'Tamil Nadu', 'Chennai'),
 ('ADDR010', 'No:5/289,burnar salai,mogappair east, chennai-37.', '600010', 'India', 'Tamil Nadu', 'Chennai');
 
--- Inserting into DiseaseDetailsUser
+-- Insert disease details with unique IDs for each donor
 INSERT INTO DiseaseDetailsUser (id, name, description) VALUES
 ('DIS001', 'Diabetes', 'A disease that occurs when your blood glucose is too high.'),
-('DIS002', 'Hypertension', 'A condition in which the blood vessels have persistently raised pressure.');
+('DIS002', 'Hypertension', 'A condition in which the blood vessels have persistently raised pressure.'),
+('DIS003', 'Diabetes', 'A disease that occurs when your blood glucose is too high.'),
+('DIS004', 'Asthma', 'A respiratory condition that causes difficulty in breathing.'),
+('DIS005', 'Hypertension', 'A condition in which the blood vessels have persistently raised pressure.'),
+('DIS006', 'Heart Disease', 'A range of conditions affecting the heart.'),
+('DIS007', 'Anemia', 'A condition marked by a deficiency of red blood cells.'),
+('DIS008', 'Diabetes', 'A disease that occurs when your blood glucose is too high.'),
+('DIS009', 'Hypertension', 'A condition in which the blood vessels have persistently raised pressure.'),
+('DIS010', 'Asthma', 'A respiratory condition that causes difficulty in breathing.');
 
 -- Inserting into AuthenticationDetailsAdmin
-INSERT INTO AuthenticationDetailsAdmin (id, name, login_date, login_time) VALUES
-('AUTHADM001', 'Admin One', '2024-01-01', '09:00:00'),
-('AUTHADM002', 'Admin Two', '2024-01-02', '10:00:00');
+INSERT INTO AuthenticationDetailsAdmin (id, auth_id, name, login_date, login_time) VALUES
+(1,'AUTHADM001', 'Admin One', '2024-01-01', '09:00:00');
 
 -- Inserting into AdminDetails
-INSERT INTO AdminDetails (id, email, password, username, authentication_id, last_login_date, approved_donation) VALUES
-('ADMIN001', 'admin1@example.com', 'password1', 'admin1', 'AUTHADM001', '2024-01-01', FALSE),
-('ADMIN002', 'admin2@example.com', 'password2', 'admin2', 'AUTHADM002', '2024-01-02', TRUE);
+INSERT INTO AdminDetails (id, email, password, username, authentication_id, vec_registration_number, data_of_birth , mobile_number , department , active_status ,last_login_date, approved_donation) VALUES
+('ADMIN001', 'siddharthmagesh007@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'Siddharth Magesh', 'AUTHADM001', '113222072xxx', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 2),
+('ADMIN002', 'siddha2234@gmail.com', 'scrypt:32768:8:1$O1tTJmR4WSfVwesv$16f2e93c67d374cf3a4cb2f127accac6ffb3cf079748a77e4383cf1b5dd71d6d3b475a85df459ba314101004bf10072811b83ea85dbb4420e4ad11f1a873875e', 'Admin 2', 'AUTHADM002', '113222072xxy', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 0);
 
 -- Inserting into HospitalDetails
 INSERT INTO HospitalDetails (id, hospital_name, hospital_address, pincode, city, state, country, branch, landmark) VALUES
@@ -55,42 +62,34 @@ INSERT INTO HospitalDetails (id, hospital_name, hospital_address, pincode, city,
 ('HOSP010', 'Sakthi Hospital', 'No. 14, K.K. Nagar', '600078', 'Chennai', 'Tamil Nadu', 'India', 'Branch', 'Near K.K. Nagar');
 
 -- Inserting into ResponseDetails
-INSERT INTO ResponseDetails (id, status, report, units_donated, donor_ids) VALUES
-('RESP001', 'Success', 'Blood successfully donated', 2, 'DNR001,DNR002'),
-('RESP002', NULL, NULL, 0, NULL),
-('RESP003', NULL, NULL, 0, NULL),
-('RESP004', NULL, NULL, 0, NULL);
+INSERT INTO ResponseDetails (id, status, report, units_donated, certificate_status, donor_ids) VALUES
+('RESP001', 'Success', 'Blood successfully donated', 2, 'SENT' ,'DNR001,DNR002'),
+('RESP002', NULL, NULL, 0,'NOTSENT',NULL),
+('RESP003', NULL, NULL, 0,'NOTSENT',NULL),
+('RESP004', NULL, NULL, 0,'NOTSENT',NULL);
 
 -- Inserting into BloodRequestDetails
 INSERT INTO BloodRequestDetails (id, patient_name, blood_group, hospital_name, hospital_id, contact_number, patient_age, due_date, request_reason, status, units_required, attendant_name, response_id) VALUES
-('BR001', 'John Smith', 'O+', 'General Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
-('BR002', 'Jane Doe', 'A-', 'City Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
-('BR003', 'Jane Doe 1', 'A-', 'City Hospital', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
-('BR004', 'Jane Doe 2', 'AB-', 'City Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
+('BR001', 'John Smith', 'O+', 'Apollo Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
+('BR002', 'Jane Doe', 'A-', 'Fortis Malar Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
+('BR003', 'Jane Doe 1', 'A-', 'MIOT International', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
+('BR004', 'Jane Doe 2', 'AB-', 'Vijaya Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
 
 
-INSERT INTO AuthenticationDetailsDonor (id, name, login_date, login_time) VALUES
-('AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00'),
-('AUTHDNR002', 'Jane Smith', '2024-01-02', '10:00:00'),
-('AUTHDNR003', 'Alice Johnson', '2024-01-03', '11:00:00'),
-('AUTHDNR004', 'Bob Williams', '2024-01-04', '12:00:00'),
-('AUTHDNR005', 'Charlie Brown', '2024-01-05', '13:00:00'),
-('AUTHDNR006', 'Emily Davis', '2024-01-06', '14:00:00'),
-('AUTHDNR007', 'Michael Miller', '2024-01-07', '15:00:00'),
-('AUTHDNR008', 'Sarah Garcia', '2024-01-08', '16:00:00'),
-('AUTHDNR009', 'David Rodriguez', '2024-01-09', '17:00:00'),
-('AUTHDNR010', 'Sophia Martinez', '2024-01-10', '18:00:00');
+INSERT INTO AuthenticationDetailsDonor (id, auth_id ,name, login_date, login_time) VALUES
+(1 , 'AUTHDNR001', 'John Doe', '2024-01-01', '09:00:00');
 
--- Inserting into DonorDetail
-INSERT INTO DonorDetail (id, name, email, password, blood_group, personal_details_id, address_id, active_status, disease_id, authentication_id, last_donated_date,number_of_times_donated) VALUES
-('DNR001', 'John Doe', 'john.doe@example.com', 'password123', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15',0),
-('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'password123', 'A-', 'PDDNR002', 'ADDR002', TRUE, NULL, 'AUTHDNR002', '2023-05-20',2),
-('DNR003', 'Alice Johnson', 'alice.johnson@example.com', 'password123', 'B+', 'PDDNR003', 'ADDR003', TRUE, 'DIS002', 'AUTHDNR003', '2023-03-10',0),
-('DNR004', 'Bob Williams', 'bob.williams@example.com', 'password123', 'AB-', 'PDDNR004', 'ADDR004', TRUE, NULL, 'AUTHDNR004', '2023-07-20',0),
-('DNR005', 'Charlie Brown', 'charlie.brown@example.com', 'password123', 'O-', 'PDDNR005', 'ADDR005', TRUE, 'DIS001', 'AUTHDNR005', '2023-11-30',0),
-('DNR006', 'Emily Davis', 'emily.davis@example.com', 'password123', 'A+', 'PDDNR006', 'ADDR006', TRUE, NULL, 'AUTHDNR006', '2023-05-21',0),
-('DNR007', 'Michael Miller', 'michael.miller@example.com', 'password123', 'B-', 'PDDNR007', 'ADDR007', TRUE, 'DIS002', 'AUTHDNR007', '2023-09-15',0),
-('DNR008', 'Sarah Garcia', 'sarah.garcia@example.com', 'password123', 'O+', 'PDDNR008', 'ADDR008', TRUE, NULL, 'AUTHDNR008', '2023-04-28',2),
-('DNR009', 'David Rodriguez', '22f3002579@ds.study.iitm.ac.in', 'password123', 'A-', 'PDDNR009', 'ADDR009', TRUE, 'DIS001', 'AUTHDNR009', '2023-08-19',0),
-('DNR010', 'Siddharth Magesh', 'siddharthmagesh007@gmail.com', 'password123', 'AB+', 'PDDNR010', 'ADDR010', TRUE, NULL, 'AUTHDNR010', '2023-01-15',0);
+
+-- Insert donor details with unique disease IDs for each donor
+INSERT INTO DonorDetail (id, name, email, password, blood_group, personal_details_id, address_id, active_status, disease_id, authentication_id, last_donated_date, number_of_times_donated, last_login_date) VALUES
+('DNR001', 'John Doe', 'john.doe@example.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'O+', 'PDDNR001', 'ADDR001', TRUE, 'DIS001', 'AUTHDNR001', '2023-01-15', 0, NULL),
+('DNR002', 'Jane Smith', 'siddha2234@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'A-', 'PDDNR002', 'ADDR002', TRUE, 'DIS002', 'AUTHDNR002', '2023-05-20', 2, NULL),
+('DNR003', 'Alice Johnson', 'alice.johnson@example.com', 'password123', 'B+', 'PDDNR003', 'ADDR003', TRUE, 'DIS003', 'AUTHDNR003', '2023-03-10', 0, NULL),
+('DNR004', 'Bob Williams', 'bob.williams@example.com', 'password123', 'AB-', 'PDDNR004', 'ADDR004', TRUE, 'DIS004', 'AUTHDNR004', '2023-07-20', 0, NULL),
+('DNR005', 'Charlie Brown', 'charlie.brown@example.com', 'password123', 'O-', 'PDDNR005', 'ADDR005', FALSE, 'DIS005', 'AUTHDNR005', '2023-11-30', 0, NULL),
+('DNR006', 'Emily Davis', 'emily.davis@example.com', 'password123', 'A+', 'PDDNR006', 'ADDR006', TRUE, 'DIS006', 'AUTHDNR006', '2023-05-21', 0, NULL),
+('DNR007', 'Michael Miller', 'michael.miller@example.com', 'password123', 'B-', 'PDDNR007', 'ADDR007', TRUE, 'DIS007', 'AUTHDNR007', '2023-09-15', 0, NULL),
+('DNR008', 'Sarah Garcia', 'sarah.garcia@example.com', 'password123', 'O+', 'PDDNR008', 'ADDR008', FALSE, 'DIS008', 'AUTHDNR008', '2023-04-28', 2, NULL),
+('DNR009', 'David Rodriguez', '22f3002579@ds.study.iitm.ac.in', 'password123', 'A-', 'PDDNR009', 'ADDR009', TRUE, 'DIS009', 'AUTHDNR009', '2023-08-19', 0, NULL),
+('DNR010', 'Siddharth Magesh', 'siddharthmagesh007@gmail.com', 'password123', 'AB+', 'PDDNR010', 'ADDR010', TRUE, 'DIS010', 'AUTHDNR010', '2023-01-15', 0, NULL);
 
