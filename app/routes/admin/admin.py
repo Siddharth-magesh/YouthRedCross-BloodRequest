@@ -21,7 +21,6 @@ class AddDonorCSV(FlaskForm):
 @admin_bp.route('/render_admin_login')
 def render_admin_login():
     if not session.get('logged_in'):
-        print("Here")
         return render_template('admin_login.html')
     print("session worked")
     return redirect(url_for('admin.render_main_admin_page'))
@@ -192,7 +191,7 @@ def add_donor_csv():
                 )
                 auth_id = get_next_id(AuthenticationDetailsDonor, 'AUTHDNR')
                 donor_authentication = AuthenticationDetailsDonor(
-                    id=auth_id,
+                    auth_id=auth_id,
                     name = donor_names[i],
                 )
                 if donor_password[i] == donor_confirm_password[i]:
@@ -212,9 +211,6 @@ def add_donor_csv():
                     last_donated_date = donor_last_donation[i],
                     number_of_times_donated = donor_donation_count[i],
                 )
-                # personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
-                # address_id = get_next_id(AddressDetailsUser, 'ADDNR')
-                # disease_id = get_next_id(DiseaseDetailsUser, 'DISNR')
                 db.session.add(personal_details)
                 db.session.commit()
                 db.session.add(address_details)
