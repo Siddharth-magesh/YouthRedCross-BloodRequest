@@ -29,7 +29,7 @@ def convert_to_date(date_strings):
         if is_nan(date):
             date_objects.append(None)
         else:
-            date_objects.append(datetime.strptime(date, '%d/%m/%Y').date())
+            date_objects.append(datetime.strptime(date, '%Y-%m-%d').date())
     return date_objects
 
 def is_donor_active(last_donated_dates):
