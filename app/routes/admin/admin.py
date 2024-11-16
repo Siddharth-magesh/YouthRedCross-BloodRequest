@@ -238,11 +238,11 @@ def add_donor_csv():
                         name=replaced_disease[i],
                         description=donor_disease_details[i]
                     )
-                    auth_id = get_next_id_secondary_function(AuthenticationDetailsDonor, 'AUTHDNR')
-                    donor_authentication = AuthenticationDetailsDonor(
+                    auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
+                    '''donor_authentication = AuthenticationDetailsDonor(
                         auth_id=auth_id,
                         name = donor_names[i],
-                    )
+                    )'''
                     if donor_password[i] == donor_confirm_password[i]:
                         hashed_donor_password = generate_password_hash(donor_password[i],method="scrypt")
                     donor_id = get_next_id(DonorDetail, 'DNR')
@@ -266,8 +266,8 @@ def add_donor_csv():
                     db.session.commit()
                     db.session.add(disease_details)
                     db.session.commit()
-                    db.session.add(donor_authentication)
-                    db.session.commit()
+                    #db.session.add(donor_authentication)
+                    #db.session.commit()
                     db.session.add(donor_detail)
                     db.session.commit()
                     flash("Donor Details Added Successfully")
