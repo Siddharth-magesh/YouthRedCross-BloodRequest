@@ -3,7 +3,6 @@ from nltk.tokenize import word_tokenize
 from datetime import datetime
 import math
 from dateutil.relativedelta import relativedelta
-from sqlalchemy import func
 
 def get_next_id(table, prefix):
     # Fetch the current maximum ID, strip the prefix and convert to an integer
