@@ -223,7 +223,7 @@ def add_donor_csv():
                         marital_status=donor_martial_status[i],
                         aadhar_number=donor_aadhar[i]
                     )
-                    address_id = get_next_id(AddressDetailsUser, 'ADDNR')
+                    address_id = get_next_id(AddressDetailsUser, 'ADDR')
                     address_details = AddressDetailsUser(
                         id=address_id,
                         address=donor_address[i],
@@ -232,17 +232,17 @@ def add_donor_csv():
                         pincode=donor_pincode[i],
                         country=donor_country[i] if not pd.isnull(donor_country[i]) else 'India'
                     )
-                    disease_id = get_next_id(DiseaseDetailsUser, 'DISNR')
+                    disease_id = get_next_id(DiseaseDetailsUser, 'DIS')
                     disease_details = DiseaseDetailsUser(
                         id=disease_id,
                         name=replaced_disease[i],
                         description=donor_disease_details[i]
                     )
-                    auth_id = get_next_id_secondary_function(AuthenticationDetailsDonor, 'AUTHDNR')
-                    donor_authentication = AuthenticationDetailsDonor(
+                    auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
+                    '''donor_authentication = AuthenticationDetailsDonor(
                         auth_id=auth_id,
                         name = donor_names[i],
-                    )
+                    )'''
                     if donor_password[i] == donor_confirm_password[i]:
                         hashed_donor_password = generate_password_hash(donor_password[i],method="scrypt")
                     donor_id = get_next_id(DonorDetail, 'DNR')
@@ -266,8 +266,8 @@ def add_donor_csv():
                     db.session.commit()
                     db.session.add(disease_details)
                     db.session.commit()
-                    db.session.add(donor_authentication)
-                    db.session.commit()
+                    #db.session.add(donor_authentication)
+                    #db.session.commit()
                     db.session.add(donor_detail)
                     db.session.commit()
                     flash("Donor Details Added Successfully")
