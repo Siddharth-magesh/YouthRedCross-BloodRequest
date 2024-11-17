@@ -6,16 +6,15 @@ from dateutil.relativedelta import relativedelta
 from sqlalchemy import func
 
 def get_next_id(table, prefix):
-    last_entry = db.session.query(table).order_by(table.id.desc()).first()
-    if last_entry:
-        last_id = last_entry.id.replace(prefix, '')
-        if last_id.isdigit():
-            new_id = f"{prefix}{int(last_id) + 1:03d}"
-        else:
-            new_id = f"{prefix}001"
-    else:
-        new_id = f"{prefix}001"
-    return new_id
+    # Fetch the current maximum ID, strip the prefix and convert to an integer
+    max_id = db.session.query(table.id).order_by(table.id.desc()).first()
+    next_id_num = 1
+    if max_id:
+        # Extract the numeric part of the ID
+        current_num = int(max_id[0][len(prefix):])
+        next_id_num = current_num + 1
+    # Format the new ID
+    return f"{prefix}{str(next_id_num).zfill(3)}"
 
 
 def get_next_id_secondary_function(table, prefix):
