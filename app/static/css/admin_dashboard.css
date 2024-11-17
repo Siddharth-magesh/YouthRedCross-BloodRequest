@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 10px 20px;
+}
+
+.top-nav img {
+    width: 30px;
+}
+
+.site-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+}
+
+.admin-info {
+    position: relative;
+}
+
+.admin-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 15px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.category {
+    margin-bottom: 40px;
+}
+
+.tiles {
+    display: flex;
+    gap: 20px;
+}
+
+.tile {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 200px;
+    text-align: center;
+}
