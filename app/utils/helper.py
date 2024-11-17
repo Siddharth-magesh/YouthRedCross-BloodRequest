@@ -16,7 +16,6 @@ def get_next_id(table, prefix):
     # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
-
 def get_next_id_secondary_function(table, prefix):
     # Fetch the current maximum ID, strip the prefix and convert to an integer
     max_id = db.session.query(table.authentication_id).order_by(table.authentication_id.desc()).first()
