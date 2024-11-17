@@ -9,7 +9,7 @@ from app.utils.data_manipulations_toDB import FetchDetails
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import pandas as pd
-from app.utils.helper import get_next_id,convert_to_date, is_donor_active, replace_none
+from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function
 from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -238,14 +238,14 @@ def add_donor_csv():
                         name=replaced_disease[i],
                         description=donor_disease_details[i]
                     )
-                    auth_id = get_next_id(AuthenticationDetailsDonor, 'AUTHDNR')
+                    auth_id = get_next_id_secondary_function(AuthenticationDetailsDonor, 'AUTHDNR')
                     donor_authentication = AuthenticationDetailsDonor(
                         auth_id=auth_id,
                         name = donor_names[i],
                     )
                     if donor_password[i] == donor_confirm_password[i]:
                         hashed_donor_password = generate_password_hash(donor_password[i],method="scrypt")
-                    donor_id = get_next_id(AuthenticationDetailsDonor, 'DNR')
+                    donor_id = get_next_id(DonorDetail, 'DNR')
                     donor_detail = DonorDetail(
                         id = donor_id,
                         name = donor_names[i],
