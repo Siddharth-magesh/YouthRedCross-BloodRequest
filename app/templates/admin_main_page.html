@@ -12,7 +12,9 @@
   <body>
     <!-- Top Navigation -->
     <header class="top-nav">
-      <div class="site-name">BloodRequest Site</div>
+      <a href="{{ url_for('main.index') }}" class="website-name"
+        ><div class="site-name">BloodRequest Site</div></a
+      >
       <div class="top-right">
         <div id="date-time"></div>
         <a href="/query_tab" class="icon-link"
@@ -25,7 +27,6 @@
             src="{{ url_for('static', filename='images/admin_dashboard/manual_logo.png') }}"
             alt="Help"
         /></a>
-
         <div class="admin-info">
           <button id="admin-button">
             <img
@@ -33,11 +34,11 @@
               alt="Admin Logo"
               class="admin-logo"
             />
-            <span>Admin_Name</span>
+            <span class="Admin-name">Admin_Name</span>
           </button>
           <div id="admin-dropdown" class="dropdown">
             <a href="{{ url_for('admin.render_admin_profile_page') }}"
-              >Edit Admin Profile</a
+              >Edit Profile</a
             >
             <br />
             <a href="{{ url_for('admin.admin_logout') }}">Logout</a>
@@ -101,6 +102,7 @@
         <li>
           <a href="{{ url_for('admin.render_admin_profile_page') }}">Profile</a>
         </li>
+        <li><a href="{{ url_for('main.index') }}">Back to Home</a></li>
         <li><a href="{{ url_for('admin.admin_logout') }}">Logout</a></li>
       </ul>
     </aside>
@@ -111,46 +113,53 @@
       <section class="category">
         <h2>Manage Blood Request</h2>
         <div class="tiles">
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_new_requests_page') }}"
-                >New Requests</a
-              >
-            </h3>
-            <p>Manage all incoming blood requests. Total: <span>10</span></p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
-                >Ongoing Requests</a
-              >
-            </h3>
-            <p>Track ongoing blood donation requests. Total: <span>5</span></p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_closed_requests_page') }}"
-                >Closed Requests</a
-              >
-            </h3>
-            <p>View completed requests.</p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_expired_requests_page') }}"
-                >Expired Requests</a
-              >
-            </h3>
-            <p>View expired blood requests.</p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_declined_requests_page') }}"
-                >Declined Requests</a
-              >
-            </h3>
-            <p>View declined blood requests. Total: <span>2</span></p>
-          </div>
+          <a
+            href="{{ url_for('admin.render_new_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>New Requests</h3>
+              <p>Manage all incoming blood requests. Total: <span>10</span></p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_ongoing_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Ongoing Requests</h3>
+              <p>
+                Track ongoing blood donation requests. Total: <span>5</span>
+              </p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_closed_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Closed Requests</h3>
+              <p>View completed requests.</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_expired_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Expired Requests</h3>
+              <p>View expired blood requests.</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_declined_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Declined Requests</h3>
+              <p>View declined blood requests. Total: <span>2</span></p>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -158,22 +167,24 @@
       <section class="category">
         <h2>Manage Activities</h2>
         <div class="tiles">
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_new_requests_page') }}"
-                >New Requests</a
-              >
-            </h3>
-            <p>Oversee new activity requests.</p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
-                >Ongoing Requests</a
-              >
-            </h3>
-            <p>Monitor current activities.</p>
-          </div>
+          <a
+            href="{{ url_for('admin.render_new_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>New Requests</h3>
+              <p>Oversee new activity requests.</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_ongoing_requests_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Ongoing Requests</h3>
+              <p>Monitor current activities.</p>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -181,20 +192,21 @@
       <section class="category">
         <h2>Personal Details</h2>
         <div class="tiles">
-          <div class="tile">
-            <h3>
-              <a href="/manual_page">Manual (Help)</a>
-            </h3>
-            <p>Access user guide and help.</p>
-          </div>
-          <div class="tile">
-            <h3>
-              <a href="{{ url_for('admin.render_admin_profile_page') }}"
-                >Profile (Edit)</a
-              >
-            </h3>
-            <p>Update your profile information.</p>
-          </div>
+          <a href="/manual_page" class="tile-link">
+            <div class="tile">
+              <h3>Manual (Help)</h3>
+              <p>Access user guide and help.</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_admin_profile_page') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Profile (Edit)</h3>
+              <p>Update your profile information.</p>
+            </div>
+          </a>
         </div>
       </section>
     </main>
