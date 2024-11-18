@@ -427,3 +427,20 @@ class FetchDetails:
         except Exception as e:
             print(f"An error occurred: {e}")
             raise
+
+    @staticmethod
+    def generate_notifications():
+        try:
+            counts = db.session.query(
+                func.count(BloodRequestDetails.id).label('count'),
+                BloodRequestDetails.status
+            ).filter(
+                BloodRequestDetails.status.in_(['Not_Approved', 'Pending', 'Expired'])
+            ).group_by(
+                BloodRequestDetails.status
+            ).all()
+            status_counts = {row.status: row.count for row in counts}
+            return status_counts
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise

@@ -36,7 +36,9 @@ def render_admin_signup():
 @admin_bp.route('/render_main_admin_page')
 def render_main_admin_page():
     if check_admin_login():
-        return render_template('admin_main_page.html')
+        data = FetchDetails.generate_notifications()
+        #print(data)
+        return render_template('admin_main_page.html',notifications = data)
     else:
         return redirect(url_for('admin.render_admin_login'))
 
