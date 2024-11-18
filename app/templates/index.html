@@ -4,51 +4,118 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Youth Red Cross</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <header>
+    <section class="header">
+      <nav>
+        <a href="index.html"
+          ><img
+            src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
+            alt="logo_home.png"
+            class="vec"
+        /></a>
+        <div class="nav-links">
+          <ul>
+            <li>
+              <a href="{{ url_for('main.render_register_new_donor') }}"
+                >Register New Donor</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_admin_login') }}" class="admin"
+                >Admin Login</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('main.render_donor_login') }}" class="donor"
+                >Donor Login</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
+            </li>
+            <li>
+              <a href="{{ url_for('main.render_blood_banks_page') }}"
+                >Blood Banks</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <div class="body">
       <h1>Welcome to the Youth Red Cross Blood Donation Site</h1>
-    </header>
+      <p>
+        Give blood and save life! Donate blood, donate life <br />Donate
+        blood,save life! Donate blood, give a smile to someone.
+      </p>
+      <a
+        href="{{ url_for('main.render_find_donors_page') }}"
+        class="button"
+        id="button1"
+        >Get Donor</a
+      >
+      <a
+        href="{{ url_for('main.render_generate_blood_request') }}"
+        class="button"
+        id="button2"
+        >Generate Request</a
+      >
 
-    <nav>
-      <ul>
-        <li>
-          <a href="{{ url_for('main.render_find_donors_page') }}">Find Donor</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.render_register_new_donor') }}"
-            >Register New Donor</a
-          >
-        </li>
-        <li>
-          <a href="{{ url_for('main.render_generate_blood_request') }}"
-            >Generate New Request</a
-          >
-        </li>
-        <li>
-          <a href="{{ url_for('admin.render_admin_login') }}">Admin Login</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.render_donor_login') }}">Donor Login</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.render_blood_banks_page') }}"
-            >Blood Banks</a
-          >
-        </li>
-      </ul>
-    </nav>
-
-    <footer>
-      <h3>Follow us on social media</h3>
-      <ul>
-        <li><a href="https://www.instagram.com/yrc_vec">Instagram</a></li>
-        <li><a href="https://www.youtube.com/@YouthRedCrossVEC">YouTube</a></li>
-        <!-- Add more social media links as needed -->
-      </ul>
-    </footer>
+      <p>
+        Are you a New Donor? Click Here for
+        <a
+          href="{{ url_for('main.render_register_new_donor') }}"
+          class="register"
+          >Register Form</a
+        >
+      </p>
+      <h3>Follow us on Social media</h3>
+      <a href="https://www.instagram.com/yrc_vec?igsh=bXQ5dDM0cXpmMHd1"
+        ><img
+          src="{{ url_for('static', filename='images/index/instagram_logo_home.png') }}"
+          class="insta"
+      /></a>
+      <a href="https://www.youtube.com/@YouthRedCrossVEC"
+        ><img
+          src="{{ url_for('static', filename='images/index/youtube_logo_home.png') }}"
+          class="youtube"
+      /></a>
+    </div>
+    youtube_logo_home
+    <marquee behavior="scroll" direction="right"
+      ><img
+        src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
+        alt=""
+        class="vec"
+        loop="infinte"
+        scrollamount="10px"
+      />
+      <img
+        src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
+        alt=""
+        loop="infinte"
+        scrollamount="10px"
+      />
+    </marquee>
   </body>
 </html>
