@@ -37,8 +37,9 @@ def render_admin_signup():
 def render_main_admin_page():
     if check_admin_login():
         data = FetchDetails.generate_notifications()
+        name = session.get('admin_name')
         #print(data)
-        return render_template('admin_main_page.html',notifications = data)
+        return render_template('admin_dashboard.html',notifications = data,admin_name=name)
     else:
         return redirect(url_for('admin.render_admin_login'))
 
