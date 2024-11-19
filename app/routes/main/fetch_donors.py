@@ -15,12 +15,16 @@ distance_calculator = DistanceConfiguration(
 def get_donors():
     if request.method == 'POST':
         blood_group = request.form.get('bloodType')
+        print(blood_group)
         hospital_address = request.form.get('hospital_address')  # Assuming you'll add this input later
 
         # Fetch matched donors based on blood group
         unsorted_data = distance_calculator.fetch_matched_data(blood_group)
         
         if hospital_address:
+            if unsorted_data[0]["Name"] is None:  # Check if donors are unavailable
+                return render_template('fetch_donors.html', donors=None)
+            
             # If a hospital address is provided, sort the donors by proximity
             sorted_data = distance_calculator.sorted_array_min_distance(
                 available_donars=unsorted_data,
@@ -28,6 +32,8 @@ def get_donors():
             )
             return render_template('fetch_donors.html', donors=sorted_data)
         else:
+            if unsorted_data[0]["Name"] is None:  # Check if donors are unavailable
+                return render_template('fetch_donors.html', donors=None)
             # If no hospital address is provided, return donors without distance
             for donor in unsorted_data:
                 donor['distance'] = None  # Set distance to None if no address is provided
