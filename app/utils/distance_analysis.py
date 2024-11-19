@@ -39,7 +39,7 @@ class DistanceConfiguration:
             print("Failed to make Request")
             return float('inf')  # Return infinity if the API request fails
 
-    def fetch_matched_data(self, blood_group):
+    def fetch_matched_data(self, blood_group_provided):
         """
         Fetch active donor data from the MySQL database based on the provided blood group.
 
@@ -73,9 +73,12 @@ class DistanceConfiguration:
                 )
                 .join(PersonalDetailsUser, DonorDetail.personal_details_id == PersonalDetailsUser.id)
                 .join(AddressDetailsUser, DonorDetail.address_id == AddressDetailsUser.id)
-                .filter(DonorDetail.blood_group == blood_group, DonorDetail.active_status == True)
+                .filter(DonorDetail.blood_group == blood_group_provided, DonorDetail.active_status == True)
                 .all()
             )
+
+            if not results:
+                return [{"Name": None, "blood_grp": None, "city": None, "address": None, "status": None}]
 
             result_list = [
                 {

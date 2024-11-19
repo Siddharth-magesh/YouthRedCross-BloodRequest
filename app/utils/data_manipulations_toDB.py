@@ -431,6 +431,7 @@ class FetchDetails:
     @staticmethod
     def generate_notifications():
         try:
+            # Fetch counts for the relevant statuses
             counts = db.session.query(
                 func.count(BloodRequestDetails.id).label('count'),
                 BloodRequestDetails.status
@@ -439,7 +440,10 @@ class FetchDetails:
             ).group_by(
                 BloodRequestDetails.status
             ).all()
-            status_counts = {row.status: row.count for row in counts}
+            status_counts = {'Not_Approved': 0, 'Pending': 0, 'Expired': 0}
+            for row in counts:
+                status_counts[row.status] = row.count
+
             return status_counts
         except Exception as e:
             print(f"An error occurred: {e}")
