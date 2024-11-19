@@ -56,6 +56,7 @@ def validate_admin():
 
         session['admin_id'] = admin.id
         session['logged_in'] = True
+        session['admin_name'] = admin.username
         session.permanent = True
 
         logging_details = AuthenticationDetailsAdmin(
