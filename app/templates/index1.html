@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Youth Red Cross</title>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Youth Red Cross Blood Donation Site</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('main.render_find_donors_page') }}">Find Donor</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_register_new_donor') }}"
+            >Register New Donor</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_generate_blood_request') }}"
+            >Generate New Request</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('admin.render_admin_login') }}">Admin Login</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_donor_login') }}">Donor Login</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_blood_banks_page') }}"
+            >Blood Banks</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <footer>
+      <h3>Follow us on social media</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/yrc_vec">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@YouthRedCrossVEC">YouTube</a></li>
+        <!-- Add more social media links as needed -->
+      </ul>
+    </footer>
+  </body>
+</html>
