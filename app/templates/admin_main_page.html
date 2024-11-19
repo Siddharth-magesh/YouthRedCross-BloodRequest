@@ -118,8 +118,11 @@
             class="tile-link"
           >
             <div class="tile">
+              {% if notifications['Not_Approved'] > 0 %}
+              <span class="badge">{{ notifications['Not_Approved'] }}</span>
+              {% endif %}
               <h3>New Requests</h3>
-              <p>Manage all incoming blood requests. Total: <span>10</span></p>
+              <p>Manage all incoming blood requests.</p>
             </div>
           </a>
           <a
@@ -127,9 +130,12 @@
             class="tile-link"
           >
             <div class="tile">
+              {% if notifications['Pending'] > 0 %}
+              <span class="badge">{{ notifications['Pending'] }}</span>
+              {% endif %}
               <h3>Ongoing Requests</h3>
               <p>
-                Track ongoing blood donation requests. Total: <span>5</span>
+                Track ongoing blood donation requests.
               </p>
             </div>
           </a>
@@ -147,6 +153,9 @@
             class="tile-link"
           >
             <div class="tile">
+              {% if notifications['Expired'] > 0 %}
+              <span class="badge">{{ notifications['Expired'] }}</span>
+              {% endif %}
               <h3>Expired Requests</h3>
               <p>View expired blood requests.</p>
             </div>
@@ -157,7 +166,7 @@
           >
             <div class="tile">
               <h3>Declined Requests</h3>
-              <p>View declined blood requests. Total: <span>2</span></p>
+              <p>View declined blood requests.</p>
             </div>
           </a>
         </div>
