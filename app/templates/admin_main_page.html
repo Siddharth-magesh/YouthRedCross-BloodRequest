@@ -134,9 +134,7 @@
               <span class="badge">{{ notifications['Pending'] }}</span>
               {% endif %}
               <h3>Ongoing Requests</h3>
-              <p>
-                Track ongoing blood donation requests.
-              </p>
+              <p>Track ongoing blood donation requests.</p>
             </div>
           </a>
           <a
@@ -177,21 +175,45 @@
         <h2>Manage Activities</h2>
         <div class="tiles">
           <a
-            href="{{ url_for('admin.render_new_requests_page') }}"
+            href="{{ url_for('admin.render_analytics_page') }}"
             class="tile-link"
           >
             <div class="tile">
-              <h3>New Requests</h3>
-              <p>Oversee new activity requests.</p>
+              <h3>Analytics</h3>
+              <p>View Analytics for Donors</p>
             </div>
           </a>
           <a
-            href="{{ url_for('admin.render_ongoing_requests_page') }}"
+            href="{{ url_for('admin.render_manage_donors_admin_page') }}"
             class="tile-link"
           >
             <div class="tile">
-              <h3>Ongoing Requests</h3>
-              <p>Monitor current activities.</p>
+              <h3>Manage Donors</h3>
+              <p>Manage Donor Details</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_hospital_details_admin') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Manage Hospitals</h3>
+              <p>Manage Hospitals Details</p>
+            </div>
+          </a>
+          <a
+            href="{{ url_for('admin.render_generate_certificate') }}"
+            class="tile-link"
+          >
+            <div class="tile">
+              <h3>Generate Certificates</h3>
+              <p>Generate Certificates for Donors</p>
+            </div>
+          </a>
+          <a href="{{ url_for('admin.add_donor_csv') }}" class="tile-link">
+            <div class="tile">
+              <h3>Extract CSV Data</h3>
+              <p>Extract Donor Details from CSV</p>
             </div>
           </a>
         </div>
