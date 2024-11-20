@@ -1,32 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Specifies character encoding and responsiveness -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login</title>
   </head>
   <body>
-    <h2>Admin Login</h2>
-    <form action="{{ url_for('admin_auth.validate_admin') }}" method="POST">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required /><br /><br />
+    <!-- Section for new user introduction and sign-up information -->
+    <div class="red-shape-content">
+      <h3>New here?</h3>
+      <p>
+        "Join our esteemed community of lifesavers and make a significant
+        impact. By signing up as an admin, you become the backbone of a
+        life-saving mission, ensuring every donation reaches those who need it
+        most".
+        <b><br /><br />Click here to sign up and start making a difference.</b>
+      </p>
+      <!-- Link to sign-up page -->
+      <a
+        href="{{ url_for('admin.render_admin_signup') }}"
+        id="SignUp"
+        class="signup-btn"
+        >Sign Up</a
+      >
+      <!-- Illustrative image -->
+      <img
+        src="{{ url_for('static',filename='images/admin_login/img5.png') }}"
+        class="image"
+        alt="Illustration for new users"
+      />
+    </div>
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        required
-      /><br /><br />
+    <!-- Section for Admin Login Form -->
+    <div class="container">
+      <h2>Admin Login</h2>
+      <form action="{{ url_for('admin_auth.validate_admin') }}" method="POST">
+        <!-- Email input -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required /><br /><br />
 
-      <button type="submit">Login</button>
-    </form>
+        <!-- Password input -->
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+        /><br /><br />
+
+        <!-- Submit button -->
+        <button type="submit">Login</button>
+      </form>
+      <br />
+      <!-- Link to Forget Password page -->
+      <a href="{{ url_for('admin.render_forget_password_admin') }}" id="fp"
+        >Forget Password</a
+      >
+    </div>
     <br />
-    <a href="{{ url_for('admin.render_admin_signup') }}">SignUp</a><br />
-    <a href="{{ url_for('admin.render_forget_password_admin') }}"
-      >Forget Password</a
-    >
-    <br />
-    <a href="{{ url_for('main.index') }}">Return to Home Page</a>
+    <!-- Button to return to the home page -->
+    <button class="top-right-btn">
+      <a href="{{ url_for('main.index') }}">Return to Home Page</a>
+    </button>
   </body>
+
+  <style>
+    /* Resetting default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      height: 100vh;
+      justify-content: flex-end;
+      align-items: flex-end;
+      display: flex;
+      background-color: #f8f8f8;
+      color: #333;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Styling for the login form container */
+    .container {
+      width: 350px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(163, 131, 131, 0.733);
+      text-align: center;
+      position: absolute;
+      bottom: 60px;
+      right: 250px;
+    }
+
+    /* Form styling */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Label and input styling */
+    label,
+    input {
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: bolder;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 5px;
+      border: 2px solid #b30001;
+      border-radius: 10px;
+      margin-top: 3px;
+    }
+
+    /* Header styling */
+    h2 {
+      padding: 10px;
+      margin-bottom: 10px;
+      color: #b30001;
+      font-weight: bolder;
+    }
+
+    /* Button styling */
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #b30001;
+      color: white;
+      font-size: medium;
+      font-weight: bold;
+    }
+
+    /* Link styling */
+    a {
+      color: #b30001;
+      text-decoration: none;
+      margin: 0 5px;
+      display: inline-block;
+      font-size: medium;
+      font-weight: bold;
+      top: 20px;
+    }
+
+    /* Hover effect for links */
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Styling for return button */
+    .top-right-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: #b30001;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Link inside return button */
+    .top-right-btn a {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Hover effect for return button */
+    .top-right-btn:hover {
+      background-color: #b30001;
+    }
+
+    /* Styling for the background circular shape */
+    .container::before {
+      content: "";
+      position: absolute;
+      height: 1500px;
+      width: 1500px;
+      top: -10%;
+      right: 48%;
+      background-image: linear-gradient(-40deg, #b30001, 0%, #b30001 100%);
+      transform: translate(-20%, -60%);
+      border-radius: 50%;
+    }
+
+    /* Styling for the red-shape content section */
+    .red-shape-content {
+      position: absolute;
+      top: 10%; /* Adjust vertical placement */
+      left: 5%; /* Adjust horizontal placement */
+      color: white;
+      text-align: left; /* Align text to the left */
+      z-index: 1;
+      width: 480px; /* Ensure proper width for alignment */
+      padding: 10px; /* Add some padding for better spacing */
+    }
+
+    /* Header styling within red-shape content */
+    .red-shape-content h3 {
+      font-weight: 600;
+      line-height: 1.2;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      text-align: left; /* Ensure heading is aligned to the left */
+    }
+
+    /* Paragraph styling within red-shape content */
+    .red-shape-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      text-align: left; /* Ensure paragraph is aligned to the left */
+      margin-bottom: 15px;
+    }
+
+    /* Signup button styling */
+    .red-shape-content .signup-btn {
+      display: inline-block;
+      margin-top: 10px; /* Add some space between the text and button */
+      padding: 10px;
+      background-color: white;
+      color: #b30001;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    /* Hover effect for signup button */
+    .red-shape-content .signup-btn:hover {
+      background-color: #0a0909;
+      color: white;
+    }
+
+    /* Image styling */
+    .red-shape-content .image {
+      width: 100%; /* Responsive image */
+      max-width: 250px; /* Ensure proper scaling */
+      margin: 20px 0 0 0; /* Add top margin to separate image from text */
+      display: block;
+    }
+  </style>
 </html>
