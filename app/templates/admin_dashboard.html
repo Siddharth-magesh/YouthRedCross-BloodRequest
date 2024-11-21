@@ -1,185 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YRC Blood Request Dashboard</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/revamped.css') }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-  <!-- Header -->
-  <header class="header">
-    <div class="header-logo">
-        <img src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}" alt="Logo" class="logo-img">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YRC Blood Request Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin_dashboard.css') }}"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-logo">
+        <img
+          src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}"
+          alt="Logo"
+          class="logo-img"
+        />
         <h2>YRC Blood Request</h2>
-    </div>    
-    <div class="header-actions">
-      <a class="help-btn" href="/queries"><i class="fa-solid fa-comments"></i> Queries</a>
-      <a class="help-btn" href="/help"><i class="fa-solid fa-circle-question"></i> Help</a>
-      <a class="logout-btn" href="{{ url_for('admin.admin_logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </div>
-  </header>
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
+      </div>
+      <div class="header-actions">
+        <a class="help-btn" href="/queries"
+          ><i class="fa-solid fa-comments"></i> Queries</a
+        >
+        <a class="help-btn" href="/help"
+          ><i class="fa-solid fa-circle-question"></i> Help</a
+        >
+        <a class="logout-btn" href="{{ url_for('admin.admin_logout') }}"
+          ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+        >
+      </div>
+    </header>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
         <nav class="menu">
-         <h4>Manage Requests</h4>
+          <h4>Manage Requests</h4>
           <ul>
-            <li><a href="{{ url_for('admin.render_main_admin_page') }}" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
-            <li><a href="{{ url_for('admin.render_new_requests_page') }}"><i class="fa-solid fa-hand-holding-heart"></i> New Requests</a></li>
-            <li><a href="{{ url_for('admin.render_ongoing_requests_page') }}"><i class="fa-solid fa-spinner"></i> Ongoing Requests</a></li>
-            <li><a href="{{ url_for('admin.render_closed_requests_page') }}"><i class="fa-solid fa-check-circle"></i> Closed Requests</a></li>
-            <li><a href="{{ url_for('admin.render_expired_requests_page') }}"><i class="fa-solid fa-clock"></i> Expired Requests</a></li>
-            <li><a href="{{ url_for('admin.render_declined_requests_page') }}"><i class="fa-solid fa-times-circle"></i> Declined Requests</a></li>
+            <li>
+              <a
+                href="{{ url_for('admin.render_main_admin_page') }}"
+                class="active"
+                ><i class="fa-solid fa-chart-line"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_new_requests_page') }}"
+                ><i class="fa-solid fa-hand-holding-heart"></i> New Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
+                ><i class="fa-solid fa-spinner"></i> Ongoing Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_closed_requests_page') }}"
+                ><i class="fa-solid fa-check-circle"></i> Closed Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_expired_requests_page') }}"
+                ><i class="fa-solid fa-clock"></i> Expired Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_declined_requests_page') }}"
+                ><i class="fa-solid fa-times-circle"></i> Declined Requests</a
+              >
+            </li>
           </ul>
           <div class="separator"></div>
           <h4>Manage Activities</h4>
           <ul>
-            <li><a href="{{ url_for('admin.render_manage_donors_admin_page') }}"><i class="fa-solid fa-users"></i> Manage Donors</a></li>
-            <li><a href="{{ url_for('admin.render_hospital_details_admin') }}"><i class="fa-solid fa-hospital"></i> Manage Hospitals</a></li>
-            <li><a href="{{ url_for('admin.render_generate_certificate') }}"><i class="fa-solid fa-award"></i> Generate Certificates</a></li>
-            <li><a href="{{ url_for('admin.add_donor_csv') }}"><i class="fa-solid fa-file-csv"></i> Extract Donor Details via CSV</a></li>
+            <li>
+              <a href="{{ url_for('admin.render_manage_donors_admin_page') }}"
+                ><i class="fa-solid fa-users"></i> Manage Donors</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_hospital_details_admin') }}"
+                ><i class="fa-solid fa-hospital"></i> Manage Hospitals</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_generate_certificate') }}"
+                ><i class="fa-solid fa-award"></i> Generate Certificates</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.add_donor_csv') }}"
+                ><i class="fa-solid fa-file-csv"></i> Extract Donor Details via
+                CSV</a
+              >
+            </li>
           </ul>
           <div class="separator"></div>
           <h4>Admin Corner</h4>
           <ul>
-            <li><a href="{{ url_for('admin.render_analytics_page') }}"><i class="fa-solid fa-chart-pie"></i> Analytics</a></li>
-            <li><a href="{{ url_for('admin.render_admin_profile_page') }}"><i class="fa-solid fa-user-gear"></i> Admin Profile (Edit)</a></li>
+            <li>
+              <a href="{{ url_for('admin.render_analytics_page') }}"
+                ><i class="fa-solid fa-chart-pie"></i> Analytics</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_admin_profile_page') }}"
+                ><i class="fa-solid fa-user-gear"></i> Admin Profile (Edit)</a
+              >
+            </li>
           </ul>
         </nav>
       </aside>
 
-    <!-- Main Content -->
-    <main class="dashboard">
+      <!-- Main Content -->
+      <main class="dashboard">
         <div class="greeting">
-            <h1>Welcome, {{admin_name}} 👋</h1>
-            <p>YRC Blood Request Dashboard</p>
+          <h1>Welcome, {{admin_name}} 👋</h1>
+          <p>YRC Blood Request Dashboard</p>
         </div>
-      
+
         <div class="card">
-            <h2>Total Active Donors</h2>
-            <div class="card-data">
-                <span>{{active_donors}}+</span>
-                <a class="view-btn"><i class="fa-solid fa-circle-arrow-right"></i></a>
-            </div>
+          <h2>Total Active Donors</h2>
+          <div class="card-data">
+            <span>{{active_donors}}+</span>
+            <a class="view-btn"
+              ><i class="fa-solid fa-circle-arrow-right"></i
+            ></a>
+          </div>
         </div>
 
         <!-- First Category: Manage Blood Request -->
         <section class="category">
-            <h2>Manage Blood Request</h2>
-            <div class="tiles">
-            
-              <a
-                href="{{ url_for('admin.render_new_requests_page') }}"
-                class="tile-link"
-              >
-                <div class="tile">
-                    {% if notifications['Not_Approved'] > 0 %}
-                        <span class="badge">{{ notifications['Not_Approved'] }}</span>
-                    {% endif %}
-                  <h3>New Requests</h3>
-                  <p>Manage all incoming blood requests.</p>
-                </div>
-              </a>
-              <a
-                href="{{ url_for('admin.render_ongoing_requests_page') }}"
-                class="tile-link"
-              >
-                <div class="tile">
-                    {% if notifications['Pending'] > 0 %}
-                    <span class="badge">{{ notifications['Pending'] }}</span>
-                    {% endif %}
-                  <h3>Ongoing Requests</h3>
-                  <p>
-                    Track ongoing blood donation requests. Total: <span>5</span>
-                  </p>
-                </div>
-              </a>
-              <a
-                href="{{ url_for('admin.render_closed_requests_page') }}"
-                class="tile-link"
-              >
-                <div class="tile">
-                  <h3>Closed Requests</h3>
-                  <p>View completed requests.</p>
-                </div>
-              </a>
-              <a
-                href="{{ url_for('admin.render_expired_requests_page') }}"
-                class="tile-link"
-              >
-                <div class="tile">
-                    {% if notifications['Expired'] > 0 %}
-                    <span class="badge">{{ notifications['Expired'] }}</span>
-                    {% endif %}
-                  <h3>Expired Requests</h3>
-                  <p>View expired blood requests.</p>
-                </div>
-              </a>
-              <a
-                href="{{ url_for('admin.render_declined_requests_page') }}"
-                class="tile-link"
-              >
-                <div class="tile">
-                  <h3>Declined Requests</h3>
-                  <p>View declined blood requests. Total: <span>2</span></p>
-                </div>
-              </a>
-            </div>
+          <h2>Manage Blood Request</h2>
+          <div class="tiles">
+            <a
+              href="{{ url_for('admin.render_new_requests_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                {% if notifications['Not_Approved'] > 0 %}
+                <span class="badge">{{ notifications['Not_Approved'] }}</span>
+                {% endif %}
+                <h3>New Requests</h3>
+                <p>Manage all incoming blood requests.</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_ongoing_requests_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                {% if notifications['Pending'] > 0 %}
+                <span class="badge">{{ notifications['Pending'] }}</span>
+                {% endif %}
+                <h3>Ongoing Requests</h3>
+                <p>
+                  Track ongoing blood donation requests. Total: <span>5</span>
+                </p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_closed_requests_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Closed Requests</h3>
+                <p>View completed requests.</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_expired_requests_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                {% if notifications['Expired'] > 0 %}
+                <span class="badge">{{ notifications['Expired'] }}</span>
+                {% endif %}
+                <h3>Expired Requests</h3>
+                <p>View expired blood requests.</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_declined_requests_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Declined Requests</h3>
+                <p>View declined blood requests. Total: <span>2</span></p>
+              </div>
+            </a>
+          </div>
         </section>
 
         <!-- Second Category: Manage Activities -->
-      <section class="category">
-        <h2>Manage Activities</h2>
-        <div class="tiles">
-          <a
-            href="{{ url_for('admin.render_analytics_page') }}"
-            class="tile-link"
-          >
-            <div class="tile">
-              <h3>Analytics</h3>
-              <p>View Analytics for Donors</p>
-            </div>
-          </a>
-          <a
-            href="{{ url_for('admin.render_manage_donors_admin_page') }}"
-            class="tile-link"
-          >
-            <div class="tile">
-              <h3>Manage Donors</h3>
-              <p>Manage Donor Details</p>
-            </div>
-          </a>
-          <a
-            href="{{ url_for('admin.render_hospital_details_admin') }}"
-            class="tile-link"
-          >
-            <div class="tile">
-              <h3>Manage Hospitals</h3>
-              <p>Manage Hospitals Details</p>
-            </div>
-          </a>
-          <a
-            href="{{ url_for('admin.render_generate_certificate') }}"
-            class="tile-link"
-          >
-            <div class="tile">
-              <h3>Generate Certificates</h3>
-              <p>Generate Certificates for Donors</p>
-            </div>
-          </a>
-          <a href="{{ url_for('admin.add_donor_csv') }}" class="tile-link">
-            <div class="tile">
-              <h3>Extract CSV Data</h3>
-              <p>Extract Donor Details from CSV</p>
-            </div>
-          </a>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-</body>
+        <section class="category">
+          <h2>Manage Activities</h2>
+          <div class="tiles">
+            <a
+              href="{{ url_for('admin.render_analytics_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Analytics</h3>
+                <p>View Analytics for Donors</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_manage_donors_admin_page') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Manage Donors</h3>
+                <p>Manage Donor Details</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_hospital_details_admin') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Manage Hospitals</h3>
+                <p>Manage Hospitals Details</p>
+              </div>
+            </a>
+            <a
+              href="{{ url_for('admin.render_generate_certificate') }}"
+              class="tile-link"
+            >
+              <div class="tile">
+                <h3>Generate Certificates</h3>
+                <p>Generate Certificates for Donors</p>
+              </div>
+            </a>
+            <a href="{{ url_for('admin.add_donor_csv') }}" class="tile-link">
+              <div class="tile">
+                <h3>Extract CSV Data</h3>
+                <p>Extract Donor Details from CSV</p>
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>
