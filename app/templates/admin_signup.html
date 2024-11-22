@@ -1,63 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Metadata and Page Title -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Sign Up</title>
+
+    <!-- Internal CSS for Styling -->
+    <style>
+      /* Reset default browser styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body styles to center the content */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f8f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Container for the signup form */
+      .signup-container {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 25px;
+        width: 380px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        position: relative;
+        bottom: 5px;
+        left: 300px;
+      }
+
+      /* Red curved background effect */
+      .signup-container::before {
+        content: "";
+        position: absolute;
+        height: 1500px;
+        width: 1500px;
+        top: -10%;
+        right: 48%;
+        background-image: linear-gradient(-40deg, #b30001, 0%, #b30001 100%);
+        transform: translate(-20%, -50%);
+        border-radius: 50%;
+      }
+
+      /* Form heading style */
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: bolder;
+        color: #b30001;
+      }
+
+      /* Form step visibility management */
+      .form-step {
+        display: none;
+      }
+
+      /* Active form step */
+      .form-step.active {
+        display: block;
+      }
+
+      /* Input group styling */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      /* Label styling */
+      .form-group label {
+        font-size: 15px;
+        font-weight: bold;
+        color: #0e0b0b;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* Input field styling */
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #b30001;
+        border-radius: 20px;
+        font-size: 14px;
+      }
+
+      /* Button styling */
+      button {
+        padding: 12px;
+        background: #b30001;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      /* Button hover effect */
+      button:hover {
+        background: #b30001;
+      }
+
+      /* Grouping buttons for navigation */
+      .button-group {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* Individual button widths for navigation */
+      .button-group button {
+        width: 48%;
+      }
+
+      /* Red shape content - informative text and image */
+      .red-shape-content {
+        position: absolute;
+        top: -5px;
+        left: -750px;
+        color: white;
+        text-align: center;
+        z-index: 1;
+        width: 400px;
+      }
+
+      /* Red shape text */
+      .red-shape-content p {
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        line-height: 1.5;
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* Signup button styling */
+      .red-shape-content .signup-btn {
+        display: inline-block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        background-color: white;
+        color: #b30001;
+        font-weight: bold;
+        font-size: 1rem;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-decoration: none;
+      }
+
+      /* Signup button hover effect */
+      .red-shape-content .signup-btn:hover {
+        background-color: #0a0909;
+        color: white;
+      }
+
+      /* Image styling inside the red shape */
+      .red-shape-content .image {
+        width: 100%;
+        max-width: 350px;
+        margin: 10px auto 0 auto;
+        display: block;
+      }
+
+      /* Arrow container styling */
+      .arrow-container {
+        position: absolute;
+        top: 10%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 10;
+        color: rgb(20, 17, 17);
+        font-family: "Poppins", sans-serif;
+        font-size: 18px;
+      }
+
+      /* Arrow animation */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Bouncing arrow image */
+      .arrow-image {
+        margin-top: 140px;
+        width: 80px;
+        height: auto;
+        animation: bounce 1s infinite;
+      }
+    </style>
   </head>
   <body>
+    <!-- Arrow container pointing to the form -->
+    <div class="arrow-container">
+      <img
+        src="{{ url_for('static',filename='images/admin_signup/arrow.png') }}"
+        alt="Arrow pointing to the form"
+        class="arrow-image"
+      />
+    </div>
+
+    <!-- Signup form container -->
     <div class="signup-container">
+      <!-- Informative text and image -->
+      <div class="red-shape-content">
+        <p>
+          "Behind every blood donor is a silent hero like you. By joining our
+          dedicated admin team, you ensure every precious drop of blood saves a
+          life. Together, we can connect donors to those in urgent need,
+          bringing hope and second chances to families."
+        </p>
+        <img
+          src="{{ url_for('static',filename='images/admin_signup/img4.png') }}"
+          class="image"
+          alt="Illustration for new users"
+        />
+      </div>
+
+      <!-- Form title -->
       <h2>Admin Sign Up</h2>
+
+      <!-- Multi-step form -->
       <form
+        id="signupForm"
         action="{{ url_for('admin_auth.register_new_admin') }}"
         method="POST"
       >
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required /><br />
+        <!-- Step 1 -->
+        <div class="form-step active" id="step1">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              required
+            />
+          </div>
+          <button type="button" id="nextBtn">Next</button>
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required /><br />
-
-        <label for="password">Confirm Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="confirm_password"
-          required
-        /><br />
-
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required /><br />
-
-        <label for="vec_registration_number">VEC Registration Number:</label>
-        <input
-          type="text"
-          id="vec_registration_number"
-          name="vec_registration_number"
-          required
-        /><br />
-
-        <label for="date_of_birth">Date of Birth:</label>
-        <input
-          type="date"
-          id="date_of_birth"
-          name="date_of_birth"
-          required
-        /><br />
-
-        <label for="mobile_number">Mobile Number:</label>
-        <input
-          type="tel"
-          id="mobile_number"
-          name="mobile_number"
-          required
-        /><br />
-
-        <label for="department">Department:</label>
-        <input type="text" id="department" name="department" /><br />
-
-        <button type="submit">Sign Up</button>
+        <!-- Step 2 -->
+        <div class="form-step" id="step2">
+          <div class="form-group">
+            <label for="vec_registration_number"
+              >VEC Registration Number:</label
+            >
+            <input
+              type="text"
+              id="vec_registration_number"
+              name="vec_registration_number"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="date_of_birth">Date of Birth:</label>
+            <input
+              type="date"
+              id="date_of_birth"
+              name="date_of_birth"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="mobile_number">Mobile Number:</label>
+            <input
+              type="tel"
+              id="mobile_number"
+              name="mobile_number"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" />
+          </div>
+          <div class="button-group">
+            <button type="button" id="prevBtn">Previous</button>
+            <button type="submit">Sign Up</button>
+          </div>
+        </div>
       </form>
     </div>
+
+    <!-- Script for multi-step form navigation -->
+    <script>
+      const nextBtn = document.getElementById("nextBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const step1 = document.getElementById("step1");
+      const step2 = document.getElementById("step2");
+
+      // Go to Step 2
+      nextBtn.addEventListener("click", () => {
+        step1.classList.remove("active");
+        step2.classList.add("active");
+      });
+
+      // Go back to Step 1
+      prevBtn.addEventListener("click", () => {
+        step2.classList.remove("active");
+        step1.classList.add("active");
+      });
+    </script>
   </body>
 </html>
