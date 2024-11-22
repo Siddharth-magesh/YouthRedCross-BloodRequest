@@ -226,7 +226,7 @@
 .tile {
     width: 200px;
     height: 150px;
-    padding: 20px;
+    padding: 20px 20px 50px 20px; /* Add bottom padding to prevent overlap */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #ffffff;
@@ -256,7 +256,7 @@
 }
 
 .tile-link .tile {
-    padding: 10px;
+    padding: 10px 10px 50px 10px; /* Add bottom padding to prevent overlap */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin: 8px;
@@ -270,6 +270,7 @@
     justify-content: center; 
     align-items: center; 
     box-sizing: border-box;
+    position: relative;
 }
 
 .tile-link .tile:hover {
@@ -277,4 +278,24 @@
     cursor: pointer;
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tile .view-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #BF0001;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    z-index: 1; /* Ensure view-btn is above other elements */
+}
+
+.tile .view-btn:hover {
+    background-color: #c82f3d;
 }

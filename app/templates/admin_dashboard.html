@@ -80,6 +80,8 @@
                     {% endif %}
                   <h3>New Requests</h3>
                   <p>Manage all incoming blood requests.</p>
+                
+                <a class="view-btn" href="{{ url_for('admin.render_new_requests_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
                 </div>
               </a>
               <a
@@ -92,8 +94,9 @@
                     {% endif %}
                   <h3>Ongoing Requests</h3>
                   <p>
-                    Track ongoing blood donation requests. Total: <span>5</span>
+                    Track ongoing blood donation requests.
                   </p>
+                  <a class="view-btn" href="{{ url_for('admin.render_ongoing_requests_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
                 </div>
               </a>
               <a
@@ -103,6 +106,7 @@
                 <div class="tile">
                   <h3>Closed Requests</h3>
                   <p>View completed requests.</p>
+                  <a class="view-btn" href="{{ url_for('admin.render_closed_requests_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
                 </div>
               </a>
               <a
@@ -115,6 +119,7 @@
                     {% endif %}
                   <h3>Expired Requests</h3>
                   <p>View expired blood requests.</p>
+                  <a class="view-btn" href="{{ url_for('admin.render_expired_requests_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
                 </div>
               </a>
               <a
@@ -123,7 +128,8 @@
               >
                 <div class="tile">
                   <h3>Declined Requests</h3>
-                  <p>View declined blood requests. Total: <span>2</span></p>
+                  <p>View declined blood requests.</p>
+                  <a class="view-btn" href="{{ url_for('admin.render_declined_requests_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
                 </div>
               </a>
             </div>
@@ -140,6 +146,7 @@
             <div class="tile">
               <h3>Analytics</h3>
               <p>View Analytics for Donors</p>
+              <a class="view-btn" href="{{ url_for('admin.render_analytics_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </a>
           <a
@@ -149,6 +156,7 @@
             <div class="tile">
               <h3>Manage Donors</h3>
               <p>Manage Donor Details</p>
+              <a class="view-btn" href="{{ url_for('admin.render_manage_donors_admin_page') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </a>
           <a
@@ -158,6 +166,7 @@
             <div class="tile">
               <h3>Manage Hospitals</h3>
               <p>Manage Hospitals Details</p>
+              <a class="view-btn" href="{{ url_for('admin.render_hospital_details_admin') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </a>
           <a
@@ -167,12 +176,14 @@
             <div class="tile">
               <h3>Generate Certificates</h3>
               <p>Generate Certificates for Donors</p>
+              <a class="view-btn" href="{{ url_for('admin.render_generate_certificate') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </a>
           <a href="{{ url_for('admin.add_donor_csv') }}" class="tile-link">
             <div class="tile">
               <h3>Extract CSV Data</h3>
               <p>Extract Donor Details from CSV</p>
+              <a class="view-btn" href="{{ url_for('admin.add_donor_csv') }}"><i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </a>
         </div>
