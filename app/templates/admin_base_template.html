@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YRC Blood Request Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin_dashboard.css') }}"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-logo">
+        <img
+          src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}"
+          alt="Logo"
+          class="logo-img"
+        />
+        <h2>YRC Blood Request</h2>
+      </div>
+      <div class="header-actions">
+        <a class="help-btn" href="/queries"
+          ><i class="fa-solid fa-comments"></i> Queries</a
+        >
+        <a class="help-btn" href="/help"
+          ><i class="fa-solid fa-circle-question"></i> Help</a
+        >
+        <a class="logout-btn" href="{{ url_for('admin.admin_logout') }}"
+          ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+        >
+      </div>
+    </header>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <nav class="menu">
+          <h4>Manage Requests</h4>
+          <ul>
+            <li>
+              <a
+                href="{{ url_for('admin.render_main_admin_page') }}"
+                class="active"
+                ><i class="fa-solid fa-chart-line"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_new_requests_page') }}"
+                ><i class="fa-solid fa-hand-holding-heart"></i> New Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
+                ><i class="fa-solid fa-spinner"></i> Ongoing Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_closed_requests_page') }}"
+                ><i class="fa-solid fa-check-circle"></i> Closed Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_expired_requests_page') }}"
+                ><i class="fa-solid fa-clock"></i> Expired Requests</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_declined_requests_page') }}"
+                ><i class="fa-solid fa-times-circle"></i> Declined Requests</a
+              >
+            </li>
+          </ul>
+          <div class="separator"></div>
+          <h4>Manage Activities</h4>
+          <ul>
+            <li>
+              <a href="{{ url_for('admin.render_manage_donors_admin_page') }}"
+                ><i class="fa-solid fa-users"></i> Manage Donors</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_hospital_details_admin') }}"
+                ><i class="fa-solid fa-hospital"></i> Manage Hospitals</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_generate_certificate') }}"
+                ><i class="fa-solid fa-award"></i> Generate Certificates</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.add_donor_csv') }}"
+                ><i class="fa-solid fa-file-csv"></i> Extract Donor Details via
+                CSV</a
+              >
+            </li>
+          </ul>
+          <div class="separator"></div>
+          <h4>Admin Corner</h4>
+          <ul>
+            <li>
+              <a href="{{ url_for('admin.render_analytics_page') }}"
+                ><i class="fa-solid fa-chart-pie"></i> Analytics</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('admin.render_admin_profile_page') }}"
+                ><i class="fa-solid fa-user-gear"></i> Admin Profile (Edit)</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      {% block content %} {% endblock %}
+    </div>
+  </body>
+</html>

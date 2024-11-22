@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Closed Blood Requests</title>
+{% extends "admin_base_template.html" %} {% block content %}
     <style>
       .details-row {
         display: none;
@@ -20,9 +15,10 @@
         background-color: #0056b3;
       }
       .container {
+        margin-top: 0%;
         max-width: 800px;
         margin: auto;
-        padding: 20px;
+        padding: 10px;
         font-family: Arial, sans-serif;
       }
       table {
@@ -47,11 +43,7 @@
           element.style.display === "table-row" ? "none" : "table-row";
       }
     </script>
-  </head>
   <body>
-    <a href="{{ url_for('admin.render_main_admin_page') }}"
-      >Back to Dashboard</a
-    >
     <div class="container">
       <h1>Closed Blood Requests</h1>
       <table>
@@ -168,3 +160,4 @@
     </div>
   </body>
 </html>
+{% endblock %}

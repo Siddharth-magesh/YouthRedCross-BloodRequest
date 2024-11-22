@@ -1,5 +1,4 @@
-# app/routes/find_donor.py
-from flask import Blueprint, render_template, request
+from flask import Blueprint, request, jsonify
 from app.utils.distance_analysis import DistanceConfiguration
 from app.config import Config
 
@@ -11,34 +10,31 @@ distance_calculator = DistanceConfiguration(
     base_url=val.BASE_MAPS_URL
 )
 
-@fetch_availabe_donors.route('/get_donors', methods=['GET', 'POST'])
+@fetch_availabe_donors.route('/get_donors', methods=['POST'])
 def get_donors():
-    if request.method == 'POST':
-        blood_group = request.form.get('bloodType')
-        print(blood_group)
-        hospital_address = request.form.get('hospital_address')  # Assuming you'll add this input later
+    try:
+        # Parse incoming JSON data
+        data = request.get_json()
+        blood_group = data.get('bloodType')
+        hospital_address = data.get('hospitalAddress')
 
-        # Fetch matched donors based on blood group
-        unsorted_data = distance_calculator.fetch_matched_data(blood_group)
+        if not blood_group:
+            return jsonify({"error": "Blood group is required"}), 400
         
+        unsorted_data = distance_calculator.fetch_matched_data(blood_group)
+
+        if not unsorted_data or unsorted_data[0].get("Name") is None:
+            return jsonify([])
+
         if hospital_address:
-            if unsorted_data[0]["Name"] is None:  # Check if donors are unavailable
-                return render_template('fetch_donors.html', donors=None)
-            
-            # If a hospital address is provided, sort the donors by proximity
             sorted_data = distance_calculator.sorted_array_min_distance(
                 available_donars=unsorted_data,
                 target_address=hospital_address
             )
-            return render_template('fetch_donors.html', donors=sorted_data)
+            return jsonify(sorted_data) 
         else:
-            if unsorted_data[0]["Name"] is None:  # Check if donors are unavailable
-                return render_template('fetch_donors.html', donors=None)
-            # If no hospital address is provided, return donors without distance
             for donor in unsorted_data:
-                donor['distance'] = None  # Set distance to None if no address is provided
-            return render_template('fetch_donors.html', donors=unsorted_data)
-    
-    # Render the page without donor data for GET request
-    return render_template('fetch_donors.html', donors=[])
-
+                donor['distance'] = None
+            return jsonify(unsorted_data) 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
