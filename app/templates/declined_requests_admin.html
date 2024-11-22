@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Declined Blood Requests</title>
+{% extends "admin_base_template.html" %} {% block content %}
     <style>
       .details-row {
         display: none;
@@ -47,11 +42,7 @@
           element.style.display === "table-row" ? "none" : "table-row";
       }
     </script>
-  </head>
   <body>
-    <a href="{{ url_for('admin.render_main_admin_page') }}"
-      >Back to Dashboard</a
-    >
     <div class="container">
       <h1>Declined Blood Requests</h1>
       <table>
@@ -168,3 +159,4 @@
     </div>
   </body>
 </html>
+{% endblock %}
