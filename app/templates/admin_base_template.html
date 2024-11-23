@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block customTitle %}{% endblock %}
-    </title>
+    <title>{% block customTitle %}{% endblock %}</title>
     {% block customCSS %}{% endblock %}
     <link
       rel="stylesheet"
@@ -22,11 +21,12 @@
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <img
-          src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}"
-          alt="Logo"
-          class="logo-img"
-        />
+        <a href="{{ url_for('main.index') }}">
+          <img
+            src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}"
+            alt="Logo"
+            class="logo-img"
+        /></a>
         <h2>YRC Blood Request</h2>
       </div>
       <div class="header-actions">
@@ -126,25 +126,26 @@
       <div class="sidebar-overlay"></div>
       <!-- Dashboard Content -->
       {% block dashboard %}{% endblock %}
-      
 
       <!-- Main Content -->
       <main>{% block content %} {% endblock %}</main>
     </div>
     <script>
       function toggleSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.sidebar-overlay');
-        sidebar.classList.toggle('visible');
-        overlay.classList.toggle('active');
+        const sidebar = document.querySelector(".sidebar");
+        const overlay = document.querySelector(".sidebar-overlay");
+        sidebar.classList.toggle("visible");
+        overlay.classList.toggle("active");
       }
-    
+
       // Close sidebar when overlay is clicked
-      document.querySelector('.sidebar-overlay').addEventListener('click', () => {
-        document.querySelector('.sidebar').classList.remove('visible');
-        document.querySelector('.sidebar-overlay').classList.remove('active');
-      });
-    </script>    
+      document
+        .querySelector(".sidebar-overlay")
+        .addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.remove("visible");
+          document.querySelector(".sidebar-overlay").classList.remove("active");
+        });
+    </script>
     {% block customJS %}{% endblock %}
   </body>
 </html>
