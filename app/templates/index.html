@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Metadata and Font Links -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Youth Red Cross</title>
+    <!-- External CSS -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/index.css') }}"
     />
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,6 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -24,35 +28,54 @@
     />
   </head>
   <body>
+    <!-- Header Section -->
     <section class="header">
       <nav>
-        <a href="index.html"
+        <!-- Navigation Logos -->
+        <a href="{{ url_for('main.index') }}"
           ><img
             src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
             alt="logo_home.png"
-            class="vec"
+            class="lbs"
         /></a>
+        <img
+          src="{{ url_for('static', filename='images/index/logo_home.png') }}"
+          alt="College logo"
+          class="vec"
+        />
+        <img
+          src="{{ url_for('static', filename='images/index/yrc_logo.jpg') }}"
+          alt="College logo"
+          class="yrc"
+        />
+
+        <!-- Navigation Links -->
         <div class="nav-links">
           <ul>
             <li>
+              <!-- Register New Donor Link -->
               <a href="{{ url_for('main.render_register_new_donor') }}"
                 >Register New Donor</a
               >
             </li>
             <li>
+              <!-- Admin Login Link -->
               <a href="{{ url_for('admin.render_admin_login') }}" class="admin"
                 >Admin Login</a
               >
             </li>
             <li>
+              <!-- Donor Login Link -->
               <a href="{{ url_for('main.render_donor_login') }}" class="donor"
                 >Donor Login</a
               >
             </li>
             <li>
+              <!-- About Us Link -->
               <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
             </li>
             <li>
+              <!-- Blood Banks Link -->
               <a href="{{ url_for('main.render_blood_banks_page') }}"
                 >Blood Banks</a
               >
@@ -62,17 +85,21 @@
       </nav>
     </section>
 
+    <!-- Body Section -->
     <div class="body">
+      <!-- Welcome Message -->
       <h1>Welcome to the Youth Red Cross Blood Donation Site</h1>
       <p>
-        Give blood and save life! Donate blood, donate life <br />Donate
-        blood,save life! Donate blood, give a smile to someone.
+        Give blood, ignite a life! Be the light in someone's dark.<br />A single
+        drop can create a ripple of hope , your kindness today saves a heartbeat
+        tomorrow.
       </p>
+      <!-- Action Buttons -->
       <a
         href="{{ url_for('main.render_find_donors_page') }}"
         class="button"
         id="button1"
-        >Get Donor</a
+        >Find Donor</a
       >
       <a
         href="{{ url_for('main.render_generate_blood_request') }}"
@@ -80,7 +107,7 @@
         id="button2"
         >Generate Request</a
       >
-
+      <!-- Registration Link -->
       <p>
         Are you a New Donor? Click Here for
         <a
@@ -89,10 +116,11 @@
           >Register Form</a
         >
       </p>
+      <!-- Social Media Links -->
       <h3>Follow us on Social media</h3>
       <a href="https://www.instagram.com/yrc_vec?igsh=bXQ5dDM0cXpmMHd1"
         ><img
-          src="{{ url_for('static', filename='images/index/instagram_logo_home.png') }}"
+          src="{{ url_for('static', filename='images/index/instagram_logo_home.png ') }}"
           class="insta"
       /></a>
       <a href="https://www.youtube.com/@YouthRedCrossVEC"
@@ -101,21 +129,24 @@
           class="youtube"
       /></a>
     </div>
-    youtube_logo_home
-    <marquee behavior="scroll" direction="right"
-      ><img
-        src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
-        alt=""
-        class="vec"
-        loop="infinte"
-        scrollamount="10px"
-      />
-      <img
-        src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
-        alt=""
-        loop="infinte"
-        scrollamount="10px"
-      />
-    </marquee>
+
+    <!-- Footer Section -->
+    <div class="foot">
+      <div class="foot-content">
+        <span>Powered by Velammal Engineering College</span>
+        <!-- Footer Logos -->
+        <img
+          src="{{ url_for('static', filename='images/index/vec_logo.jpg') }}"
+          class="flog"
+          alt="College logo"
+        />
+        <span>Coordinated by YRC</span>
+        <img
+          src="{{ url_for('static', filename='images/index/yrc_logo.jpg') }}"
+          class="tlog"
+          alt="YRC logo"
+        />
+      </div>
+    </div>
   </body>
 </html>
