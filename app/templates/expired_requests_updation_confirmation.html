@@ -3,15 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/expired_requests_updation_confirmation.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Document</title>
   </head>
   <body>
-    Successfully Updated the Request
-    <br /><a href="{{ url_for('admin.render_expired_requests_page') }}"
-      >Back to Expired Requests</a
-    >
-    <br /><a href="{{ url_for('admin.render_main_admin_page') }}"
-      >Back to DashBoard</a
-    >
+    <img
+      src="{{ url_for('static',filename='images/expiration_page/icon.png') }}icon.png"
+      alt="icon.png"
+    />
+    <div class="container">
+      <h1>Successfully!</h1>
+      <p>Updated the Request</p>
+      <a href="{{ url_for('admin.render_expired_requests_page') }}"
+        >Back to Expired Requests</a
+      >
+      <a href="{{ url_for('admin.render_main_admin_page') }}"
+        >Back to DashBoard</a
+      >
+    </div>
   </body>
 </html>
