@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <title>Generate Blood Request</title>
     <style>
       .autocomplete-suggestions {
@@ -20,103 +26,308 @@
       .autocomplete-suggestion:hover {
         background: #f0f0f0;
       }
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fef7f7;
+      }
+      /* Navbar styling */
+      .navbar {
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+      }
+      .navbar a {
+        color: #b30101;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+      .outer {
+        border: 1px solid hsla(0, 0%, 0%, 0.2);
+        background-color: #fff5f5;
+        padding-left: 0;
+        padding-right: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+        margin: 50px;
+      }
+      .heading {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        height: 12.6rem;
+        background-color: #86020f;
+        margin: 0;
+        color: #f9eae8;
+      }
+
+      /* Styles for the image container within the heading */
+      .image {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        width: 26%;
+      }
+
+      /* Styles for the content area inside the heading */
+      .content {
+        margin-top: 20px;
+      }
+
+      /* Styles for the description text inside the heading */
+      .description {
+        margin-top: 14px;
+      }
+
+      /* Styles for the image inside the .image container */
+      .image img {
+        object-fit: cover;
+        object-position: 50% -20px;
+        height: 100%;
+        width: 100%;
+      }
+      /*padding for all elements besides header */
+      .pad {
+        padding: 20px;
+      }
+      label,
+      input {
+        display: block;
+        width: 50%;
+      }
+      label {
+        font-weight: bold;
+        color: #b30101;
+      }
+      input.form-control,
+      select.form-control,
+      textarea.form-control {
+        margin-top: 0; /* Adjust the top margin of input elements */
+      }
+      button {
+        width: 100%;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        background-color: #b30101;
+        font-size: 16px;
+        padding: 10px 20px;
+        transition: background-color 0.6s ease;
+      }
+      button:hover {
+        background-color: #8e0101; /* Slightly darker shade */
+      }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h2>Generate Blood Request</h2>
-      <form
-        method="POST"
-        action="{{ url_for('generate_blood_request.generate_bloodRequest') }}"
-      >
-        <label for="patient_name">Patient Name:</label><br />
-        <input
-          type="text"
-          id="patient_name"
-          name="patient_name"
-          required
-        /><br />
+    <nav class="navbar navbar-expand-lg fixed-top px-4">
+      <div class="container-fluid">
+        <div class="ms-auto">
+          <a href="{{ url_for('main.index') }}">Return to Home Page</a>
+        </div>
+      </div>
+    </nav>
+    <div class="outer container col-12">
+      <!--<h2>Generate Blood Request</h2>-->
+      <header>
+        <div class="heading container row">
+          <div class="image col-4">
+            <img
+              src="{{ url_for('static',filename='images/generate_requests/image.jpg') }}"
+              class=""
+              alt="image_here"
+            />
+          </div>
+          <div class="col-4 offset-4">
+            <div class="content">
+              <div class="title">
+                <h4>
+                  GENERATE BLOOD <br />
+                  REQUEST FORM
+                </h4>
+              </div>
+              <div class="description">
+                <p>
+                  Fill out this form to generate <br />
+                  a blood request
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="pad">
+        <form
+          method="POST"
+          action="{{ url_for('generate_blood_request.generate_bloodRequest') }}"
+        >
+          <div class="col-8">
+            <label for="patient_name">Patient Name:</label><br />
+            <input
+              type="text"
+              id="patient_name"
+              name="patient_name"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="attendant_name">Attendant Name:</label><br />
-        <input
-          type="text"
-          id="attendant_name"
-          name="attendant_name"
-          required
-        /><br />
+          <div class="col-8">
+            <label for="attendant_name">Attendant Name:</label><br />
+            <input
+              type="text"
+              id="attendant_name"
+              name="attendant_name"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="blood_group">Blood Group:</label><br />
-        <select id="blood_group" name="blood_group" required>
-          <option value="">Select Blood Group</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option></select
-        ><br />
+          <div class="col-8">
+            <label for="blood_group">Blood Group:</label><br />
+            <select
+              id="blood_group"
+              name="blood_group"
+              class="form-control"
+              required
+            >
+              <option value="">Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+          <br />
 
-        <label for="hospital_name">Hospital Name:</label><br />
-        <input
-          type="text"
-          id="hospital_name"
-          name="hospital_name"
-          autocomplete="off"
-          required
-        /><br />
-        <input type="hidden" id="hospital_id" name="hospital_id" value="None" />
-        <div id="suggestionsContainer" class="autocomplete-suggestions"></div>
-        <br />
+          <div class="col-8">
+            <label for="hospital_name">Hospital Name:</label><br />
+            <input
+              type="text"
+              id="hospital_name"
+              name="hospital_name"
+              autocomplete="off"
+              class="form-control"
+              required
+            /><br />
+            <input
+              type="hidden"
+              id="hospital_id"
+              name="hospital_id"
+              value="None"
+            />
+            <div
+              id="suggestionsContainer"
+              class="autocomplete-suggestions"
+            ></div>
+          </div>
+          <br />
 
-        <label for="hospital_address">Hospital Address:</label><br />
-        <input
-          type="text"
-          id="hospital_address"
-          name="hospital_address"
-          required
-        /><br />
+          <div class="col-8">
+            <label for="hospital_address">Hospital Address:</label><br />
+            <input
+              type="text"
+              id="hospital_address"
+              name="hospital_address"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="contact_number">Contact Number:</label><br />
-        <input
-          type="tel"
-          id="contact_number"
-          name="contact_number"
-          required
-        /><br />
+          <div class="col-8">
+            <label for="contact_number">Contact Number:</label><br />
+            <input
+              type="tel"
+              id="contact_number"
+              name="contact_number"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="patient_age">Patient Age:</label><br />
-        <input
-          type="number"
-          id="patient_age"
-          name="patient_age"
-          required
-        /><br />
+          <div class="col-8">
+            <label for="patient_age">Patient Age:</label><br />
+            <input
+              type="number"
+              id="patient_age"
+              name="patient_age"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="pincode">Pincode:</label><br />
-        <input type="text" id="pincode" name="pincode" required /><br />
+          <div class="col-8">
+            <label for="pincode">Pincode:</label><br />
+            <input
+              type="text"
+              id="pincode"
+              name="pincode"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="landmark">Landmark:</label><br />
-        <input type="text" id="landmark" name="landmark" /><br />
+          <div class="col-8">
+            <label for="landmark">Landmark:</label><br />
+            <input
+              type="text"
+              id="landmark"
+              name="landmark"
+              class="form-control"
+            />
+          </div>
+          <br />
 
-        <label for="due_date">Due Date:</label><br />
-        <input type="date" id="due_date" name="due_date" required /><br />
+          <div class="col-8">
+            <label for="due_date">Due Date:</label><br />
+            <input
+              type="date"
+              id="due_date"
+              name="due_date"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <label for="request_reason">Request Reason:</label><br />
-        <textarea id="request_reason" name="request_reason" required></textarea
-        ><br />
+          <div class="col-8">
+            <label for="request_reason">Request Reason:</label><br />
+            <textarea
+              id="request_reason"
+              name="request_reason"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+          <br />
 
-        <label for="units_required">Units Required:</label><br />
-        <input
-          type="number"
-          id="units_required"
-          name="units_required"
-          required
-        /><br />
+          <div class="col-8">
+            <label for="units_required">Units Required:</label><br />
+            <input
+              type="number"
+              id="units_required"
+              name="units_required"
+              class="form-control"
+              required
+            />
+          </div>
+          <br />
 
-        <button type="submit">Submit Blood Request</button>
-      </form>
+          <button type="submit">Submit Blood Request</button>
+        </form>
+      </div>
     </div>
     <script>
       const hospitals = [
@@ -205,6 +416,5 @@
         }
       });
     </script>
-    <a href="{{ url_for('main.index') }}">Return to Home Page</a>
   </body>
 </html>

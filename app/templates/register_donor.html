@@ -3,25 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_donor.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Add New Donor</title>
-    <style>
-      /* Simple styling for improved readability */
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      fieldset {
-        margin-bottom: 1em;
-        padding: 1em;
-      }
-    </style>
   </head>
+
   <body>
+    <nav>
+      <a href="index.html"><img src="{{ url_for('static', filename='images/index/LBS_home.png') }}" alt="logo_home.png" class="vec"></a>
+      <div class="nav-links">
+      <ul>   
+        <li>
+          <a href="{{ url_for('main.index') }}">Home</a>
+        </li> 
+        <li>
+          <a href="{{ url_for('main.render_find_donors_page') }}"
+          >Get Donor</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.render_blood_banks_page') }}"
+           >Blood Banks</a>
+        </li>
+      </ul>
+    </nav>
+
     <h1>Add New Donor</h1>
     <form action="{{ url_for('add_donor.register_new_donors') }}" method="POST">
       <!-- Section 1: Login Credentials -->
-      <fieldset>
+      <fieldset class="login">
         <legend>Sign-In Credentials</legend>
         <label for="email">Email address</label>
         <input type="email" id="email" name="Email" required /><br />
@@ -30,6 +47,7 @@
         <input type="password" id="password" name="password" required />
         <input type="checkbox" onclick="togglePassword('password')" /> Show
         Password<br />
+        <br />
 
         <label for="confirm_password">Confirm Password</label>
         <input
@@ -43,7 +61,7 @@
       </fieldset>
 
       <!-- Section 2: Personal Details -->
-      <fieldset>
+      <fieldset class="personal">
         <legend>Personal Details</legend>
         <label for="first_name">First Name (required):</label>
         <input type="text" id="first_name" name="first_name" required /><br />
@@ -76,13 +94,13 @@
           title="Enter a 10-digit phone number"
         /><br />
 
-        <label for="marital_status">Marital Status:</label>
+        <label for="marital_status" class="marital status">Marital Status:</label>
         <select id="marital_status" name="marital_status">
           <option value="">-- Select --</option>
           <option value="single">Single</option>
           <option value="married">Married</option></select
         ><br />
-
+     
         <label for="aadhar_number">Aadhar Number:</label>
         <input
           type="text"
@@ -92,97 +110,48 @@
           title="Enter a 12-digit Aadhar number"
         /><br />
 
-        <label>Blood Group (required):</label><br />
-        <input
-          type="radio"
-          id="a_positive"
-          name="blood_group"
-          value="A+"
-          required
-        />
+        <label>Blood Group (required):</label>
+      <div class="radio-group">
+        <input type="radio" id="a_positive" name="blood_group" value="A+" required />
         <label for="a_positive">A+</label>
-        <input
-          type="radio"
-          id="a_negative"
-          name="blood_group"
-          value="A-"
-          required
-        />
-        <label for="a_negative">A-</label><br />
-        <input
-          type="radio"
-          id="b_positive"
-          name="blood_group"
-          value="B+"
-          required
-        />
+
+        <input type="radio" id="a_negative" name="blood_group" value="A-" required />
+        <label for="a_negative">A-</label>
+
+        <input type="radio" id="b_positive" name="blood_group" value="B+" required />
         <label for="b_positive">B+</label>
-        <input
-          type="radio"
-          id="b_negative"
-          name="blood_group"
-          value="B-"
-          required
-        />
-        <label for="b_negative">B-</label><br />
-        <input
-          type="radio"
-          id="ab_positive"
-          name="blood_group"
-          value="AB+"
-          required
-        />
+
+        <input type="radio" id="b_negative" name="blood_group" value="B-" required />
+        <label for="b_negative">B-</label>
+
+        <input type="radio" id="ab_positive" name="blood_group" value="AB+" required />
         <label for="ab_positive">AB+</label>
-        <input
-          type="radio"
-          id="ab_negative"
-          name="blood_group"
-          value="AB-"
-          required
-        />
-        <label for="ab_negative">AB-</label><br />
-        <input
-          type="radio"
-          id="o_positive"
-          name="blood_group"
-          value="O+"
-          required
-        />
+
+        <input type="radio" id="ab_negative" name="blood_group" value="AB-" required />
+        <label for="ab_negative">AB-</label>
+
+        <input type="radio" id="o_positive" name="blood_group" value="O+" required />
         <label for="o_positive">O+</label>
-        <input
-          type="radio"
-          id="o_negative"
-          name="blood_group"
-          value="O-"
-          required
-        />
-        <label for="o_negative">O-</label><br />
 
-        <label for="donation_check">Have you Donated Blood Before</label><br />
-        <label for="Yes_name">Yes</label>
-        <input
-          type="radio"
-          id="yes"
-          name="previous_blood_donation_status"
-          value="1"
-        />
-        <label for="No_name">No</label>
-        <input
-          type="radio"
-          id="no"
-          name="previous_blood_donation_status"
-          value="0"
-        /><br />
+        <input type="radio" id="o_negative" name="blood_group" value="O-" required />
+        <label for="o_negative">O-</label>
+      </div>
 
-        <label for="last_donation">Last Blood Donated Date:</label>
-        <input type="date" id="last_donation" name="last_donation" /><br />
+      <label for="donation_check">Have you Donated Blood Before</label>
+      <div class="yesno-group">
+        <input type="radio" class="yesno" id="yes" name="previous_blood_donation_status" value="1" />
+        <label for="yes">Yes</label>
 
-        <label for="donated_count">No of Times Blood Donated</label>
-        <input
-          type="number"
-          id="blood_donated_count"
-          name="blood_donated_count"
-        /><br />
+        <input type="radio" class="yesno" id="no" name="previous_blood_donation_status" value="0" />
+        <label for="no">No</label>
+      </div>
+
+      <label for="last_donation">Last Blood Donated Date:</label>
+      <input type="date" id="last_donation" name="last_donation" /><br />
+
+      <label for="donated_count">No of Times Blood Donated</label>
+      <input type="number" id="blood_donated_count" name="blood_donated_count" /><br />
+
       </fieldset>
 
       <!-- Section 3: Address Details -->
