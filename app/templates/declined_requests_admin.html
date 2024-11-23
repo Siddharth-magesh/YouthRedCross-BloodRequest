@@ -1,4 +1,5 @@
-{% extends "admin_base_template.html" %} {% block content %}
+{% extends "admin_base_template.html" %} 
+{% block customCSS %}
     <style>
       .details-row {
         display: none;
@@ -32,9 +33,13 @@
         text-align: left;
       }
       th {
-        background-color: #f2f2f2;
+        background-color: #c82333;
+        color: white;
+        border: none;
       }
     </style>
+{% endblock %}
+{% block customJS %}
     <script>
       function toggleDetails(id) {
         const element = document.getElementById(id);
@@ -42,7 +47,8 @@
           element.style.display === "table-row" ? "none" : "table-row";
       }
     </script>
-  <body>
+{% endblock %}
+{% block content %}
     <div class="container">
       <h1>Declined Blood Requests</h1>
       <table>
@@ -157,6 +163,4 @@
         </tbody>
       </table>
     </div>
-  </body>
-</html>
 {% endblock %}
