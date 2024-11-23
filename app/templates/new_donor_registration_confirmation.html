@@ -3,35 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/new_donor_registration_confirmation.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>New Donor Confirmation Page</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        text-align: center;
-        padding: 50px;
-      }
-      .container {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        color: #4caf50; /* Green color */
-      }
-      p {
-        font-size: 1.2em;
-        margin: 10px 0;
-      }
-      .contact-info {
-        margin-top: 20px;
-        font-size: 1em;
-        color: #555;
-      }
-    </style>
   </head>
   <body>
+    <img
+      src="{{url_for('static',filename='images/expiration_page/icon.png')}}"
+      alt="icon.png"
+      class="vec"
+    />
     <div class="container">
       <h1>Success!</h1>
       <p>You have Been Successfully registered as a New Donor.</p>
@@ -39,9 +36,9 @@
       <div class="contact-info">
         <p>Phone: 9876543210</p>
         <p>Email: yrclifebloodsupport@gmail.com</p>
+        <a href="{{ url_for('main.index') }}">Go back to Home</a>
+        <a href="{{ url_for('main.render_donor_login') }}">Donor Login</a>
       </div>
     </div>
-    <a href="{{ url_for('main.index') }}">Go back to Home</a><br />
-    <a href="{{ url_for('main.render_donor_login') }}">Donor Login</a>
   </body>
 </html>
