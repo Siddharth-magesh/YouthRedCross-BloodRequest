@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YRC Blood Request Dashboard</title>
+    <title>{% block customTitle %}{% endblock %}
+    </title>
     {% block customCSS %}{% endblock %}
     <link
       rel="stylesheet"
@@ -12,12 +13,15 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       rel="stylesheet"
-    /> 
+    />
   </head>
   <body>
     <!-- Header -->
     <header class="header">
       <div class="header-logo">
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
         <img
           src="{{ url_for('static', filename='images/admin_dashboard/logo.png') }}"
           alt="Logo"
@@ -118,9 +122,29 @@
         </nav>
       </aside>
 
+      <!-- Sidebar Overlay -->
+      <div class="sidebar-overlay"></div>
+      <!-- Dashboard Content -->
+      {% block dashboard %}{% endblock %}
+      
+
       <!-- Main Content -->
       <main>{% block content %} {% endblock %}</main>
     </div>
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        sidebar.classList.toggle('visible');
+        overlay.classList.toggle('active');
+      }
+    
+      // Close sidebar when overlay is clicked
+      document.querySelector('.sidebar-overlay').addEventListener('click', () => {
+        document.querySelector('.sidebar').classList.remove('visible');
+        document.querySelector('.sidebar-overlay').classList.remove('active');
+      });
+    </script>    
     {% block customJS %}{% endblock %}
   </body>
 </html>
