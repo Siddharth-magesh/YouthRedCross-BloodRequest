@@ -1,200 +1,295 @@
-*{
+/* General Styles */
+* {
     margin: 0;
-    padding:0;
-    font-family: 'Poppins',sans-serif;
-
+    padding: 0;
+    box-sizing: border-box; /* Add box-sizing for better element sizing */
+    font-family: 'Poppins', sans-serif;
 }
 
-.header{
-    position:relative;
-    background-size:cover;
-    background-position:center;
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack header, body, footer */
+    height: 100%; /* Full viewport height */
+}
+
+/* Header Section */
+.header {
+    position: relative;
+    background-size: cover;
+    background-position: center;
     min-height: 100vh;
     width: 100%;
     background-color: white; 
-    background-image: url('/static/images/index/background3.png');
-}  
+    background-image: url('/static/images/index/bg.png'); 
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: contain; /* Ensure the background fits within the container */
+    overflow: hidden; /* Prevent the header from causing scrolling */
+}
 
-nav{
+/* Navigation Bar */
+nav {
     display: flex;
-    padding:2% 6%;
+    padding: 5px;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
-
+    background-color: #fff; /* Optional: Navbar background color */
 }
 
-nav img{
-    width: 200px;
-    left: 5cm;
+nav img {
+    width: 190px;
+    height: auto; /* Ensure aspect ratio is maintained */
+    margin-top:10px;
 }
 
-.nav-links{
+.lbs, .vec, .yrc {
+    width: 200px; /* Set uniform width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 15px; /* Add spacing around logos */
+}
+
+.nav-links {
     flex: 1;
     text-align: right;
+    margin-right: 15px;
 }
 
-.nav-links ul li{
+.nav-links ul {
     list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
+    display: flex;
+    justify-content: flex-end; /* Ensure items align right */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links ul li {
+    padding: 8px 10px;
     position: relative;
 }
-.nav-links ul li a{
+
+.nav-links ul li a {
     color: #0a0404;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.nav-links ul li::after{
+.nav-links ul li a:hover {
+    color: #b30001;
+}
+
+.nav-links ul li::after {
     content: '';
-    width:0%;
+    width: 0;
     height: 2px;
-    background: #b54e4e;
+    background: #b30001;
     display: block;
     margin: auto;
-    transition: 0.5s;
+    transition: width 0.5s;
 }
 
-.nav-links ul li:hover::after{
+.nav-links ul li:hover::after {
     width: 100%;
 }
 
+/* Buttons */
+.getdonor, .request {
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid black;
+    padding: 7px 14px;
+    border-radius: 14px;
+    transition: all 0.5s ease;
+}
 
-
-.getdonor{
-    color:#0a0404 ;
-    font-size: 15px;
+.getdonor {
+    color: #0a0404;
     margin-right: 8px;
-    text-decoration: none;
-    display: inline-block;
-    border: 2px solid black;
-    padding: 7px;
-    background-color:transparent;
-    border-radius:14px;
 }
 
-.getdonor:hover{
-    color: whitesmoke;
-    border: 1px solid black;
-    background:black;
-    transition: 0.5s ;
-}
-
-.request{
-    color: black ;
-    font-size: 15px;
+.request {
+    color: #000;
     margin-left: 5px;
-    text-decoration: none;
-    display: inline-block;
-    border: 2px solid black;
-    padding: 7px;
-    background-color:transparent;
-    border-radius:14px;
 }
 
-.request:hover{
-    color: whitesmoke;
-    border: 1px solid black;
-    background:black;
-    transition: 0.5s
-
+.getdonor:hover, .request:hover {
+    color: #fff;
+    background: black;
+    border-color: black;
 }
 
-.body{
-    width:auto;
+/* Content Section */
+.body {
+    width: auto;
     position: absolute;
-    top: 20%;
-    left: 6%;
+    top: 18%;
+    left: 5%;
     right: 50%;
+    flex: 1;
 }
 
-.body h1{
-    font-size: 45px;
-    
+.body h1 {
+    font-size: 35px;
+    margin-bottom: 20px; /* Add spacing */
+    top: 15px;
 }
 
-.body p{
-    margin: 16px 0px 16px;
+.body p {
     font-size: 20px;
+    margin: 16px 0;
 }
 
-.button{
-    display: inline-block;
+.button {
     text-decoration: none;
-    color: #b54e4e;
-    border: 2px solid #b54e4e;
-    padding: 12px 34px;
-    font-size: 18px;
+    color: #b30001;
+    border: 2px solid #b30001;
+    padding: 12px 20px;
+    font-size: 17px;
+    border-radius: 20px;
     background: transparent;
-    position: relative;
+    transition: all 0.4s ease;
     cursor: pointer;
-    border-radius: 10px;
-}
-#button1{
-    margin-right: 5px;
-}
-#button2{
-    margin-left: 5px;
+    display: inline-block;
+    margin: 10px;
 }
 
-.register{
-    color:#b54e4e;
+.button:hover {
+    color: #fff;
+    background: #b30001;
+    border: 1px solid #b30001;
+}
+
+.register {
+    color: #b30001;
     font-weight: bold;
     text-decoration: none;
 }
 
-.button:hover{
-    color: #fff;
-    border: 1px solid #b54e4e;
-    background:#b54e4e;
-    transition: 0.4s ;
-}
-
-.insta{
-    width: 25px;
-    height: 25px;
+/* Social Media Icons */
+.insta, .youtube {
+    width: 35px;
+    height: 35px;
     border: 2px solid black;
     padding: 5px;
-    border-radius: 30px;
+    border-radius: 50%;
     margin-top: 10px;
+    transition: all 0.4s ease;
 }
 
-.insta:hover{
-    display:inline-block;
-    border: 1px solid black;
-    background: #b54e4e;
-    transition: 0.4s ;
+.insta:hover, .youtube:hover {
+    background: #b30001;
+    border-color: black;
 }
 
-.youtube{
-    width: 25px;
-    height: 25px;
-    border: 2px solid black;
-    padding: 5px;
-    border-radius: 30px;
-    margin-top: 10px;
-}
-
-.youtube:hover{
-    display:inline-block;
-    border: 1px solid black;
-    background: #b54e4e;
-    transition: 0.4s ;
-}
-
-marquee{
+/* Marquee */
+marquee {
     height: 50px;
 }
 
-marquee img{
-    background-repeat: repeat-x;
+marquee img {
     width: auto;
-    margin: 0;
-    padding: 0;
     height: 50px;
 }
 
+/* Media Queries */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .nav-links {
+        text-align: left;
+        margin-right: 0;
+    }
 
+    .nav-links ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .body {
+        position: static;
+        padding: 20px;
+        text-align: center;
+    }
+}
+
+#button1 {
+    margin-right: 10px;
+}
+
+#button2 {
+    margin-left: 10px;
+}
+
+.yrc {
+    width: 100px;
+    margin-left: 50px;
+}
+
+body h3 {
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+/* Footer Section */
+.foot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #b30001; /* Dark background for contrast */
+    color: white; /* Text color */
+    text-align: center;
+    padding: 3px 0; /* Increase padding for better readability */
+    font-size: 16px; /* Adjust font size */
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
+    overflow: hidden; /* Hide overflowing content for smooth animation */
+}
+
+.foot-content {
+    display: flex; /* Arrange items in a row */
+    gap: 20px; /* Add spacing between items if needed */
+    white-space: nowrap; /* Prevent text wrapping */
+    margin-left: 365px;
+    animation: scroll-marquee 20s linear infinite; /* Continuous horizontal scroll */
+}
+
+@keyframes scroll-marquee {
+    0% {
+        transform: translateX(-100%); /* Start off-screen to the right */
+    }
+    45% {
+        transform: translateX(0); /* Center the content */
+    }
+    55% {
+        transform: translateX(0); /* Pause at the center */
+    }
+    100% {
+        transform: translateX(100%); /* Move off-screen to the left */
+    }
+}
+
+.flog, .tlog {
+    height: 30px; /* Adjust image size */
+    vertical-align: middle; /* Align with text */
+}
+
+.tlog {
+    width: 30px;
+    vertical-align: middle; /* Align images with text */
+    margin-left: 5px;
+}
+
+.flog {
+    width: 30px;
+    vertical-align: middle; /* Align images with text */
+    margin-left: 5px;
+}
