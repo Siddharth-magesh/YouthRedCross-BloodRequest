@@ -3,31 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/ongoing_requests_updation_confirmation.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Ongoing Request Updation Confirmation</title>
+    <style>
+      /* Color Theme */
+      :root {
+        --primary-color: #bf0001; /* Red color */
+        --secondary-color: #333; /* Dark text color */
+        --background-color: #f4f4f4; /* Light gray background */
+        --highlight-color: #a30001; /* Darker red */
+        --button-hover-color: #a30001;
+        --text-color: #555; /* Light gray text */
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        color: var(--secondary-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        color: var(--text-color);
+      }
+
+      .details {
+        text-align: left;
+        font-size: 1.1em;
+        color: var(--secondary-color);
+        margin-top: 20px;
+        border-top: 2px solid var(--highlight-color);
+        padding-top: 15px;
+      }
+
+      .details p {
+        margin: 10px 0;
+      }
+
+      .label {
+        font-weight: bold;
+      }
+
+      a {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      a:hover {
+        background-color: var(--button-hover-color);
+      }
+
+      h2 {
+        color: var(--primary-color);
+        font-size: 1.5em;
+      }
+    </style>
   </head>
-  
   <body>
     <div class="container">
-        <p>Successfully, We have received you request and on processing...</p>
-        <p>For any queries contact via,</p>
-        <p>Email id: lifebloodsquad@gmail.com</p>
-        <p>Mobile no: 9087xxxxxx</p>
-        <p><h2>Stay Strong!</h2></p>
-        <br />
-        <div class="button-container">
-            <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
-            >Back to Ongoing Requests</a
-            >
-            <a href="{{ url_for('admin.render_main_admin_page') }}"
-            >Back to DashBoard</a
-            >
-        </div>
+      <h1>Request Updated Successfully!</h1>
+      <p>
+        Your ongoing request has been updated successfully. Thank you for your
+        patience!
+      </p>
+
+      <div class="details">
+        <h3>Request Details:</h3>
+        <p><span class="label">Request ID:</span> {{ details[0] }}</p>
+        <p><span class="label">Response Status:</span> {{ details[1] }}</p>
+        <p><span class="label">Report:</span> {{ details[2] }}</p>
+        <p><span class="label">Units Donated:</span> {{ details[3] }}</p>
+        <p><span class="label">Certificate Status:</span> {{ details[4] }}</p>
+        <p><span class="label">Response Donor IDs:</span> {{ details[5] }}</p>
+      </div>
+
+      <div class="button-container">
+        <a href="{{ url_for('admin.render_ongoing_requests_page') }}"
+          >Back to Ongoing Requests</a
+        >
+        <a href="{{ url_for('admin.render_main_admin_page') }}"
+          >Back to Dashboard</a
+        >
+      </div>
     </div>
   </body>
 </html>

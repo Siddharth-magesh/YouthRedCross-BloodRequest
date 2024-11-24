@@ -3,47 +3,113 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Donor Updation Confirmation Page</title>
+    <title>Donor Details Updation Confirmation</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
-        text-align: center;
-        padding: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
       }
       .container {
         background: white;
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        text-align: center;
       }
       h1 {
         color: #4caf50; /* Green color */
       }
+      h2 {
+        color: #bf0001; /* Red color */
+        margin-bottom: 20px;
+      }
       p {
-        font-size: 1.2em;
+        font-size: 1.1em;
         margin: 10px 0;
+        line-height: 1.6;
+      }
+      .details {
+        text-align: left;
+        margin-top: 20px;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+      }
+      .details p {
+        margin: 5px 0;
       }
       .contact-info {
         margin-top: 20px;
         font-size: 1em;
         color: #555;
       }
+      .button {
+        display: inline-block;
+        background-color: #bf0001;
+        color: white;
+        padding: 10px 20px;
+        margin: 10px 5px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #a30001;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Success!</h1>
-      <p>Your Donor Details Have been Updated.</p>
-      <p>If you have any questions, please feel free to contact us:</p>
+      <h2>Your Donor Details Have Been Successfully Updated</h2>
+      <p>
+        Thank you for updating your details. We have saved the following
+        information:
+      </p>
+      <div class="details">
+        <p><strong>Name:</strong> {{ details["name"] }}</p>
+        <p><strong>Blood Group:</strong> {{ details["blood_group"] }}</p>
+        <p><strong>First Name:</strong> {{ details["first_name"] }}</p>
+        <p><strong>Last Name:</strong> {{ details["last_name"] }}</p>
+        <p><strong>Age:</strong> {{ details["age"] }}</p>
+        <p><strong>Contact Number:</strong> {{ details["contact_number"] }}</p>
+        <p>
+          <strong>Secondary Contact Number:</strong> {{
+          details["secondary_contact_number"] }}
+        </p>
+        <p><strong>Marital Status:</strong> {{ details["marital_status"] }}</p>
+        <p><strong>Aadhar Number:</strong> {{ details["aadhar_number"] }}</p>
+        <p><strong>Address:</strong> {{ details["address"] }}</p>
+        <p><strong>City:</strong> {{ details["city"] }}</p>
+        <p><strong>State:</strong> {{ details["state"] }}</p>
+        <p><strong>Country:</strong> {{ details["country"] }}</p>
+        <p><strong>Pincode:</strong> {{ details["pincode"] }}</p>
+        <p><strong>Disease Name:</strong> {{ details["disease_name"] }}</p>
+        <p>
+          <strong>Disease Description:</strong> {{
+          details["disease_description"] }}
+        </p>
+      </div>
+      <p>
+        If you have any questions or require further assistance, please feel
+        free to contact us:
+      </p>
       <div class="contact-info">
         <p>Phone: 9876543210</p>
         <p>Email: yrclifebloodsupport@gmail.com</p>
       </div>
+      <a href="{{ url_for('main.index') }}" class="button">Go Back to Home</a>
+      <a href="{{ url_for('main.render_donor_login') }}" class="button"
+        >Back to Donor Login</a
+      >
     </div>
-    <a href="{{ url_for('main.index') }}">Go back to Home</a>
-    <br />
-    <a href="{{ url_for('main.render_donor_login') }}">Back to Donor Login</a>
-    <!-- Update this link to point to your main index -->
   </body>
 </html>

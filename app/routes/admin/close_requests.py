@@ -65,7 +65,15 @@ def close_expired_requests():
                     donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
                     db.session.commit()
         
-        return render_template('expired_requests_updation_confirmation.html')
+        confirmation_details = [
+            request_id,
+            response_status,
+            report,
+            units_donated,
+            certificate_status,
+            response_donor_ids
+        ]
+        return render_template('expired_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
 
 @closing_requests.route('/close_ongoing_requests',methods = ['POST','GET'])
@@ -97,8 +105,16 @@ def close_ongoing_requests():
                     donor_detail.last_donated_date=datetime.now()
                     donor_detail.number_of_times_donated = donor_detail.number_of_times_donated + 1
                     db.session.commit()
-        
-        return render_template('ongoing_requests_updation_confirmation.html')
+
+        confirmation_details = [
+            request_id,
+            response_status,
+            report,
+            units_donated,
+            certificate_status,
+            response_donor_ids
+        ]
+        return render_template('ongoing_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
 
 @closing_requests.route('/close_ongoing_requests_and_send_certificates', methods=['POST', 'GET'])
@@ -168,8 +184,16 @@ def close_ongoing_requests_and_send_certificates():
             """
 
             send_email(subject, donor_email, body, certificate_path)
-
-        return render_template('ongoing_requests_updation_confirmation.html')
+        
+        confirmation_details = [
+            request_id,
+            response_status,
+            report,
+            units_donated,
+            certificate_status,
+            response_donor_ids
+        ]
+        return render_template('ongoing_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
 
 
@@ -245,5 +269,13 @@ def close_expired_requests_and_send_certificates():
 
             send_email(subject, donor_email, body, certificate_path)
 
-        return render_template('expired_requests_updation_confirmation.html')
+        confirmation_details = [
+            request_id,
+            response_status,
+            report,
+            units_donated,
+            certificate_status,
+            response_donor_ids
+        ]
+        return render_template('expired_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
