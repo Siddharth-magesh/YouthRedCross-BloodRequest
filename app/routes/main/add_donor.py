@@ -159,7 +159,21 @@ def register_new_donors():
 
             db.session.commit()
             flash('Donor successfully added!', 'success')
-            return render_template('new_donor_registration_confirmation.html')
+            confirmation_details = [
+                email,
+                name,
+                age,
+                dob,
+                contact_number,
+                secondary_contact,
+                marital_status,
+                aadhar_number,
+                blood_group,
+                full_address,
+                disease_name,
+                description
+            ]
+            return render_template('new_donor_registration_confirmation.html',details = confirmation_details)
 
         except Exception as e:
             db.session.rollback()
@@ -268,7 +282,25 @@ def modify_donor_details():
     try:
         db.session.commit()
         flash("Donor details updated successfully.")
-        return render_template('donor_details_updation_confirmation.html')
+        confirmation_details = [
+            name,
+            blood_group,
+            first_name,
+            last_name,
+            age,
+            contact_number,
+            secondary_contact_number,
+            marital_status,
+            aadhar_number,
+            address, 
+            city, 
+            state,
+            country,
+            pincode,
+            disease_name,
+            disease_description
+        ]
+        return render_template('donor_details_updation_confirmation.html',details = confirmation_details)
     except Exception as e:
         db.session.rollback()
         flash(f"An error occurred: {e}")

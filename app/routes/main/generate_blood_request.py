@@ -113,6 +113,10 @@ def generate_bloodRequest():
             """
             send_email(subject, recipient, body)
 
-        return render_template('bloodrequest_confirmation.html')
+        confirmation_details = [
+            patient_name,blood_group,hospital_name,contact_number,hospital_address,
+        ]
+
+        return render_template('bloodrequest_confirmation.html',details = confirmation_details)
 
     return render_template('generate_blood_request.html')
