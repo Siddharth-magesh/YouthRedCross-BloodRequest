@@ -1,5 +1,5 @@
 from flask import Blueprint , render_template , request , flash ,redirect , url_for
-from app.models import HospitalDetails , db
+from app.models import HospitalDetails , db , BloodRequestDetails
 
 def get_next_id(table, prefix):
     max_id = db.session.query(table.id).order_by(table.id.desc()).first()
@@ -91,4 +91,22 @@ def add_new_hospital():
         flash(f"An error occurred: {e}")
         return "An error occurred while updating the donor details", 500
 
-    
+@manage_hospital.route('/delete_hospital_details', methods=['POST', 'GET'])
+def delete_hospital_details():
+    hospital_id = request.form.get('id')
+    if hospital_id:
+        hospital = HospitalDetails.query.filter_by(id=hospital_id).first()
+        if hospital:
+            # Check if the hospital is related to a blood request
+            related_request = BloodRequestDetails.query.filter_by(hospital_id=hospital_id).first()
+            if related_request:
+                return "<h1>Hospital details cannot be deleted as they are related to an active or past blood request.", "error<h1>"
+            else:
+                db.session.delete(hospital)
+                db.session.commit()
+                flash("Hospital details deleted successfully.", "success")
+        else:
+            flash("Hospital not found.", "error")
+    else:
+        flash("Invalid request. No hospital ID provided.", "error")
+    return redirect(url_for('admin.render_hospital_details_admin'))
