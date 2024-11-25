@@ -1,53 +1,50 @@
-{% extends "admin_base_template.html" %} 
-{% block customCSS %}
-    <style>
-      .details-row {
-        display: none;
-      }
-      .view-button,
-      .close-button {
-        cursor: pointer;
-        padding: 5px 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 3px;
-      }
-      .view-button:hover,
-      .close-button:hover {
-        background-color: #0056b3;
-      }
-      .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #c82333;
-        color: white;
-        border: none;
-      }
-      .input-field {
-        width: 100%;
-        padding: 5px;
-        margin: 5px 0;
-      }
+{% extends "admin_base_template.html" %} {% block customCSS %}
+<style>
+  .details-row {
+    display: none;
+  }
+  .view-button,
+  .close-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+  }
+  .view-button:hover,
+  .close-button:hover {
+    background-color: #0056b3;
+  }
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #c82333;
+    color: white;
+    border: none;
+  }
+  .input-field {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+  }
 </style>
-{% endblock %}
-
-{% block customJS %}
+{% endblock %} {% block customJS %}
 <script>
   function toggleDetails(id) {
     const element = document.getElementById(id);
@@ -55,201 +52,199 @@
       element.style.display === "table-row" ? "none" : "table-row";
   }
 </script>
-{% endblock %}
+{% endblock %} {% block content %}
+<div class="container">
+  <h1>Expired Blood Requests</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Blood Group</th>
+        <th>Hospital Name</th>
+        <th>Contact Number</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in requests %}
+      <tr>
+        <td>{{ request.patient_name }}</td>
+        <td>{{ request.blood_group }}</td>
+        <td>{{ request.hospital_name }}</td>
+        <td>{{ request.contact_number }}</td>
+        <td>{{ request.status }}</td>
+        <td>
+          <button
+            class="view-button"
+            onclick="toggleDetails('details{{ request.id }}')"
+          >
+            View Details
+          </button>
+        </td>
+      </tr>
+      <tr id="details{{ request.id }}" class="details-row">
+        <td colspan="6">
+          <div class="details-content">
+            <table>
+              <tr>
+                <td><strong>Request ID:</strong></td>
+                <td>{{ request.id }}</td>
+              </tr>
+              <tr>
+                <td><strong>Patient Name:</strong></td>
+                <td>{{ request.patient_name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Patient Age:</strong></td>
+                <td>{{ request.patient_age }}</td>
+              </tr>
+              <tr>
+                <td><strong>Blood Group:</strong></td>
+                <td>{{ request.blood_group }}</td>
+              </tr>
+              <tr>
+                <td><strong>Contact Number</strong></td>
+                <td>{{ request.contact_number }}</td>
+              </tr>
+              <tr>
+                <td><strong>Attendant Name</strong></td>
+                <td>{{ request.attendant_name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Units Required</strong></td>
+                <td>{{ request.units_required }}</td>
+              </tr>
+              <tr>
+                <td><strong>Request Reason</strong></td>
+                <td>{{ request.request_reason }}</td>
+              </tr>
+              <tr>
+                <td><strong>Due Date</strong></td>
+                <td>{{ request.due_date }}</td>
+              </tr>
+              <tr>
+                <td><strong>Hospital ID</strong></td>
+                <td>{{ request.hospital_id }}</td>
+              </tr>
+              <tr>
+                <td><strong>Approved DonorID</strong></td>
+                <td>{{ request.approved_admin_id }}</td>
+              </tr>
+              <tr>
+                <td><strong>Hospital Name</strong></td>
+                <td>{{ request.hospital_name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Hospital Address</strong></td>
+                <td>{{ request.hospital_address }}</td>
+              </tr>
+              <tr>
+                <td><strong>Response ID</strong></td>
+                <td>{{ request.response_id }}</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <form
+                    action="{{ url_for('close_request.close_expired_requests') }}"
+                    method="POST"
+                  >
+                    <input
+                      type="hidden"
+                      name="request_id"
+                      value="{{ request.id }}"
+                    />
+                    <label><strong>Response Status</strong></label
+                    ><br />
+                    <input
+                      type="radio"
+                      name="response_status"
+                      id="status_success_{{ request.id }}"
+                      value="Success"
+                    />
+                    <label for="status_success_{{ request.id }}">Success</label>
+                    <input
+                      type="radio"
+                      name="response_status"
+                      id="status_partial_{{ request.id }}"
+                      value="Partial Success"
+                    />
+                    <label for="status_partial_{{ request.id }}"
+                      >Partial Success</label
+                    >
+                    <input
+                      type="radio"
+                      name="response_status"
+                      id="status_failure_{{ request.id }}"
+                      value="Failure"
+                    />
+                    <label for="status_failure_{{ request.id }}">Failure</label>
 
-{% block content %}
-    <div class="container">
-      <h1>Expired Blood Requests</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Patient Name</th>
-            <th>Blood Group</th>
-            <th>Hospital Name</th>
-            <th>Contact Number</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for request in requests %}
-          <tr>
-            <td>{{ request.patient_name }}</td>
-            <td>{{ request.blood_group }}</td>
-            <td>{{ request.hospital_name }}</td>
-            <td>{{ request.contact_number }}</td>
-            <td>{{ request.status }}</td>
-            <td>
-              <button
-                class="view-button"
-                onclick="toggleDetails('details{{ request.id }}')"
-              >
-                View Details
-              </button>
-            </td>
-          </tr>
-          <tr id="details{{ request.id }}" class="details-row">
-            <td colspan="6">
-              <div class="details-content">
-                <table>
-                  <tr>
-                    <td><strong>Request ID:</strong></td>
-                    <td>{{ request.id }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Patient Name:</strong></td>
-                    <td>{{ request.patient_name }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Patient Age:</strong></td>
-                    <td>{{ request.patient_age }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Blood Group:</strong></td>
-                    <td>{{ request.blood_group }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Contact Number</strong></td>
-                    <td>{{ request.contact_number }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Attendant Name</strong></td>
-                    <td>{{ request.attendant_name }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Units Required</strong></td>
-                    <td>{{ request.units_required }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Request Reason</strong></td>
-                    <td>{{ request.request_reason }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Due Date</strong></td>
-                    <td>{{ request.due_date }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Hospital ID</strong></td>
-                    <td>{{ request.hospital_id }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Hospital Name</strong></td>
-                    <td>{{ request.hospital_name }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Hospital Address</strong></td>
-                    <td>{{ request.hospital_address }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Response ID</strong></td>
-                    <td>{{ request.response_id }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <form
-                        action="{{ url_for('close_request.close_expired_requests') }}"
-                        method="POST"
-                      >
-                        <input
-                          type="hidden"
-                          name="request_id"
-                          value="{{ request.id }}"
-                        />
-                        <label><strong>Response Status</strong></label
-                        ><br />
-                        <input
-                          type="radio"
-                          name="response_status"
-                          id="status_success_{{ request.id }}"
-                          value="Success"
-                        />
-                        <label for="status_success_{{ request.id }}"
-                          >Success</label
-                        >
-                        <input
-                          type="radio"
-                          name="response_status"
-                          id="status_partial_{{ request.id }}"
-                          value="Partial Success"
-                        />
-                        <label for="status_partial_{{ request.id }}"
-                          >Partial Success</label
-                        >
-                        <input
-                          type="radio"
-                          name="response_status"
-                          id="status_failure_{{ request.id }}"
-                          value="Failure"
-                        />
-                        <label for="status_failure_{{ request.id }}"
-                          >Failure</label
-                        >
+                    <p></p>
 
-                        <p></p>
+                    <label for="report"><strong>Report</strong></label>
+                    <input
+                      class="input-field"
+                      type="text"
+                      name="report"
+                      id="report"
+                      value="None"
+                    />
 
-                        <label for="report"><strong>Report</strong></label>
-                        <input
-                          class="input-field"
-                          type="text"
-                          name="report"
-                          id="report"
-                          value="None"
-                        />
+                    <label for="units_donated"
+                      ><strong>Units Donated</strong></label
+                    >
+                    <input
+                      class="input-field"
+                      type="number"
+                      name="units_donated"
+                      id="units_donated"
+                      value="0"
+                      required
+                    />
 
-                        <label for="units_donated"
-                          ><strong>Units Donated</strong></label
-                        >
-                        <input
-                          class="input-field"
-                          type="number"
-                          name="units_donated"
-                          id="units_donated"
-                          value="0"
-                          required
-                        />
+                    <label for="Certificate_Status"
+                      ><strong>Certificate Status</strong></label
+                    >
+                    <input
+                      class="input-field"
+                      type="text"
+                      name="certificate_status"
+                      id="certificate_status"
+                      value="NOTSENT"
+                      required
+                    />
 
-                        <label for="Certificate_Status"
-                          ><strong>Certificate Status</strong></label
-                        >
-                        <input
-                          class="input-field"
-                          type="text"
-                          name="certificate_status"
-                          id="certificate_status"
-                          value="NOTSENT"
-                          required
-                        />
+                    <label for="response_donor_ids"
+                      ><strong>Responsed Donor IDs</strong></label
+                    >
+                    <input
+                      class="input-field"
+                      type="text"
+                      name="response_donor_ids"
+                      id="response_donor_ids"
+                      value="None"
+                    />
 
-                        <label for="response_donor_ids"
-                          ><strong>Responsed Donor IDs</strong></label
-                        >
-                        <input
-                          class="input-field"
-                          type="text"
-                          name="response_donor_ids"
-                          id="response_donor_ids"
-                          value="None"
-                        />
-
-                        <button type="submit" class="close-button">
-                          Close Request
-                        </button>
-                        <button
-                          type="submit"
-                          class="close-button"
-                          formaction="{{ url_for('close_request.close_expired_requests_and_send_certificates') }}"
-                        >
-                          Close Request and Send Certificate
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+                    <button type="submit" class="close-button">
+                      Close Request
+                    </button>
+                    <button
+                      type="submit"
+                      class="close-button"
+                      formaction="{{ url_for('close_request.close_expired_requests_and_send_certificates') }}"
+                    >
+                      Close Request and Send Certificate
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

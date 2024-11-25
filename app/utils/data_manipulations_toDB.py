@@ -5,6 +5,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 from datetime import datetime , timedelta
+from flask import session
 
 class FetchDetails:
     @staticmethod
@@ -24,7 +25,6 @@ class FetchDetails:
                 BloodRequestDetails.contact_number,
                 BloodRequestDetails.attendant_name,
                 BloodRequestDetails.request_reason,
-                # Adding the subquery to count active donors
                 db.session.query(db.func.count(DonorDetail.id))
                 .filter(
                     DonorDetail.blood_group == BloodRequestDetails.blood_group,
@@ -43,7 +43,10 @@ class FetchDetails:
             request_to_update = db.session.query(BloodRequestDetails).filter(BloodRequestDetails.id == request_id).first()
             if request_to_update:
                 request_to_update.status = "Pending"
+                request_to_update.approved_admin_id = session.get('admin_id')
                 db.session.commit()
+                admin_details = AdminDetails.query.filter_by(id = session.get('admin_id')).first()
+                admin_details.approved_donation_count = admin_details.approved_donation_count + 1
                 response_to_update = db.session.query(ResponseDetails).filter(ResponseDetails.id == request_to_update.response_id).first()
                 if response_to_update:
                     response_to_update.status = "Pending"
@@ -66,7 +69,11 @@ class FetchDetails:
                 return False, f"Request {request_id} not found."
             
             request_to_update.status = "Declined"
+            request_to_update.approved_admin_id = session.get('admin_id')
             db.session.commit()
+
+            admin_details = AdminDetails.query.filter_by(id = session.get('admin_id')).first()
+            admin_details.approved_donation_count = admin_details.approved_donation_count + 1
 
             response_to_update = db.session.query(ResponseDetails).filter(ResponseDetails.id == request_to_update.response_id).first()
             
@@ -101,6 +108,8 @@ class FetchDetails:
                 BloodRequestDetails.units_required,
                 BloodRequestDetails.attendant_name,
                 BloodRequestDetails.response_id,
+                BloodRequestDetails.approved_admin_id,
+                BloodRequestDetails.closed_admin_id,
                 ResponseDetails.status.label("response_status"),
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
@@ -132,6 +141,8 @@ class FetchDetails:
                 BloodRequestDetails.units_required,
                 BloodRequestDetails.attendant_name,
                 BloodRequestDetails.response_id,
+                BloodRequestDetails.approved_admin_id,
+                BloodRequestDetails.closed_admin_id,
                 ResponseDetails.status.label("response_status"),
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
@@ -163,6 +174,8 @@ class FetchDetails:
                 BloodRequestDetails.units_required,
                 BloodRequestDetails.attendant_name,
                 BloodRequestDetails.response_id,
+                BloodRequestDetails.approved_admin_id,
+                BloodRequestDetails.closed_admin_id,
                 ResponseDetails.status.label("response_status"),
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
@@ -194,6 +207,8 @@ class FetchDetails:
                 BloodRequestDetails.units_required,
                 BloodRequestDetails.attendant_name,
                 BloodRequestDetails.response_id,
+                BloodRequestDetails.approved_admin_id,
+                BloodRequestDetails.closed_admin_id,
                 ResponseDetails.status.label("response_status"),
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
@@ -217,6 +232,10 @@ class FetchDetails:
                 raise ValueError("Blood request with the given ID does not exist.")
 
             blood_request.status = "Closed"
+            blood_request.closed_admin_id = session.get('admin_id')
+
+            admin_details = AdminDetails.query.filter_by(id=session.get('admin_id')).first()
+            admin_details.closed_requests_count = admin_details.closed_requests_count + 1
 
             response_detail = ResponseDetails.query.filter_by(id=blood_request.response_id).first()
             if response_detail:
@@ -242,6 +261,10 @@ class FetchDetails:
                 raise ValueError("Blood request with the given ID does not exist.")
 
             blood_request.status = "Closed"
+            blood_request.closed_admin_id = session.get('admin_id')
+
+            admin_details = AdminDetails.query.filter_by(id=session.get('admin_id')).first()
+            admin_details.closed_requests_count = admin_details.closed_requests_count + 1
 
             response_detail = ResponseDetails.query.filter_by(id=blood_request.response_id).first()
             if response_detail:
@@ -315,8 +338,8 @@ class FetchDetails:
                     AdminDetails.mobile_number,
                     AdminDetails.department,
                     AdminDetails.active_status,
-                    AdminDetails.approved_donation,
-                    AdminDetails.closed_requests
+                    AdminDetails.approved_donation_count,
+                    AdminDetails.closed_requests_count
                 )
                 .filter(AdminDetails.id == admin_id)
                 .first()

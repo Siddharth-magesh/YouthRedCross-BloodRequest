@@ -151,6 +151,7 @@ def verify_otp_and_data_injection():
     active_status = 'Active'
     last_login_date = None
     approved_donation = 0
+    closed_donations = 0
 
     if entered_otp == generated_otp:
         hashed_password = generate_password_hash(password)
@@ -166,7 +167,8 @@ def verify_otp_and_data_injection():
             department = department,
             active_status = active_status,
             last_login_date = last_login_date,
-            approved_donation = approved_donation
+            approved_donation_count = approved_donation,
+            closed_requests_count = closed_donations
         )
         db.session.add(new_admin)
         db.session.commit()
