@@ -44,9 +44,9 @@ INSERT INTO AuthenticationDetailsAdmin (id, auth_id, name, login_date, login_tim
 (1,'AUTHADM001', 'Admin One', '2024-01-01', '09:00:00');
 
 -- Inserting into AdminDetails
-INSERT INTO AdminDetails (id, email, password, username, authentication_id, vec_registration_number, data_of_birth , mobile_number , department , active_status ,last_login_date, approved_donation) VALUES
-('ADMIN001', 'siddharthmagesh007@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'Siddharth Magesh', 'AUTHADM001', '113222072xxx', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 2),
-('ADMIN002', 'siddha2234@gmail.com', 'scrypt:32768:8:1$O1tTJmR4WSfVwesv$16f2e93c67d374cf3a4cb2f127accac6ffb3cf079748a77e4383cf1b5dd71d6d3b475a85df459ba314101004bf10072811b83ea85dbb4420e4ad11f1a873875e', 'Admin 2', 'AUTHADM002', '113222072xxy', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 0);
+INSERT INTO AdminDetails (id, email, password, username, authentication_id, vec_registration_number, data_of_birth , mobile_number , department , active_status ,last_login_date, approved_donation_count,closed_requests_count) VALUES
+('ADMIN001', 'siddharthmagesh007@gmail.com', 'scrypt:32768:8:1$XIjoEBWPpgO1inbw$9fbef6e94d1d9d11c3763df2337ed22f17a478b4fb37ce45d7e227c084a2b77ccf4f21079b963bf88ac5a6f31ba4042de48cff5f9c5c0e27de0b811e7c55cc78', 'Siddharth Magesh', 'AUTHADM001', '113222072xxx', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 2,0),
+('ADMIN002', 'siddha2234@gmail.com', 'scrypt:32768:8:1$O1tTJmR4WSfVwesv$16f2e93c67d374cf3a4cb2f127accac6ffb3cf079748a77e4383cf1b5dd71d6d3b475a85df459ba314101004bf10072811b83ea85dbb4420e4ad11f1a873875e', 'Admin 2', 'AUTHADM002', '113222072xxy', '2004-03-22' ,'9876543210' , 'AIDS', 'Active' ,'2024-01-01', 0,0);
 
 -- Inserting into HospitalDetails
 INSERT INTO HospitalDetails (id, hospital_name, hospital_address, pincode, city, state, country, branch, landmark) VALUES
@@ -70,10 +70,10 @@ INSERT INTO ResponseDetails (id, status, report, units_donated, certificate_stat
 
 -- Inserting into BloodRequestDetails
 INSERT INTO BloodRequestDetails (id, patient_name, blood_group, hospital_name, hospital_id, contact_number, patient_age, due_date, request_reason, status, units_required, attendant_name, response_id) VALUES
-('BR001', 'John Smith', 'O+', 'Apollo Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
-('BR002', 'Jane Doe', 'A-', 'Fortis Malar Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
-('BR003', 'Jane Doe 1', 'A-', 'MIOT International', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
-('BR004', 'Jane Doe 2', 'AB-', 'Vijaya Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
+('BR001', 'John Smith', 'AB+', 'Apollo Hospital', 'HOSP001', '1234567890', 30, '2024-02-15', 'Surgery', 'Closed', 2, 'Attendant One', 'RESP001'),
+('BR002', 'Jane Doe', 'AB+', 'Fortis Malar Hospital', 'HOSP002', '2345678901', 25, '2024-03-10', 'Emergency', 'Not_Approved', 1, 'Attendant Two', 'RESP002'),
+('BR003', 'Jane Doe 1', 'AB+', 'MIOT International', 'HOSP004', '2345678922', 25, '2024-03-10', 'Emergency', 'Expired', 1, 'Attendant Three', 'RESP003'),
+('BR004', 'Jane Doe 2', 'AB+', 'Vijaya Hospital', 'HOSP007', '2345678434', 25, '2024-03-10', 'Emergency', 'Pending', 1, 'Attendant Four', 'RESP004');
 
 
 INSERT INTO AuthenticationDetailsDonor (id, auth_id ,name, login_date, login_time) VALUES

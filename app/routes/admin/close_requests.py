@@ -1,4 +1,4 @@
-from flask import render_template , Blueprint , request
+from flask import render_template , Blueprint , request 
 from app.utils.data_manipulations_toDB import FetchDetails
 from app.models import DonorDetail , db , BloodRequestDetails
 from app.utils.certificate_generation import generate_certificate

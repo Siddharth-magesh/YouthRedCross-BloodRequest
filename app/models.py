@@ -66,8 +66,8 @@ class AdminDetails(db.Model):
     department = db.Column(db.String(50),nullable=True)
     active_status = db.Column(db.String(36),nullable=False)
     last_login_date = db.Column(db.DateTime, nullable=True)
-    approved_donation = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
-    closed_requests = db.Column(db.String(36), nullable=True)#Need To handle This value using Sessions
+    approved_donation_count = db.Column(db.Integer, nullable=False)
+    closed_requests_count = db.Column(db.Integer, nullable=False)
 
 class AuthenticationDetailsAdmin(db.Model):
     __tablename__ = 'AuthenticationDetailsAdmin'
@@ -92,8 +92,8 @@ class BloodRequestDetails(db.Model):
     units_required = db.Column(db.Integer, nullable=False)
     attendant_name = db.Column(db.String(100), nullable=True)
     response_id = db.Column(db.String(36), db.ForeignKey('ResponseDetails.id') , nullable=False)
-    approved_admin_id = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
-    closed_admin_id = db.Column(db.String(36), nullable=True) #Need To handle This value using Session
+    approved_admin_id = db.Column(db.String(36), nullable=True) 
+    closed_admin_id = db.Column(db.String(36), nullable=True) 
 
 class HospitalDetails(db.Model):
     __tablename__ = 'HospitalDetails'
@@ -114,4 +114,4 @@ class ResponseDetails(db.Model):
     report = db.Column(db.String(255), nullable=True)
     units_donated = db.Column(db.Integer, nullable=True)
     certificate_status = db.Column(db.String(36),nullable=True)
-    donor_ids = db.Column(db.String(255), nullable=True) 
+    donor_ids = db.Column(db.String(255), nullable=True)

@@ -51,17 +51,17 @@
 
       <label for="approved_donation">approved donation:</label>
       <input
-        type="text"
+        type="number"
         name="approved_donation"
-        value="{{ details.approved_donation }}"
+        value="{{ details.approved_donation_count }}"
         readonly
       /><br />
 
       <label for="closed_requests">closed requests:</label>
       <input
-        type="text"
+        type="number"
         name="closed_requests"
-        value="{{ details.closed_requests }}"
+        value="{{ details.closed_requests_count }}"
         readonly
       /><br />
 
