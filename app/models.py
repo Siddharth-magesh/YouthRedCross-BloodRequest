@@ -114,4 +114,5 @@ class ResponseDetails(db.Model):
     report = db.Column(db.String(255), nullable=True)
     units_donated = db.Column(db.Integer, nullable=True)
     certificate_status = db.Column(db.String(36),nullable=True)
+    donation_date = db.Column(db.Date, nullable=True)
     donor_ids = db.Column(db.String(255), nullable=True)

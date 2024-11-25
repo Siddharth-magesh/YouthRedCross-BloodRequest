@@ -43,6 +43,7 @@ def close_expired_requests():
         report = request.form.get('report')
         units_donated = request.form.get('units_donated')
         certificate_status = request.form.get('certificate_status')
+        donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
@@ -53,6 +54,7 @@ def close_expired_requests():
             report=report,
             units_donated=units_donated,
             certificate_status=certificate_status,
+            donation_date=donation_date,
             response_donor_ids=response_donor_ids
         )
 
@@ -71,6 +73,7 @@ def close_expired_requests():
             report,
             units_donated,
             certificate_status,
+            donation_date,
             response_donor_ids
         ]
         return render_template('expired_requests_updation_confirmation.html',details = confirmation_details)
@@ -84,6 +87,7 @@ def close_ongoing_requests():
         report = request.form.get('report')
         units_donated = request.form.get('units_donated')
         certificate_status = request.form.get('certificate_status')
+        donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
@@ -94,6 +98,7 @@ def close_ongoing_requests():
             report=report,
             units_donated=units_donated,
             certificate_status=certificate_status,
+            donation_date=donation_date,
             response_donor_ids=response_donor_ids
         )
 
@@ -112,7 +117,8 @@ def close_ongoing_requests():
             report,
             units_donated,
             certificate_status,
-            response_donor_ids
+            response_donor_ids,
+            donation_date
         ]
         return render_template('ongoing_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
@@ -125,6 +131,7 @@ def close_ongoing_requests_and_send_certificates():
         report = request.form.get('report')
         units_donated = request.form.get('units_donated')
         certificate_status = request.form.get('certificate_status')
+        donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
@@ -137,6 +144,7 @@ def close_ongoing_requests_and_send_certificates():
             report=report,
             units_donated=units_donated,
             certificate_status=certificate_status,
+            donation_date=donation_date,
             response_donor_ids=response_donor_ids
         )
 
@@ -191,7 +199,8 @@ def close_ongoing_requests_and_send_certificates():
             report,
             units_donated,
             certificate_status,
-            response_donor_ids
+            response_donor_ids,
+            donation_date
         ]
         return render_template('ongoing_requests_updation_confirmation.html',details = confirmation_details)
     return render_template('index.html')
@@ -205,6 +214,7 @@ def close_expired_requests_and_send_certificates():
         report = request.form.get('report')
         units_donated = request.form.get('units_donated')
         certificate_status = request.form.get('certificate_status')
+        donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
@@ -218,6 +228,7 @@ def close_expired_requests_and_send_certificates():
             report=report,
             units_donated=units_donated,
             certificate_status=certificate_status,
+            donation_date=donation_date,
             response_donor_ids=response_donor_ids
         )
 
@@ -275,6 +286,7 @@ def close_expired_requests_and_send_certificates():
             report,
             units_donated,
             certificate_status,
+            donation_date,
             response_donor_ids
         ]
         return render_template('expired_requests_updation_confirmation.html',details = confirmation_details)

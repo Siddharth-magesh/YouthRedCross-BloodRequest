@@ -114,6 +114,7 @@ class FetchDetails:
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
                 ResponseDetails.certificate_status,
+                ResponseDetails.donation_date,
                 ResponseDetails.donor_ids.label("response_donor_ids"),
                 HospitalDetails.hospital_address,
                 HospitalDetails.id.label("hospital_id")
@@ -147,6 +148,7 @@ class FetchDetails:
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
                 ResponseDetails.certificate_status,
+                ResponseDetails.donation_date,
                 ResponseDetails.donor_ids.label("response_donor_ids"),
                 HospitalDetails.hospital_address,
                 HospitalDetails.id.label("hospital_id")
@@ -180,6 +182,7 @@ class FetchDetails:
                 ResponseDetails.report,
                 ResponseDetails.units_donated,
                 ResponseDetails.certificate_status,
+                ResponseDetails.donation_date,
                 ResponseDetails.donor_ids.label("response_donor_ids"),
                 HospitalDetails.hospital_address,
                 HospitalDetails.id.label("hospital_id")
@@ -225,7 +228,7 @@ class FetchDetails:
         return expired_results
     
     @staticmethod
-    def update_expired_request(request_id,response_status,report,units_donated,certificate_status,response_donor_ids):
+    def update_expired_request(request_id,response_status,report,units_donated,certificate_status,donation_date,response_donor_ids):
         try:
             blood_request = BloodRequestDetails.query.filter_by(id=request_id).first()
             if not blood_request:
@@ -243,6 +246,7 @@ class FetchDetails:
                 response_detail.report = report
                 response_detail.units_donated = units_donated
                 response_detail.donor_ids = response_donor_ids
+                response_detail.donation_date = donation_date
                 response_detail.certificate_status = certificate_status
             else:
                 raise ValueError("No response found for the given blood request.")
@@ -254,7 +258,7 @@ class FetchDetails:
             raise
 
     @staticmethod
-    def update_ongoing_request(request_id,response_status,report,units_donated,certificate_status,response_donor_ids):
+    def update_ongoing_request(request_id,response_status,report,units_donated,certificate_status,donation_date,response_donor_ids):
         try:
             blood_request = BloodRequestDetails.query.filter_by(id=request_id).first()
             if not blood_request:
@@ -272,6 +276,7 @@ class FetchDetails:
                 response_detail.report = report
                 response_detail.units_donated = units_donated
                 response_detail.donor_ids = response_donor_ids
+                response_detail.donation_date = donation_date
                 response_detail.certificate_status = certificate_status
             else:
                 raise ValueError("No response found for the given blood request.")
