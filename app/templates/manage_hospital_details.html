@@ -4,14 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Hospitals</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      a {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: white;
+        background-color: #007bff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+      }
+      a:hover {
+        background-color: #0056b3;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+      button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #c82333;
+      }
+    </style>
   </head>
   <body>
     <a href="{{ url_for('admin.render_main_admin_page') }}"
       >Back to Dashboard</a
     >
     <h1>Manage Hospitals</h1>
-    <a href="{{ url_for('admin.render_add_new_hospital') }}">Add New Hospital</a
-    ><br />
+    <a href="{{ url_for('admin.render_add_new_hospital') }}"
+      >Add New Hospital</a
+    >
+    <br />
     <table>
       <thead>
         <tr>
@@ -19,6 +74,7 @@
           <th>Name</th>
           <th>City</th>
           <th>State</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -32,9 +88,20 @@
             <form
               action="{{ url_for('admin.render_hospital_modification') }}"
               method="POST"
+              style="display: inline"
             >
               <input type="hidden" name="id" value="{{ data.id }}" />
-              <button type="submit">Modify Hospital Details</button>
+              <button type="submit" style="background-color: #007bff">
+                Modify
+              </button>
+            </form>
+            <form
+              action="{{ url_for('manage_hospital.delete_hospital_details') }}"
+              method="POST"
+              style="display: inline"
+            >
+              <input type="hidden" name="id" value="{{ data.id }}" />
+              <button type="submit">Delete</button>
             </form>
           </td>
         </tr>
