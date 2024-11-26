@@ -1,5 +1,6 @@
 # app/routes/main.py
 from flask import Blueprint, render_template
+from app.models import QueryTable
 
 main_bp = Blueprint('main', __name__)
 
@@ -38,3 +39,8 @@ def render_blood_banks_page():
 @main_bp.route('/render_forget_password_donor')
 def render_forget_password_donor():
     return render_template('forget_password_donor.html')
+
+@main_bp.route('/render_query_page')
+def render_query_page():
+    queries = QueryTable.query.all()
+    return render_template('query_page_donor.html',queries=queries)

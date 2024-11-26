@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import pandas as pd
 from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function
-from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
+from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -277,4 +277,12 @@ def add_donor_csv():
                 flash(e)
         return render_template('add_donors_csv.html', form=form)
     else:
+        return redirect(url_for('admin.render_admin_login'))
+    
+@admin_bp.route('/render_query_page_admin_side')
+def render_query_page_admin_side():
+    if check_admin_login():
+        queries = QueryTable.query.all()
+        return render_template('query_page_admin.html',queries=queries)
+    else :
         return redirect(url_for('admin.render_admin_login'))

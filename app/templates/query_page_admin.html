@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Query Management</title>
+    <style>
+      /* Reuse similar styles from user query page */
+    </style>
+  </head>
+  <body>
+    <h1>Admin Query Management</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User Name</th>
+          <th>User Query</th>
+          <th>Admin Response</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for query in queries %}
+        <tr>
+          <td>{{ query.id }}</td>
+          <td>{{ query.user_name }}</td>
+          <td>{{ query.user_query }}</td>
+          <td>{{ query.admin_response or 'Pending' }}</td>
+          <td>
+            <form
+              method="POST"
+              action="{{ url_for('manageDonor.reply_user_query') }}"
+            >
+              <input type="hidden" name="query_id" value="{{ query.id }}" />
+              <textarea
+                name="admin_response"
+                rows="2"
+                placeholder="Type response"
+              ></textarea>
+              <button type="submit">Submit Response</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

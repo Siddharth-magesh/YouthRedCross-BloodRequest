@@ -1,6 +1,8 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify , redirect ,  flash , render_template, url_for
+from datetime import date
 from app.utils.distance_analysis import DistanceConfiguration
 from app.config import Config
+from app.models import QueryTable , db
 
 fetch_availabe_donors = Blueprint('fetch_donors', __name__)
 val = Config()
@@ -38,3 +40,29 @@ def get_donors():
             return jsonify(unsorted_data) 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@fetch_availabe_donors.route('/get_user_query', methods=['POST', 'GET'])
+def get_user_query():
+    if request.method == 'POST':
+        user_name = request.form.get('user_name')
+        user_email = request.form.get('user_email')
+        user_query = request.form.get('user_query')
+        
+        if user_name and user_email and user_query:
+            new_query = QueryTable(
+                user_name=user_name,
+                user_email=user_email,
+                user_query=user_query,
+                user_query_date=date.today(),
+                admin_id="PENDING",
+                admin_name="PENDING"
+            )
+            db.session.add(new_query)
+            db.session.commit()
+            flash("Your query has been submitted successfully!", "success")
+        else:
+            flash("Please fill in all fields.", "error")
+        return redirect(url_for('main.render_query_page'))
+        
+    queries = QueryTable.query.all()
+    return render_template('render_query_page.html', queries=queries)
