@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Query Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        margin: 20px auto;
+        width: 50%;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+      }
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>User Query Page</h1>
+    <form
+      id="queryForm"
+      method="POST"
+      action="{{ url_for('fetch_donors.get_user_query') }}"
+    >
+      <label for="user_name">Your Name</label>
+      <input
+        type="text"
+        id="user_name"
+        name="user_name"
+        placeholder="Enter your name"
+        required
+      />
+
+      <label for="user_email">Your Email</label>
+      <input
+        type="text"
+        id="user_email"
+        name="user_email"
+        placeholder="Enter your email"
+        required
+      />
+
+      <label for="user_query">Your Query</label>
+      <textarea
+        id="user_query"
+        name="user_query"
+        rows="4"
+        placeholder="Type your query here"
+        required
+      ></textarea>
+
+      <button type="submit">Submit Query</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User Name</th>
+          <th>User Query</th>
+          <th>Admin Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic query list -->
+        {% for query in queries %}
+        <tr>
+          <td>{{ query.id }}</td>
+          <td>{{ query.user_name }}</td>
+          <td>{{ query.user_query }}</td>
+          <td>{{ query.admin_response or 'Pending' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

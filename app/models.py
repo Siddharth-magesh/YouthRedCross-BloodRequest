@@ -116,3 +116,15 @@ class ResponseDetails(db.Model):
     certificate_status = db.Column(db.String(36),nullable=True)
     donation_date = db.Column(db.Date, nullable=True)
     donor_ids = db.Column(db.String(255), nullable=True)
+
+class QueryTable(db.Model):
+    __tablename__ = 'QueryTable'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_name = db.Column(db.String(55),nullable=False)
+    user_email = db.Column(db.String(55),nullable=False)
+    admin_id = db.Column(db.String(55),nullable=False)
+    admin_name = db.Column(db.String(55),nullable=False)
+    user_query = db.Column(db.String(555),nullable=True)
+    admin_response = db.Column(db.String(555),nullable=True)
+    user_query_date = db.Column(db.Date,nullable=True)
+    admin_response_date = db.Column(db.Date,nullable=True)

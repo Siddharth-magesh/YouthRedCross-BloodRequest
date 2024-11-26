@@ -30,7 +30,9 @@
         <h2>YRC Blood Request</h2>
       </div>
       <div class="header-actions">
-        <a class="help-btn" href="/queries"
+        <a
+          class="help-btn"
+          href="{{ url_for('admin.render_query_page_admin_side') }}"
           ><i class="fa-solid fa-comments"></i> Queries</a
         >
         <a class="help-btn" href="/help"

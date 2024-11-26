@@ -1,12 +1,13 @@
-from flask import Blueprint , render_template , request , flash , redirect , url_for
+from flask import Blueprint , render_template , request , flash , redirect , url_for , session
 from app.utils.data_manipulations_toDB import FetchDetails
-from app.models import DonorDetail , PersonalDetailsUser , DiseaseDetailsUser , db , AddressDetailsUser
+from app.models import DonorDetail , PersonalDetailsUser , DiseaseDetailsUser , db , AddressDetailsUser , QueryTable
 from app.utils.certificate_generation import generate_certificate
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import smtplib
+from datetime import date
 from app.config import Config
 import os
 
@@ -152,6 +153,27 @@ def generate_and_send_certificate():
 
     return "Success"
 
-@manage_donors.route('/generate_certificates_regsitered_donors',methods=['POST','GET'])
-def generate_certificates_regsitered_donors():
-    return "Success"
+@manage_donors.route('/reply_user_query',methods = ['POST','GET'])
+def reply_user_query():
+    if request.method == 'POST':
+        query_id = request.form.get('query_id')
+        admin_response = request.form.get('admin_response')
+        admin_id = session.get('admin_id')
+        admin_name = session.get('admin_name')
+        
+        # Fetch the query and update
+        query = QueryTable.query.filter_by(id=query_id).first()
+        if query:
+            query.admin_response = admin_response
+            query.admin_response_date = date.today()
+            query.admin_id = admin_id
+            query.admin_name = admin_name
+            db.session.commit()
+            flash("Response submitted successfully!", "success")
+        else:
+            flash("Query not found.", "error")
+        return redirect(url_for('admin.render_query_page_admin_side'))
+    
+    # Render admin query page
+    queries = QueryTable.query.all()
+    return render_template('admin_query.html', queries=queries)
