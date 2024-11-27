@@ -330,6 +330,64 @@ class FetchDetails:
             raise
 
     @staticmethod
+    def fetch_donor_detail_by_blood_group(blood_group):
+        try:
+            donor_details = (
+                db.session.query(
+                    DonorDetail.id,
+                    DonorDetail.name,
+                    DonorDetail.email,
+                    DonorDetail.blood_group,
+                    DonorDetail.active_status
+                )
+                .filter(DonorDetail.blood_group == blood_group)
+                .all()
+            )
+            return donor_details
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
+
+    @staticmethod
+    def fetch_donor_detail_by_name(name):
+        try:
+            donor_details = (
+                db.session.query(
+                    DonorDetail.id,
+                    DonorDetail.name,
+                    DonorDetail.email,
+                    DonorDetail.blood_group,
+                    DonorDetail.active_status
+                )
+                .filter(DonorDetail.name.ilike(f"%{name}%"))
+                .all()
+            )
+            return donor_details
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
+
+    @staticmethod
+    def fetch_donor_detail_by_blood_group_and_name(name,blood_group):
+        try:
+            donor_details = (
+                db.session.query(
+                    DonorDetail.id,
+                    DonorDetail.name,
+                    DonorDetail.email,
+                    DonorDetail.blood_group,
+                    DonorDetail.active_status
+                )
+                .filter(DonorDetail.blood_group == blood_group, DonorDetail.name.ilike(f'%{name}%'))  # Filters by both blood group and name
+                .all()
+            )
+            return donor_details
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
+    
+
+    @staticmethod
     def fetch_admin_details(admin_id):
         try:
             admin_details = (
