@@ -177,3 +177,23 @@ def reply_user_query():
     # Render admin query page
     queries = QueryTable.query.all()
     return render_template('admin_query.html', queries=queries)
+
+@manage_donors.route('/search_donors_admin',methods=['POST','GET'])
+def search_donors_admin():
+    name = request.args.get('name', '').strip()
+    blood_group = request.args.get('blood_group', '').strip()
+
+    if name and blood_group:
+        details = FetchDetails.fetch_donor_detail_by_blood_group_and_name(
+            name=name,
+            blood_group=blood_group
+        )
+        return render_template('manage_donors_admin.html',donors = details)
+    elif blood_group:
+        details = FetchDetails.fetch_donor_detail_by_blood_group(blood_group=blood_group)
+        return render_template('manage_donors_admin.html',donors = details)
+    elif name:
+        details = FetchDetails.fetch_donor_detail_by_name(name=name)
+        return render_template('manage_donors_admin.html',donors = details)
+    else:
+        return redirect(url_for('admin.render_manage_donors_admin_page'))
