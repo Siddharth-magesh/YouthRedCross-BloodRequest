@@ -49,6 +49,12 @@
         <!-- Password input field -->
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
+        <label for="captcha">Captcha:</label>
+        <input type="text" id="captcha" name="captcha" required />
+
+        {{ captcha(css_class="captcha") }}
+
+        <br />
         <!-- Submit button -->
         <button type="submit">Login</button>
       </form>
@@ -266,6 +272,21 @@
         margin: 20px 0 0 0;
         display: block;
         margin-right: 90px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          width: 90%;
+          padding: 15px;
+          right: 5%;
+          bottom: 5%;
+        }
+
+        .red-shape-content {
+          width: 100%;
+          top: 5%;
+          left: 5%;
+        }
       }
     </style>
   </body>

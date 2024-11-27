@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash , redirect , url_for
+from flask import Blueprint, render_template, request, flash , redirect , url_for , current_app
 from werkzeug.security import generate_password_hash
 from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
 from werkzeug.security import check_password_hash
@@ -188,7 +188,15 @@ def donor_login_validation():
     email = request.form.get('email')
     password = request.form.get('password')
 
+    captcha = current_app.extensions.get('captcha')
+    if not captcha or not captcha.validate():
+        flash("Invalid CAPTCHA. Please try again.", "error")
+        return redirect(url_for('main.render_donor_login'))
+
     donor = DonorDetail.query.filter_by(email=email).first()
+    if not donor:
+        flash("Email not registered. Please sign up.", "error")
+        return redirect(url_for('main_bp.render_donor_login'))
     
     if donor and check_password_hash(donor.password,password):
         current_datetime = datetime.now()

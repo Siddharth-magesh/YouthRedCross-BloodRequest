@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template , request , redirect , url_for , flash , session
+from flask import Blueprint, render_template , request , redirect , url_for , flash , session , current_app
 from app.models import AdminDetails , AuthenticationDetailsAdmin , db
 from werkzeug.security import check_password_hash , generate_password_hash
 from datetime import datetime
@@ -45,6 +45,11 @@ def get_next_id_secondary(table,prefix):
 def validate_admin():
     email = request.form.get('email')
     password = request.form.get('password')
+    captcha = current_app.extensions.get('captcha')
+
+    if not captcha or not captcha.validate():
+        flash("Invalid CAPTCHA. Please try again.", "error")
+        return redirect(url_for('admin.render_admin_login'))
 
     admin = AdminDetails.query.filter_by(email=email).first()
 

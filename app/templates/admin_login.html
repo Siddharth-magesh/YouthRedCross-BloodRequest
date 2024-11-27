@@ -48,7 +48,12 @@
           name="password"
           required
         /><br /><br />
+        <label for="captcha">Captcha:</label>
+        <input type="text" id="captcha" name="captcha" required />
 
+        {{ captcha(css_class="captcha") }}
+
+        <br />
         <!-- Submit button -->
         <button type="submit">Login</button>
       </form>

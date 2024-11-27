@@ -19,3 +19,14 @@ class Config:
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     MAIL_USE_TLS = os.getenv("MAIL_USE_TLS") == 'True'
     MAIL_USE_SSL = os.getenv("MAIL_USE_SSL") == 'True'
+
+    CAPTCHA_ENABLE = True
+    CAPTCHA_LENGTH = 5
+    CAPTCHA_WIDTH = 150
+    CAPTCHA_HEIGHT = 60
+    CAPTCHA_LOG = True
+    CAPTCHA_INCLUDE_ALPHABET = False
+    CAPTCHA_INCLUDE_NUMERIC = True
+    CAPTCHA_INCLUDE_PUNCTUATION = False 
+
+    SESSION_TYPE = 'filesystem'
