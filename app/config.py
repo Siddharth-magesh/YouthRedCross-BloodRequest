@@ -30,3 +30,4 @@ class Config:
     CAPTCHA_INCLUDE_PUNCTUATION = False 
 
     SESSION_TYPE = 'filesystem'
+    APSCHEDULER_TIMEZONE = 'Asia/Kolkata'
