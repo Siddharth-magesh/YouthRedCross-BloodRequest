@@ -5,6 +5,10 @@ from .routes import init_blueprints
 from datetime import timedelta
 from flask_session import Session
 from flask_session_captcha import FlaskSessionCaptcha
+from flask_apscheduler import APScheduler
+from app.utils.scheduled_automations import expire_blood_requests , increment_age
+
+scheduler = APScheduler()
 
 def create_app():
     app = Flask(__name__)
@@ -25,4 +29,23 @@ def create_app():
     
     # Initialize blueprints
     init_blueprints(app)
+
+    configure_scheduler(app)
+
     return app
+
+def configure_scheduler(app):
+    scheduler.init_app(app)
+
+    @scheduler.task('cron', id='expire_requests_job', hour=0, minute=0)
+    def expire_requests_job():
+        with app.app_context():
+            expire_blood_requests()
+
+    @scheduler.task('cron',id='increment_age_job', hour=0, minute=0)
+    def increment_age_job():
+        with app.app_context():
+            increment_age()
+
+    scheduler.start()
+
