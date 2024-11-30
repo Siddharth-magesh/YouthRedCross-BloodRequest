@@ -26,6 +26,18 @@ def get_next_id_secondary_function(table, prefix):
     # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
+#used only for generating Terms and Conditions ID
+def get_next_id_third_function(table, prefix):
+    # Fetch the current maximum ID, strip the prefix and convert to an integer
+    max_id = db.session.query(table.terms_and_conditions_id).order_by(table.terms_and_conditions_id.desc()).first()
+    next_id_num = 1
+    if max_id:
+        # Extract the numeric part of the ID
+        current_num = int(max_id[0][len(prefix):])
+        next_id_num = current_num + 1
+    # Format the new ID
+    return f"{prefix}{str(next_id_num).zfill(3)}"
+
 def replace_none(text):
     words = word_tokenize(text.lower())
     replaced_words = ['none' if word in ['none','-',"no","nill","nan","na"] else word for word in words]

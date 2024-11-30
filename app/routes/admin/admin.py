@@ -9,8 +9,9 @@ from app.utils.data_manipulations_toDB import FetchDetails
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import pandas as pd
-from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function
-from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable
+from datetime import datetime
+from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function , get_next_id_third_function
+from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable , TermsAndConditions
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -234,6 +235,12 @@ def add_donor_csv():
                         pincode=donor_pincode[i],
                         country=donor_country[i] if not pd.isnull(donor_country[i]) else 'India'
                     )
+                    terms_and_conditions_id = get_next_id_third_function(DonorDetail, 'TCDNR')
+                    term_condtions = TermsAndConditions(
+                        id = terms_and_conditions_id,
+                        version = "1.0",
+                        effective_date = datetime.now()
+                    )
                     disease_id = get_next_id(DiseaseDetailsUser, 'DIS')
                     disease_details = DiseaseDetailsUser(
                         id=disease_id,
@@ -255,6 +262,7 @@ def add_donor_csv():
                         password = hashed_donor_password,
                         blood_group = donor_blood_group[i],
                         personal_details_id = personal_id,
+                        terms_and_conditions_id = terms_and_conditions_id,
                         address_id = address_id,
                         active_status = donor_status[i],
                         disease_id = disease_id,
@@ -270,6 +278,8 @@ def add_donor_csv():
                     db.session.commit()
                     #db.session.add(donor_authentication)
                     #db.session.commit()
+                    db.session.add(term_condtions)
+                    db.session.commit()
                     db.session.add(donor_detail)
                     db.session.commit()
                     flash("Donor Details Added Successfully")
