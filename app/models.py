@@ -10,6 +10,7 @@ class DonorDetail(db.Model):
     password = db.Column(db.String(500), nullable=False)
     blood_group = db.Column(db.String(10), nullable=False)
     personal_details_id = db.Column(db.String(36), db.ForeignKey('PersonalDetailsUser.id'), nullable=False)
+    terms_and_conditions_id = db.Column(db.String(36), db.ForeignKey('TermsAndConditions.id'), nullable=False)
     address_id = db.Column(db.String(36), db.ForeignKey('AddressDetailsUser.id'), nullable=False)
     active_status = db.Column(db.Boolean, nullable=False, default=True)
     disease_id = db.Column(db.String(36), db.ForeignKey('DiseaseDetailsUser.id'),nullable=False)
@@ -17,6 +18,12 @@ class DonorDetail(db.Model):
     last_donated_date = db.Column(db.DateTime, nullable=True) 
     number_of_times_donated = db.Column(db.Integer,nullable=False)
     last_login_date = db.Column(db.DateTime, nullable=True)
+
+class TermsAndConditions(db.Model):
+    __tablename__ = 'TermsAndConditions'
+    id = db.Column(db.String(36), primary_key=True)
+    version = db.Column(db.String(20), nullable=False)
+    effective_date = db.Column(db.Date, nullable=False)
 
 class AuthenticationDetailsDonor(db.Model):
     __tablename__ = 'AuthenticationDetailsDonor'

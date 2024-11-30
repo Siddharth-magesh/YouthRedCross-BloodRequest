@@ -1,12 +1,10 @@
-from app.models import db, BloodRequestDetails
+from app.models import db, BloodRequestDetails , PersonalDetailsUser , DonorDetail
 from datetime import date
 
 def expire_blood_requests():
     try:
-        # Retrieve current date
         current_date = date.today()
 
-        # Query for expired requests
         expired_requests = (
             db.session.query(BloodRequestDetails)
             .filter(
@@ -16,7 +14,6 @@ def expire_blood_requests():
             .all()
         )
 
-        # Update status to 'Expired'
         for request in expired_requests:
             request.status = 'Expired'
 
@@ -28,5 +25,22 @@ def expire_blood_requests():
         print(f"An error occurred while expiring requests: {e}")
 
 
+from datetime import datetime
+
 def increment_age():
-    print("Age incremented")
+    current_date = datetime.now().date()
+    
+    donors = DonorDetail.query.all()
+    
+    for donor in donors:
+        personal_details = PersonalDetailsUser.query.filter_by(id=donor.personal_details_id).first()
+        
+        if personal_details:
+            dob = personal_details.date_of_birth
+            
+            if dob.month == current_date.month and dob.day == current_date.day:
+                personal_details.age += 1
+                db.session.commit()
+                
+                print(f"Donor {donor.name}'s age has been incremented to {personal_details.age}.")
+

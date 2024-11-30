@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash , redirect , url_for , current_app
 from werkzeug.security import generate_password_hash
-from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail
+from app.models import db, PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail , TermsAndConditions
 from werkzeug.security import check_password_hash
 from datetime import datetime
 from app.utils.data_manipulations_toDB import FetchDetails
@@ -42,6 +42,18 @@ def get_next_id(table, prefix):
 def get_next_id_secondary_function(table, prefix):
     # Fetch the current maximum ID, strip the prefix and convert to an integer
     max_id = db.session.query(table.authentication_id).order_by(table.authentication_id.desc()).first()
+    next_id_num = 1
+    if max_id:
+        # Extract the numeric part of the ID
+        current_num = int(max_id[0][len(prefix):])
+        next_id_num = current_num + 1
+    # Format the new ID
+    return f"{prefix}{str(next_id_num).zfill(3)}"
+
+#used only for generating Terms and Conditions ID
+def get_next_id_third_function(table, prefix):
+    # Fetch the current maximum ID, strip the prefix and convert to an integer
+    max_id = db.session.query(table.terms_and_conditions_id).order_by(table.terms_and_conditions_id.desc()).first()
     next_id_num = 1
     if max_id:
         # Extract the numeric part of the ID
@@ -137,6 +149,15 @@ def register_new_donors():
 
             # Create and add AuthenticationDetails entry
             auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
+            
+            # terms and Conditions
+            terms_and_conditions_id = get_next_id_third_function(DonorDetail, 'TCDNR')
+            term_condtions = TermsAndConditions(
+                id = terms_and_conditions_id,
+                version = "1.0",
+                effective_date = datetime.now()
+            )
+            db.session.add(term_condtions)
 
             # Create and add DonorDetail entry
             donor_id = get_next_id(DonorDetail, 'DNR')
@@ -146,7 +167,8 @@ def register_new_donors():
                 email = email,
                 password = hashed_password,
                 blood_group = blood_group,
-                personal_details_id=personal_id,  # Foreign key
+                personal_details_id=personal_id,
+                terms_and_conditions_id=terms_and_conditions_id,
                 address_id = address_id,
                 active_status = True,
                 disease_id = disease_id,
@@ -308,6 +330,7 @@ def modify_donor_details():
             disease_name,
             disease_description
         ]
+        print(confirmation_details)
         return render_template('donor_details_updation_confirmation.html',details = confirmation_details)
     except Exception as e:
         db.session.rollback()
