@@ -4,6 +4,98 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Donor Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f9ff;
+      }
+
+      h2 {
+        text-align: center;
+        color: #003366;
+        margin-top: 20px;
+      }
+
+      form {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #003366;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="date"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        background: #f9f9f9;
+      }
+
+      input[readonly] {
+        background: #e9e9e9;
+        cursor: not-allowed;
+      }
+
+      h3 {
+        margin-top: 20px;
+        color: #003366;
+        border-bottom: 2px solid #003366;
+        padding-bottom: 5px;
+      }
+
+      button {
+        background-color: #003366;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #00509e;
+      }
+
+      @media (max-width: 600px) {
+        form {
+          padding: 15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"],
+        select {
+          font-size: 12px;
+        }
+
+        button {
+          font-size: 14px;
+          padding: 8px 12px;
+        }
+      }
+    </style>
   </head>
   <body>
     <h2>Donor Details</h2>
@@ -13,32 +105,19 @@
     >
       <!-- Donor Detail Fields -->
       <label for="id">Donor ID:</label>
-      <input type="text" name="id" value="{{ details.id }}" readonly /><br />
+      <input type="text" name="id" value="{{ details.id }}" readonly />
 
       <label for="name">Name:</label>
-      <input type="text" name="name" value="{{ details.name }}" /><br />
+      <input type="text" name="name" value="{{ details.name }}" />
 
       <label for="email">Email:</label>
-      <input
-        type="email"
-        name="email"
-        value="{{ details.email }}"
-        readonly
-      /><br />
+      <input type="email" name="email" value="{{ details.email }}" readonly />
 
       <label for="password">Password:</label>
-      <input
-        type="password"
-        name="password"
-        value="{{ details.password }}"
-      /><br />
+      <input type="password" name="password" value="{{ details.password }}" />
 
       <label for="blood_group">Blood Group:</label>
-      <input
-        type="text"
-        name="blood_group"
-        value="{{ details.blood_group }}"
-      /><br />
+      <input type="text" name="blood_group" value="{{ details.blood_group }}" />
 
       <label for="personal_details_id">Personal Details ID:</label>
       <input
@@ -46,14 +125,14 @@
         name="personal_details_id"
         value="{{ details.personal_details_id }}"
         readonly
-      /><br />
+      />
 
       <label for="active_status">Active Status:</label>
       <input
         type="text"
         name="active_status"
         value="{{ details.active_status }}"
-      /><br />
+      />
 
       <label for="last_donated_date">Last Donated Date:</label>
       <input
@@ -61,14 +140,14 @@
         name="last_donated_date"
         value="{{ details.last_donated_date }}"
         readonly
-      /><br />
+      />
 
       <label for="number_of_times_donated">Times Donated:</label>
       <input
         type="number"
         name="number_of_times_donated"
         value="{{ details.number_of_times_donated }}"
-      /><br />
+      />
 
       <label for="last_login_date">Last Login Date:</label>
       <input
@@ -76,78 +155,70 @@
         name="last_login_date"
         value="{{ details.last_login_date }}"
         readonly
-      /><br />
+      />
 
       <!-- Personal Details Fields -->
       <h3>Personal Details</h3>
       <label for="first_name">First Name:</label>
-      <input
-        type="text"
-        name="first_name"
-        value="{{ details.first_name }}"
-      /><br />
+      <input type="text" name="first_name" value="{{ details.first_name }}" />
 
       <label for="last_name">Last Name:</label>
-      <input
-        type="text"
-        name="last_name"
-        value="{{ details.last_name }}"
-      /><br />
+      <input type="text" name="last_name" value="{{ details.last_name }}" />
 
       <label for="age">Age:</label>
-      <input type="number" name="age" value="{{ details.age }}" /><br />
+      <input type="number" name="age" value="{{ details.age }}" />
 
       <label for="contact_number">Contact Number:</label>
       <input
         type="text"
         name="contact_number"
         value="{{ details.contact_number }}"
-      /><br />
+      />
 
       <label for="date_of_birth">Date of Birth:</label>
       <input
         type="date"
         name="date_of_birth"
         value="{{ details.date_of_birth }}"
-      /><br />
+      />
 
       <label for="marital_status">Marital Status:</label>
       <input
         type="text"
         name="marital_status"
         value="{{ details.marital_status }}"
-      /><br />
+      />
 
       <label for="secondary_contact_number">Secondary Contact Number:</label>
       <input
         type="text"
         name="secondary_contact_number"
         value="{{ details.secondary_contact_number }}"
-      /><br />
+      />
 
       <label for="aadhar_number">Aadhar Number:</label>
       <input
         type="text"
         name="aadhar_number"
         value="{{ details.aadhar_number }}"
-      /><br />
+      />
 
       <!-- Address Details Fields -->
       <h3>Address Details</h3>
       <label for="address">Address:</label>
-      <input type="text" name="address" value="{{ details.address }}" /><br />
+      <input type="text" name="address" value="{{ details.address }}" />
 
       <label for="city">City:</label>
-      <input type="text" name="city" value="{{ details.city }}" /><br />
+      <input type="text" name="city" value="{{ details.city }}" />
 
       <label for="state">State:</label>
-      <input type="text" name="state" value="{{ details.state }}" /><br />
+      <input type="text" name="state" value="{{ details.state }}" />
 
       <label for="country">Country:</label>
-      <input type="text" name="country" value="{{ details.country }}" /><br />
+      <input type="text" name="country" value="{{ details.country }}" />
 
       <label for="pincode">Pincode:</label>
-      <input type="text" name="pincode" value="{{ details.pincode }}" /><br />
+      <input type="text" name="pincode" value="{{ details.pincode }}" />
 
       <!-- Disease Details Fields -->
       <h3>Disease Details</h3>
@@ -156,24 +227,17 @@
         type="text"
         name="disease_name"
         value="{{ details.disease_name }}"
-      /><br />
+      />
 
       <label for="disease_description">Disease Description:</label>
       <input
         type="text"
         name="disease_description"
         value="{{ details.disease_description }}"
-      /><br />
+      />
 
       <!-- Submit Button -->
       <button type="submit">Update Details</button>
     </form>
-
-    <!-- Navigation Links -->
-    <a href="{{ url_for('admin.render_main_admin_page') }}">Back To Dashboard</a
-    ><br />
-    <a href="{{ url_for('admin.render_manage_donors_admin_page') }}"
-      >Back To Donors List</a
-    >
   </body>
 </html>

@@ -252,8 +252,8 @@ def update_admin_details():
     vec_registration_number = request.form.get('vec_registration_number')
     active_status = request.form.get('active_status')
     department = request.form.get('department')
-    approved_donation = request.form.get('approved_donation')
-    closed_requests = request.form.get('closed_requests')
+    approved_donation_count = request.form.get('approved_donation')
+    closed_requests_count = request.form.get('closed_requests')
     contact_number = request.form.get('contact_number')
     date_of_birth = request.form.get('date_of_birth')
 
@@ -268,10 +268,10 @@ def update_admin_details():
         admin_details.active_status = active_status
     if department and department != admin_details.department:
         admin_details.department = department
-    if approved_donation and approved_donation != admin_details.approved_donation:
-        admin_details.approved_donation = approved_donation
-    if closed_requests and closed_requests != admin_details.closed_requests:
-        admin_details.closed_requests = closed_requests
+    if approved_donation_count and approved_donation_count != admin_details.approved_donation_count:
+        admin_details.approved_donation_count = approved_donation_count
+    if closed_requests_count and closed_requests_count != admin_details.closed_requests_count:
+        admin_details.closed_requests_count = closed_requests_count
     if contact_number and contact_number != admin_details.mobile_number:
         admin_details.mobile_number = contact_number
     if date_of_birth and date_of_birth != admin_details.date_of_birth:

@@ -1,86 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Analytics</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 20px;
-      }
-      .analytics-container {
-        max-width: 800px;
-        margin: auto;
-      }
-      h1 {
-        text-align: center;
-        color: #333;
-      }
-      .summary-stats {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
-      }
-      .stat {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-      .chart {
-        margin-top: 20px;
-        text-align: center;
-      }
-      .chart img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-      }
-    </style>
-  </head>
-  <body>
-    <a href="{{ url_for('admin.render_main_admin_page') }}"
-      >Back to Dashboard</a
-    >
-    <div class="analytics-container">
-      <h1>Admin Analytics</h1>
+{% extends 'admin_base_template.html' %} {% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+  }
 
-      <div class="summary-stats">
-        <div class="stat">
-          <h3>Total Hospitals</h3>
-          <p>{{ hospital_count }}</p>
-        </div>
-        <div class="stat">
-          <h3>New Donors (Last 30 Days)</h3>
-          <p>{{ recent_donor_count }}</p>
-        </div>
-        <div class="stat">
-          <h3>Blood Requests (Last 30 Days)</h3>
-          <p>{{ recent_request_count }}</p>
-        </div>
-      </div>
+  .analytics-container {
+    max-width: 1000px; /* Adjusted max-width to fit better */
+    margin: auto;
+  }
 
-      <div class="analytics-charts">
-        <div class="chart">
-          <h3>Donor Analytics by Blood Group</h3>
-          <img
-            src="{{ url_for('static', filename='images/admin_analytics/donor_analytics_chart.png') }}"
-            alt="Donor Analytics Chart"
-          />
-        </div>
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
 
-        <div class="chart">
-          <h3>Blood Request Status Distribution</h3>
-          <img
-            src="{{ url_for('static', filename='images/admin_analytics/blood_request_status.png') }}"
-            alt="Blood Request Status Chart"
-          />
-        </div>
-      </div>
+  .summary-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+  }
+
+  .stat {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1; /* Makes the stats section responsive */
+    margin: 0 10px;
+  }
+
+  .stat h3 {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+
+  .stat p {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .analytics-charts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+
+  .chart {
+    width: 48%; /* Adjusted width for two charts side by side */
+    text-align: center;
+  }
+
+  .chart img {
+    width: 100%; /* Ensure images take up full available width */
+    height: auto;
+    border-radius: 8px;
+    box-sizing: border-box; /* Prevents overflow */
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="analytics-container">
+  <a href="{{ url_for('admin.render_main_admin_page') }}" class="back-link"
+    >Back to Dashboard</a
+  >
+
+  <h1>Admin Analytics</h1>
+
+  <div class="summary-stats">
+    <div class="stat">
+      <h3>Total Hospitals</h3>
+      <p>{{ hospital_count }}</p>
     </div>
-  </body>
-</html>
+    <div class="stat">
+      <h3>New Donors (Last 30 Days)</h3>
+      <p>{{ recent_donor_count }}</p>
+    </div>
+    <div class="stat">
+      <h3>Blood Requests (Last 30 Days)</h3>
+      <p>{{ recent_request_count }}</p>
+    </div>
+  </div>
+
+  <div class="analytics-charts">
+    <div class="chart">
+      <h3>Donor Analytics by Blood Group</h3>
+      <img
+        src="{{ url_for('static', filename='images/admin_analytics/donor_analytics_chart.png') }}"
+        alt="Donor Analytics Chart"
+      />
+    </div>
+
+    <div class="chart">
+      <h3>Blood Request Status Distribution</h3>
+      <img
+        src="{{ url_for('static', filename='images/admin_analytics/blood_request_status.png') }}"
+        alt="Blood Request Status Chart"
+      />
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,49 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Query Management</title>
-    <style>
-      /* Reuse similar styles from user query page */
-    </style>
-  </head>
-  <body>
-    <h1>Admin Query Management</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>User Name</th>
-          <th>User Query</th>
-          <th>Admin Response</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for query in queries %}
-        <tr>
-          <td>{{ query.id }}</td>
-          <td>{{ query.user_name }}</td>
-          <td>{{ query.user_query }}</td>
-          <td>{{ query.admin_response or 'Pending' }}</td>
-          <td>
-            <form
-              method="POST"
-              action="{{ url_for('manageDonor.reply_user_query') }}"
-            >
-              <input type="hidden" name="query_id" value="{{ query.id }}" />
-              <textarea
-                name="admin_response"
-                rows="2"
-                placeholder="Type response"
-              ></textarea>
-              <button type="submit">Submit Response</button>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
-</html>
+{% extends "admin_base_template.html" %} {% block customTitle %} Admin Query
+Management {% endblock %} {% block customCSS %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #003f88;
+    margin-bottom: 20px;
+  }
+
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  table thead {
+    background-color: #003f88;
+    color: #fff;
+  }
+
+  table th,
+  table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  table tbody tr:hover {
+    background-color: #e6f7ff;
+  }
+
+  table th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td button {
+    padding: 6px 12px;
+    background-color: #003f88;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  table td button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Textarea Styling */
+  textarea {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+  }
+
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  form button {
+    align-self: flex-start;
+    background-color: #003f88;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  form button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    table,
+    table thead,
+    table tbody,
+    table th,
+    table td,
+    table tr {
+      display: block;
+    }
+
+    table th {
+      text-align: right;
+    }
+
+    table td {
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    table td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<main>
+  <h1>Admin Query Management</h1>
+
+  <!-- Table for displaying queries -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User Name</th>
+        <th>User Query</th>
+        <th>Admin Response</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for query in queries %}
+      <tr>
+        <td>{{ query.id }}</td>
+        <td>{{ query.user_name }}</td>
+        <td>{{ query.user_query }}</td>
+        <td>{{ query.admin_response or 'Pending' }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{{ url_for('manageDonor.reply_user_query') }}"
+          >
+            <input type="hidden" name="query_id" value="{{ query.id }}" />
+            <textarea
+              name="admin_response"
+              rows="2"
+              placeholder="Type response"
+            ></textarea>
+            <button type="submit">Submit Response</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</main>
+{% endblock %}
