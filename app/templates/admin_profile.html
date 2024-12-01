@@ -1,87 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Profile</title>
-  </head>
-  <body>
-    <h2>Admin Dashboard</h2>
-    <form
-      action="{{ url_for('admin_auth.update_admin_details') }}"
-      method="POST"
-    >
-      <label for="id">Admin ID:</label>
-      <input type="text" name="id" value="{{ details.id }}" readonly /><br />
+{% extends 'admin_base_template.html' %} {% block content %}
+<h2>Admin Dashboard</h2>
+<div class="form-container">
+  <form action="{{ url_for('admin_auth.update_admin_details') }}" method="POST">
+    <label for="id">Admin ID:</label>
+    <input type="text" name="id" value="{{ details.id }}" readonly /><br />
 
-      <label for="name">Name:</label>
-      <input type="text" name="name" value="{{ details.username }}" /><br />
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ details.username }}" /><br />
 
-      <label for="email">Email:</label>
-      <input type="email" name="email" value="{{ details.email }}" /><br />
+    <label for="email">Email:</label>
+    <input type="email" name="email" value="{{ details.email }}" /><br />
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        name="password"
-        value="{{ details.password }}"
-        readonly
-      /><br />
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="password"
+      value="{{ details.password }}"
+      readonly
+    /><br />
 
-      <label for="vec_registration_number">VEC registration number:</label>
-      <input
-        type="number"
-        name="vec_registration_number"
-        value="{{ details.vec_registration_number }}"
-      /><br />
+    <label for="vec_registration_number">VEC Registration Number:</label>
+    <input
+      type="number"
+      name="vec_registration_number"
+      value="{{ details.vec_registration_number }}"
+    /><br />
 
-      <label for="active_status">Active Status:</label>
-      <input
-        type="text"
-        name="active_status"
-        value="{{ details.active_status }}"
-      /><br />
+    <label for="active_status">Active Status:</label>
+    <input
+      type="text"
+      name="active_status"
+      value="{{ details.active_status }}"
+    /><br />
 
-      <label for="department">Department:</label>
-      <input
-        type="text"
-        name="department"
-        value="{{ details.department }}"
-      /><br />
+    <label for="department">Department:</label>
+    <input
+      type="text"
+      name="department"
+      value="{{ details.department }}"
+    /><br />
 
-      <label for="approved_donation">approved donation:</label>
-      <input
-        type="number"
-        name="approved_donation"
-        value="{{ details.approved_donation_count }}"
-        readonly
-      /><br />
+    <label for="approved_donation">Approved Donation:</label>
+    <input
+      type="number"
+      name="approved_donation"
+      value="{{ details.approved_donation_count }}"
+      readonly
+    /><br />
 
-      <label for="closed_requests">closed requests:</label>
-      <input
-        type="number"
-        name="closed_requests"
-        value="{{ details.closed_requests_count }}"
-        readonly
-      /><br />
+    <label for="closed_requests">Closed Requests:</label>
+    <input
+      type="number"
+      name="closed_requests"
+      value="{{ details.closed_requests_count }}"
+      readonly
+    /><br />
 
-      <label for="contact_number">Contact Number:</label>
-      <input
-        type="text"
-        name="contact_number"
-        value="{{ details.mobile_number }}"
-      /><br />
+    <label for="contact_number">Contact Number:</label>
+    <input
+      type="text"
+      name="contact_number"
+      value="{{ details.mobile_number }}"
+    /><br />
 
-      <label for="date_of_birth">Date of Birth:</label>
-      <input
-        type="date"
-        name="date_of_birth"
-        value="{{ details.date_of_birth }}"
-      /><br />
+    <label for="date_of_birth">Date of Birth:</label>
+    <input
+      type="date"
+      name="date_of_birth"
+      value="{{ details.date_of_birth }}"
+    /><br />
 
-      <button type="submit">Update Details</button>
-    </form>
-    <a href="{{ url_for('admin.render_main_admin_page') }}">Back To Dashboard</a
-    ><br />
-  </body>
-</html>
+    <button type="submit">Update Details</button>
+  </form>
+</div>
+
+{% block customCSS %}
+<style>
+  /* General page layout */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9; /* Light background */
+    color: #333; /* Dark text color */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Container to center the form */
+  .form-container {
+    width: 900%; /* Increase width to take more space */
+    max-width: 800px; /* Restrict the maximum width */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  /* Form styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  input {
+    padding: 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.6);
+  }
+
+  /* Button styles */
+  button {
+    background-color: #2980b9; /* Dark blue button */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #3498db; /* Lighter blue on hover */
+  }
+
+  /* Back button */
+  .back-btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-btn a {
+    font-size: 1rem;
+    color: #2980b9;
+    text-decoration: none;
+  }
+
+  .back-btn a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %} {% endblock %}

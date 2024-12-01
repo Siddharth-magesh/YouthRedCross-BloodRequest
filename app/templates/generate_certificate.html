@@ -1,41 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Certificate Generation</title>
-  </head>
-  <body>
-    <a href="{{ url_for('admin.render_main_admin_page') }}"
-      >Back to Dashboard</a
-    >
-    <h2>Generate Manual Certificates</h2>
-    <br />
-    <form
-      action="{{ url_for('manageDonor.generate_and_send_certificate') }}"
-      method="POST"
-    >
-      <label for="Donor_name">Donor Name</label>
-      <input type="text" name="donor_name" id="donor_name" required />
-      <br />
+{% extends 'admin_base_template.html' %} {% block content %}
+<style>
+  .form-container {
+    margin: 50px auto;
+    max-width: 600px;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 40px;
+  }
 
-      <label for="Donor_email">Donor Email</label>
-      <input type="email" name="donor_email" id="donor_email" required />
-      <br />
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #343a40;
+  }
 
-      <label for="donation_date">Donation Date</label>
-      <input type="date" name="donation_date" id="donation_date" required />
-      <br />
+  .form-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #495057;
+  }
 
-      <label for="blood_group">Blood Group</label>
-      <input type="text" name="blood_group" id="blood_group" required />
-      <br />
+  .form-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
 
-      <label for="location">Location</label>
-      <input type="text" name="location" id="location" />
-      <br />
+  .form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-      <button type="submit">Send Certificate</button>
-    </form>
-  </body>
-</html>
+  .form-container button:hover {
+    background-color: #0056b3;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Generate Manual Certificates</h2>
+  <form
+    action="{{ url_for('manageDonor.generate_and_send_certificate') }}"
+    method="POST"
+  >
+    <label for="donor_name">Donor Name</label>
+    <input
+      type="text"
+      name="donor_name"
+      id="donor_name"
+      placeholder="Enter donor's name"
+      required
+    />
+
+    <label for="donor_email">Donor Email</label>
+    <input
+      type="email"
+      name="donor_email"
+      id="donor_email"
+      placeholder="Enter donor's email"
+      required
+    />
+
+    <label for="donation_date">Donation Date</label>
+    <input type="date" name="donation_date" id="donation_date" required />
+
+    <label for="blood_group">Blood Group</label>
+    <input
+      type="text"
+      name="blood_group"
+      id="blood_group"
+      placeholder="Enter blood group"
+      required
+    />
+
+    <label for="location">Location</label>
+    <input
+      type="text"
+      name="location"
+      id="location"
+      placeholder="Enter location (optional)"
+    />
+
+    <button type="submit">Send Certificate</button>
+  </form>
+
+  <a href="{{ url_for('admin.render_main_admin_page') }}" class="back-link"
+    >Back to Dashboard</a
+  >
+</div>
+{% endblock %}
