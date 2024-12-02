@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import os
 from datetime import datetime , timedelta
 from flask import session
+import json
 
 class FetchDetails:
     @staticmethod
@@ -513,6 +514,34 @@ class FetchDetails:
         except Exception as e:
             print(f"An error occurred: {e}")
             raise
+
+    @staticmethod
+    def fetch_hospital_details_autofill():
+        try:
+            hospital_details = (
+                db.session.query(
+                    HospitalDetails.id,
+                    HospitalDetails.hospital_name,
+                    HospitalDetails.hospital_address
+                ).all()
+            )
+
+            hospital_data = [
+                {
+                    "id": hospital.id,
+                    "name": hospital.hospital_name,
+                    "address": hospital.hospital_address
+                }
+                for hospital in hospital_details
+            ]
+            
+            with open('app/static/json_files/hospital_details.json', 'w') as json_file:
+                json.dump(hospital_data, json_file, indent=4)
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
+
 
     @staticmethod
     def generate_notifications():
