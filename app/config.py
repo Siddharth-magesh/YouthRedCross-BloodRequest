@@ -10,7 +10,6 @@ class Config:
     GOOGLE_MAPS_API = os.getenv("GOOGLE_MAPS_API")
     BASE_MAPS_URL = os.getenv("BASE_MAPS_URL")
     BASE_MAIL_ADDRESS = os.getenv("BASE_MAIL_ADDRESS")
-    ADMIN_MAIL_ADDRESS = os.getenv("ADMIN_MAIL_ADDRESS")
     
     # Email configurations
     MAIL_SERVER = os.getenv("MAIL_SERVER")
