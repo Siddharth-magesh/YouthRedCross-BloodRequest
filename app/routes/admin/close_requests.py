@@ -90,6 +90,9 @@ def close_ongoing_requests():
         donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
+        if donation_date=='':
+            donation_date=None
+
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
 
         FetchDetails.update_ongoing_request(
