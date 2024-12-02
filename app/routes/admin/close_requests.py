@@ -46,6 +46,9 @@ def close_expired_requests():
         donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
+        if donation_date=='':
+            donation_date=None
+
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
         
         FetchDetails.update_expired_request(
@@ -137,6 +140,9 @@ def close_ongoing_requests_and_send_certificates():
         donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
 
+        if donation_date == '':
+            return "Enter the Donation date"
+
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
         if str(response_donor_ids) == 'None':
             return "Havent entered any Donor Id"
@@ -219,6 +225,9 @@ def close_expired_requests_and_send_certificates():
         certificate_status = request.form.get('certificate_status')
         donation_date = request.form.get('donation_date')
         response_donor_ids = request.form.get('response_donor_ids')
+
+        if donation_date == '':
+            return "Enter the Donation date"
 
         donor_id_list = response_donor_ids.split(',') if response_donor_ids else []
         if str(response_donor_ids) == 'None':
