@@ -1,6 +1,8 @@
 # app/routes/main.py
 from flask import Blueprint, render_template
 from app.models import QueryTable
+from app.utils.data_manipulations_toDB import FetchDetails
+import json
 
 main_bp = Blueprint('main', __name__)
 
@@ -16,9 +18,16 @@ def render_find_donors_page():
 def render_register_new_donor():
     return render_template('register_donor.html')
 
-@main_bp.route('/render_generate_blood_request')
+@main_bp.route('/render_generate_blood_request', methods=['GET', 'POST'])
 def render_generate_blood_request():
-    return render_template('generate_request.html')
+    try:
+        FetchDetails.fetch_hospital_details_autofill()
+        with open('app/static/json_files/hospital_details.json', 'r') as file:
+            hospitals_data = json.load(file)
+    except FileNotFoundError:
+        hospitals_data = []
+
+    return render_template('generate_request.html',hospitals_json=hospitals_data)
 
 @main_bp.route('/render_AboutUs_Page')
 def render_AboutUs_Page():

@@ -9,162 +9,93 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
     <title>Generate Blood Request</title>
     <style>
+      /* Styling for the form and autocomplete dropdown */
       .autocomplete-suggestions {
-        border: 1px solid #ccc;
-        max-height: 150px;
-        overflow-y: auto;
         position: absolute;
-        z-index: 1000;
-        background: white;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        border: 1px solid #ccc;
+        z-index: 999;
       }
-      .autocomplete-suggestion {
+      .autocomplete-suggestions div {
         padding: 10px;
         cursor: pointer;
       }
-      .autocomplete-suggestion:hover {
-        background: #f0f0f0;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #fef7f7;
-      }
-      /* Navbar styling */
-      .navbar {
-        background-color: rgba(0, 0, 0, 0);
-        color: white;
-      }
-      .navbar a {
-        color: #b30101;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      .navbar a:hover {
-        text-decoration: underline;
-      }
-      .outer {
-        border: 1px solid hsla(0, 0%, 0%, 0.2);
-        background-color: #fff5f5;
-        padding-left: 0;
-        padding-right: 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        border-radius: 6px;
-        margin: 50px;
-      }
-      .heading {
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        height: 12.6rem;
-        background-color: #86020f;
-        margin: 0;
-        color: #f9eae8;
-      }
-
-      /* Styles for the image container within the heading */
-      .image {
-        position: relative;
-        overflow: hidden;
-        height: 100%;
-        width: 26%;
-      }
-
-      /* Styles for the content area inside the heading */
-      .content {
-        margin-top: 20px;
-      }
-
-      /* Styles for the description text inside the heading */
-      .description {
-        margin-top: 14px;
-      }
-
-      /* Styles for the image inside the .image container */
-      .image img {
-        object-fit: cover;
-        object-position: 50% -20px;
-        height: 100%;
-        width: 100%;
-      }
-      /*padding for all elements besides header */
-      .pad {
-        padding: 20px;
-      }
-      label,
-      input {
-        display: block;
-        width: 50%;
-      }
-      label {
-        font-weight: bold;
-        color: #b30101;
-      }
-      input.form-control,
-      select.form-control,
-      textarea.form-control {
-        margin-top: 0; /* Adjust the top margin of input elements */
-      }
-      button {
-        width: 100%;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        background-color: #b30101;
-        font-size: 16px;
-        padding: 10px 20px;
-        transition: background-color 0.6s ease;
-      }
-      button:hover {
-        background-color: #8e0101; /* Slightly darker shade */
+      .autocomplete-suggestions div:hover {
+        background-color: #f4f7f6;
       }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg fixed-top px-4">
+    <!-- Navbar Section -->
+    <nav
+      class="navbar navbar-expand-lg fixed-top px-4"
+      style="background-color: #b30001; font-family: 'Arial', sans-serif"
+    >
       <div class="container-fluid">
-        <div class="ms-auto">
-          <a href="{{ url_for('main.index') }}">Return to Home Page</a>
+        <a
+          href="{{ url_for('main.index') }}"
+          class="navbar-brand"
+          style="color: white; font-weight: bold; font-size: 1.5rem"
+        >
+          LifeConnect
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{{ url_for('main.index') }}"
+                style="color: white; font-size: 1.1rem"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{{ url_for('main.render_AboutUs_Page') }}"
+                style="color: white; font-size: 1.1rem"
+                >About Us</a
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
-    <div class="outer container col-12">
-      <!--<h2>Generate Blood Request</h2>-->
-      <header>
-        <div class="heading container row">
-          <div class="image col-4">
-            <img
-              src="{{ url_for('static',filename='images/generate_requests/image.jpg') }}"
-              class=""
-              alt="image_here"
-            />
-          </div>
-          <div class="col-4 offset-4">
-            <div class="content">
-              <div class="title">
-                <h4>
-                  GENERATE BLOOD <br />
-                  REQUEST FORM
-                </h4>
-              </div>
-              <div class="description">
-                <p>
-                  Fill out this form to generate <br />
-                  a blood request
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      <div class="pad">
+
+    <!-- Form Section -->
+    <div class="container" style="margin-top: 100px">
+      <div class="card p-4 shadow-lg">
+        <h2 class="text-center text-danger mb-4">Generate Blood Request</h2>
+
+        <!-- Blood Request Form -->
         <form
           method="POST"
           action="{{ url_for('generate_blood_request.generate_bloodRequest') }}"
         >
-          <div class="col-8">
-            <label for="patient_name">Patient Name:</label><br />
+          <div class="mb-3">
+            <label for="patient_name" class="form-label">Patient Name</label>
             <input
               type="text"
               id="patient_name"
@@ -173,10 +104,11 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="attendant_name">Attendant Name:</label><br />
+          <div class="mb-3">
+            <label for="attendant_name" class="form-label"
+              >Attendant Name</label
+            >
             <input
               type="text"
               id="attendant_name"
@@ -185,10 +117,9 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="blood_group">Blood Group:</label><br />
+          <div class="mb-3">
+            <label for="blood_group" class="form-label">Blood Group</label>
             <select
               id="blood_group"
               name="blood_group"
@@ -206,33 +137,29 @@
               <option value="O-">O-</option>
             </select>
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="hospital_name">Hospital Name:</label><br />
+          <!-- Hospital Section -->
+          <div class="mb-3 position-relative">
+            <label for="hospital_name" class="form-label">Hospital Name</label>
             <input
               type="text"
               id="hospital_name"
               name="hospital_name"
-              autocomplete="off"
               class="form-control"
+              autocomplete="off"
               required
-            /><br />
-            <input
-              type="hidden"
-              id="hospital_id"
-              name="hospital_id"
-              value="None"
             />
+            <input type="hidden" id="hospital_id" name="hospital_id" />
             <div
               id="suggestionsContainer"
               class="autocomplete-suggestions"
             ></div>
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="hospital_address">Hospital Address:</label><br />
+          <div class="mb-3">
+            <label for="hospital_address" class="form-label"
+              >Hospital Address</label
+            >
             <input
               type="text"
               id="hospital_address"
@@ -241,10 +168,11 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="contact_number">Contact Number:</label><br />
+          <div class="mb-3">
+            <label for="contact_number" class="form-label"
+              >Contact Number</label
+            >
             <input
               type="tel"
               id="contact_number"
@@ -253,10 +181,9 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="patient_age">Patient Age:</label><br />
+          <div class="mb-3">
+            <label for="patient_age" class="form-label">Patient Age</label>
             <input
               type="number"
               id="patient_age"
@@ -265,10 +192,9 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="pincode">Pincode:</label><br />
+          <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
             <input
               type="text"
               id="pincode"
@@ -277,10 +203,9 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="landmark">Landmark:</label><br />
+          <div class="mb-3">
+            <label for="landmark" class="form-label">Landmark</label>
             <input
               type="text"
               id="landmark"
@@ -288,10 +213,9 @@
               class="form-control"
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="due_date">Due Date:</label><br />
+          <div class="mb-3">
+            <label for="due_date" class="form-label">Due Date</label>
             <input
               type="date"
               id="due_date"
@@ -300,117 +224,58 @@
               required
             />
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="request_reason">Request Reason:</label><br />
+          <div class="mb-3">
+            <label for="request_reason" class="form-label"
+              >Request Reason</label
+            >
             <textarea
               id="request_reason"
               name="request_reason"
               class="form-control"
+              rows="3"
               required
             ></textarea>
           </div>
-          <br />
 
-          <div class="col-8">
-            <label for="units_required">Units Required:</label><br />
-            <input
-              type="number"
-              id="units_required"
-              name="units_required"
-              class="form-control"
-              required
-            />
-          </div>
-          <br />
-
-          <button type="submit">Submit Blood Request</button>
+          <button type="submit" class="btn btn-danger w-100">
+            Submit Request
+          </button>
         </form>
       </div>
     </div>
-    <script>
-      const hospitals = [
-        {
-          id: "HOSP001",
-          name: "Apollo Hospital",
-          address: "No. 21, Greams Lane, Off Greams Road, Chennai, 600006",
-        },
-        {
-          id: "HOSP002",
-          name: "Fortis Malar Hospital",
-          address:
-            "No. 52, 1st Main Road, Gandhi Nagar, Adyar, Chennai, 600020",
-        },
-        {
-          id: "HOSP003",
-          name: "Billroth Hospital",
-          address: "No. 43, B, P. V. B. Road, Shenoy Nagar, Chennai, 600030",
-        },
-        {
-          id: "HOSP004",
-          name: "MIOT International",
-          address: "No. 4, Mount Road, Manapakkam, Chennai, 600116",
-        },
-        {
-          id: "HOSP005",
-          name: "Sri Ramachandra Medical Center",
-          address: "No. 1, Ramachandra Nagar, Porur, Chennai, 600116",
-        },
-        {
-          id: "HOSP006",
-          name: "KMC Hospital",
-          address: "No. 1, Kotturpuram, Chennai, 600085",
-        },
-        {
-          id: "HOSP007",
-          name: "Vijaya Hospital",
-          address: "No. 50, Kottur Garden, Chennai, 600085",
-        },
-        {
-          id: "HOSP008",
-          name: "Gleneagles Global Health City",
-          address: "No. 2, 1st Floor, East Coast Road, Chennai, 600041",
-        },
-        {
-          id: "HOSP009",
-          name: "Sundaram Medical Foundation",
-          address: "No. 2, Padmavathy Nagar, Ayanambakkam, Chennai, 600095",
-        },
-        {
-          id: "HOSP010",
-          name: "Sakthi Hospital",
-          address: "No. 14, K.K. Nagar, Chennai, 600078",
-        },
-      ];
-      const hospitalInput = document.getElementById("hospital_name");
-      const suggestionsContainer = document.getElementById(
-        "suggestionsContainer"
-      );
 
+    <!-- JavaScript Section -->
+    <script>
+      // Assuming hospitals_json is passed from Flask
+      const hospitals = {{ hospitals_json | tojson }};
+
+      const hospitalInput = document.getElementById("hospital_name");
+      const suggestionsContainer = document.getElementById("suggestionsContainer");
+
+      // Event listener for input field
       hospitalInput.addEventListener("input", function () {
         const query = this.value.toLowerCase();
-        suggestionsContainer.innerHTML = "";
-        document.getElementById("hospital_id").value = "None";
-        document.getElementById("hospital_address").value = "";
+        suggestionsContainer.innerHTML = ""; // Clear previous suggestions
 
+        // If there's input, filter hospitals
         if (query.length > 0) {
           const filteredHospitals = hospitals.filter((hospital) =>
             hospital.name.toLowerCase().includes(query)
           );
+
+          // If there are matching hospitals, display them
           if (filteredHospitals.length > 0) {
             filteredHospitals.forEach((hospital) => {
               const suggestionDiv = document.createElement("div");
-              suggestionDiv.classList.add("autocomplete-suggestion");
               suggestionDiv.textContent = hospital.name;
               suggestionDiv.addEventListener("click", () => {
-                hospitalInput.value = hospital.name;
-                document.getElementById("hospital_id").value = hospital.id;
-                document.getElementById("hospital_address").value =
-                  hospital.address;
-                suggestionsContainer.innerHTML = "";
+                hospitalInput.value = hospital.name;  // Set input field to selected hospital
+                document.getElementById("hospital_id").value = hospital.id;  // Set hospital ID
+                document.getElementById("hospital_address").value = hospital.address;  // Set hospital address
+                suggestionsContainer.innerHTML = "";  // Clear suggestions
               });
-              suggestionsContainer.appendChild(suggestionDiv);
+              suggestionsContainer.appendChild(suggestionDiv);  // Append suggestion
             });
           }
         }
