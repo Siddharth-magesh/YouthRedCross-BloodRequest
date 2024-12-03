@@ -6,7 +6,7 @@ from datetime import timedelta
 from flask_session import Session
 from flask_session_captcha import FlaskSessionCaptcha
 from flask_apscheduler import APScheduler
-from app.utils.scheduled_automations import expire_blood_requests , increment_age
+from app.utils.scheduled_automations import expire_blood_requests , increment_age , activate_donor_status
 
 scheduler = APScheduler()
 
@@ -46,6 +46,12 @@ def configure_scheduler(app):
     def increment_age_job():
         with app.app_context():
             increment_age()
+
+    @scheduler.task('cron',id='activate_donor_status_job', hour=0, minute=0)
+    def activate_donor_status_job():
+        with app.app_context():
+            activate_donor_status()
+
 
     scheduler.start()
 

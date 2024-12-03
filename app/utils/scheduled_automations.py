@@ -1,5 +1,5 @@
 from app.models import db, BloodRequestDetails , PersonalDetailsUser , DonorDetail
-from datetime import date
+from datetime import date , datetime , timedelta
 
 def expire_blood_requests():
     try:
@@ -43,3 +43,27 @@ def increment_age():
                 db.session.commit()
                 
                 print(f"Donor {donor.name}'s age has been incremented to {personal_details.age}.")
+
+def activate_donor_status():
+    try:
+        current_date = datetime.now().date()
+        
+        two_months_ago = current_date - timedelta(days=60)
+
+        inactive_donors = db.session.query(DonorDetail).filter(
+            DonorDetail.active_status == False,
+            DonorDetail.last_donated_date <= two_months_ago
+        ).all()
+
+        for donor in inactive_donors:
+            donor.active_status = True
+
+        db.session.commit()
+
+        print(f"Activated {len(inactive_donors)} donors whose last donation was over two months ago.")
+
+    except Exception as e:
+        print(f"An error occurred while activating donor statuses: {e}")
+        db.session.rollback()
+        raise
+   
