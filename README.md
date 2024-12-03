@@ -35,5 +35,5 @@ Visit our website and explore how Life Blood Squad can support you and your love
 **Built by the Youth Red Cross team at Velammal Engineering College. Together, let's make a difference!**
 
 **Contact Us**  
-📞 Phone: 9876543210  
-📧 Email: yrclifebloodsupport@gmail.com
+📞 Phone: 9150450401  
+📧 Email: yrclifeconnect@gmail.com
