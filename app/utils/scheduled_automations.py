@@ -43,4 +43,3 @@ def increment_age():
                 db.session.commit()
                 
                 print(f"Donor {donor.name}'s age has been incremented to {personal_details.age}.")
-

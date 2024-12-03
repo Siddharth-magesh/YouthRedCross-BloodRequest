@@ -13,14 +13,27 @@ Request Dashboard{% endblock %} {% block customCSS %}
 <main class="dashboard">
   <div class="greeting">
     <h1>Welcome, {{admin_name}} 👋</h1>
-    <p>YRC Blood Request Dashboard</p>
+    <p>LifeConnect Dashboard</p>
   </div>
 
-  <div class="card">
-    <h2>Total Active Donors</h2>
-    <div class="card-data">
-      <span>{{active_donors}}+</span>
-      <a class="view-btn"><i class="fa-solid fa-circle-arrow-right"></i></a>
+  <div class="card-container">
+    <div class="card">
+      <h2>Total Active Donors</h2>
+      <div class="card-data">
+        <span class="card-number">{{active_donors_count}}</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Total Inactive Donors</h2>
+      <div class="card-data">
+        <span class="card-number">{{Inactive_donors_count}}</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Total Requests Recieved</h2>
+      <div class="card-data">
+        <span class="card-number">{{Total_Requests}}</span>
+      </div>
     </div>
   </div>
 
@@ -37,6 +50,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
           <span class="badge">{{ notifications['Not_Approved'] }}</span>
           {% endif %}
           <h3>New Requests</h3>
+          <br />
           <p>Manage all incoming blood requests.</p>
         </div>
       </a>
@@ -49,6 +63,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
           <span class="badge">{{ notifications['Pending'] }}</span>
           {% endif %}
           <h3>Ongoing Requests</h3>
+          <br />
           <p>Track ongoing blood donation requests.</p>
         </div>
       </a>
@@ -58,6 +73,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       >
         <div class="tile">
           <h3>Closed Requests</h3>
+          <br />
           <p>View completed requests.</p>
         </div>
       </a>
@@ -70,6 +86,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
           <span class="badge">{{ notifications['Expired'] }}</span>
           {% endif %}
           <h3>Expired Requests</h3>
+          <br />
           <p>View expired blood requests.</p>
         </div>
       </a>
@@ -79,6 +96,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       >
         <div class="tile">
           <h3>Declined Requests</h3>
+          <br />
           <p>View declined blood requests.</p>
         </div>
       </a>
@@ -92,6 +110,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       <a href="{{ url_for('admin.render_analytics_page') }}" class="tile-link">
         <div class="tile">
           <h3>Analytics</h3>
+          <br />
           <p>View Analytics for Donors</p>
         </div>
       </a>
@@ -101,6 +120,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       >
         <div class="tile">
           <h3>Manage Donors</h3>
+          <br />
           <p>Manage Donor Details</p>
         </div>
       </a>
@@ -110,6 +130,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       >
         <div class="tile">
           <h3>Manage Hospitals</h3>
+          <br />
           <p>Manage Hospitals Details</p>
         </div>
       </a>
@@ -119,12 +140,14 @@ Request Dashboard{% endblock %} {% block customCSS %}
       >
         <div class="tile">
           <h3>Generate Certificates</h3>
+          <br />
           <p>Generate Certificates for Donors</p>
         </div>
       </a>
       <a href="{{ url_for('admin.add_donor_csv') }}" class="tile-link">
         <div class="tile">
           <h3>Extract CSV Data</h3>
+          <br />
           <p>Extract Donor Details from CSV</p>
         </div>
       </a>

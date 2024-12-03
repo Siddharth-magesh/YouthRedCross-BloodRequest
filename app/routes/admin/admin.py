@@ -37,9 +37,17 @@ def render_admin_signup():
 @admin_bp.route('/render_main_admin_page')
 def render_main_admin_page():
     if check_admin_login():
-        data = FetchDetails.generate_notifications()
+        data , active_donors_count , Inactive_donors_count ,Total_Requests = FetchDetails.generate_notifications()
         name = session.get('admin_name')
-        return render_template('admin_dashboard.html',notifications = data,admin_name=name)
+        print(active_donors_count,Inactive_donors_count)
+        return render_template(
+            'admin_dashboard.html',
+            notifications = data, 
+            admin_name=name , 
+            active_donors_count=active_donors_count , 
+            Inactive_donors_count=Inactive_donors_count,
+            Total_Requests=Total_Requests
+        )
     else:
         return redirect(url_for('admin.render_admin_login'))
 
