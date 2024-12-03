@@ -165,12 +165,19 @@
     margin-bottom: 20px;
   }
   
+  .card-container {
+    display: flex; 
+    gap: 20px; 
+    justify-content: left;
+    margin: 20px 0; 
+  }
+
   .card {
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 20px;
-    width: 250px;
+    width: 260px;
     height: 130px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -184,9 +191,9 @@
   
   .card-data {
     display: flex;
-    justify-content:space-around;
+    justify-content:center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
   }
   
   .card-data span {
@@ -194,6 +201,26 @@
     font-weight: bold;
     color: #BF0001;
   }
+
+  .card-number {
+    font-size: 36px; 
+    font-weight: bold; 
+    color: #BF0001; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); 
+    padding: 10px 20px;
+    border: 2px solid #BF0001;
+    border-radius: 8px; 
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+.card-number:hover {
+    color: #c82f3d;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+  }
+
   
   .view-btn {
     background-color: #BF0001;

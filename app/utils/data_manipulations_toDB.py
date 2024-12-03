@@ -69,8 +69,9 @@ class FetchDetails:
                 print(f"Request {request_id} not found.")
                 return False, f"Request {request_id} not found."
             
-            request_to_update.status = "Declined"
+            request_to_update.status = "Closed"
             request_to_update.approved_admin_id = session.get('admin_id')
+            request_to_update.closed_admin_id = session.get('admin_id')
             db.session.commit()
 
             admin_details = AdminDetails.query.filter_by(id = session.get('admin_id')).first()
@@ -190,7 +191,7 @@ class FetchDetails:
             )
             .join(ResponseDetails, BloodRequestDetails.response_id == ResponseDetails.id)
             .join(HospitalDetails, BloodRequestDetails.hospital_id == HospitalDetails.id)
-            .filter(BloodRequestDetails.status == 'Declined')
+            .filter(ResponseDetails.status == 'Declined')
             .all()
         )
         return closed_results
@@ -422,6 +423,30 @@ class FetchDetails:
             func.sum(func.if_(~DonorDetail.active_status, 1, 0)).label("inactive_count")
         ).group_by(DonorDetail.blood_group).all()
 
+        statuses_response = ['Success', 'Partial Success', 'Failure', 'Pending','Declined']
+        status_counts = {status: 0 for status in statuses_response}
+
+        # Query for status counts
+        results = db.session.query(
+            ResponseDetails.status,
+            func.count(ResponseDetails.id).label('count')
+        ).group_by(ResponseDetails.status).all()
+
+        for result in results:
+            status = result.status if result.status else 'Pending'
+            if status in status_counts:
+                status_counts[status] += result.count
+
+        plt.figure(figsize=(8, 5))
+        plt.bar(status_counts.keys(), status_counts.values(), color=['green', 'orange', 'red', 'blue','skyblue'])
+        plt.xlabel('Response Status')
+        plt.ylabel('Count')
+        plt.title('Response Status Distribution')
+
+        image_path = os.path.join("app/static/images/admin_analytics", "response_status_distribution.png")
+        plt.savefig(image_path)
+        plt.close()
+
         blood_groups = [result.blood_group for result in donor_results]
         active_counts = [result.active_count for result in donor_results]
         inactive_counts = [result.inactive_count for result in donor_results]
@@ -546,7 +571,6 @@ class FetchDetails:
     @staticmethod
     def generate_notifications():
         try:
-            # Fetch counts for the relevant statuses
             counts = db.session.query(
                 func.count(BloodRequestDetails.id).label('count'),
                 BloodRequestDetails.status
@@ -559,7 +583,19 @@ class FetchDetails:
             for row in counts:
                 status_counts[row.status] = row.count
 
-            return status_counts
+            active_donors_count = db.session.query(
+                func.count(DonorDetail.id)
+            ).filter(DonorDetail.active_status==True).scalar()
+
+            Inactive_donors_count = db.session.query(
+                func.count(DonorDetail.id)
+            ).filter(DonorDetail.active_status==False).scalar()
+
+            Total_Requests = db.session.query(
+                func.count(BloodRequestDetails.id)
+            ).scalar()
+
+            return status_counts , active_donors_count , Inactive_donors_count , Total_Requests
         except Exception as e:
             print(f"An error occurred: {e}")
             raise
