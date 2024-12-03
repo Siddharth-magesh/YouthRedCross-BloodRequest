@@ -15,7 +15,7 @@ def generate_secure_numeric_otp(length=6):
     return otp
 
 def send_email(subject, recipient, body):
-    msg = MIMEText(body)
+    msg = MIMEText(body,"html")
     msg['Subject'] = subject
     msg['From'] = cred.BASE_MAIL_ADDRESS
     msg['To'] = recipient
@@ -103,27 +103,51 @@ def register_new_admin():
             subject = "New Admin Registration Request"
             recipient = admin_email
             body = f"""
-            Dear Admin,
+            <!DOCTYPE html>
+            <html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; margin: 0; padding: 0;">
+                <div style="background-color: #ffffff; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div style="background-color: #8B0000; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; font-size: 20px; font-weight: bold;">
+                        New Admin Sign-Up Verification
+                    </div>
+                    <div style="padding: 20px; font-size: 16px; color: #333;">
+                        <p>Dear Admin,</p>
+                        
+                        <p style="font-size: 16px; color: #333;">
+                            A new admin sign-up has been generated. Kindly verify the admin details and share the OTP only if the information is valid.
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #333;">
+                            <strong style="color: #8B0000;">New Admin Details:</strong>
+                        </p>
+                        <ul style="font-size: 16px; color: #333;">
+                            <li><strong>Email:</strong> {email}</li>
+                            <li><strong>Name:</strong> {username}</li>
+                            <li><strong>VEC Registration Number:</strong> {vec_registration_number}</li>
+                            <li><strong>Date of Birth:</strong> {date_of_birth}</li>
+                            <li><strong>Mobile Number:</strong> {mobile_number}</li>
+                            <li><strong>Department:</strong> {department}</li>
+                            <li><strong>Generated Admin ID:</strong> {admin_id}</li>
+                            <li><strong>Generated Authentication ID:</strong> {authentication_id}</li>
+                        </ul>
+                        
+                        <p style="font-size: 16px; color: #333;">
+                            Please share the below credentials with the new admin for further verification:
+                        </p>
+                        <p style="font-size: 18px; font-weight: bold; color: #8B0000;">
+                            {one_time_password}
+                        </p>
 
-            A New Admin SignUp has been Generated , Kindly verify the Admin details
-            and Share the OTP only if the Informations are valid.
-
-            New Admin Details : 
-            - Email : {email}
-            - Name : {username}
-            - VEC Registration Number : {vec_registration_number}
-            - Date of Birth : {date_of_birth}
-            - Mobile Number : {mobile_number}
-            - Department : {department}
-            - Generated Admin ID : {admin_id}
-            - Generated Authentication ID : {authentication_id}
-
-            Share the Below Credential
-            {one_time_password}
-
-            Regards,
-            Youth Red Cross Blood Donation Site
+                        <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #555;">
+                            Regards,<br>
+                            <strong>Youth Red Cross Blood Donation Site</strong>
+                        </p>
+                    </div>
+                </div>
+            </body>
+            </html>
             """
+
             send_email(subject, recipient, body)
 
         return render_template(
@@ -195,19 +219,48 @@ def manage_forget_password_admin():
         recipient = email
         link = "http://127.0.0.1:5000/main/render_query_page"
         body = f"""
-        Dear Admin,
+        <!DOCTYPE html>
+        <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; margin: 0; padding: 0;">
+            <div style="background-color: #ffffff; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div style="background-color: #8B0000; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; font-size: 20px; font-weight: bold;">
+                    Password Change Request Verification
+                </div>
+                <div style="padding: 20px; font-size: 16px; color: #333;">
+                    <p>Dear Admin,</p>
+                    
+                    <p style="font-size: 16px; color: #333;">
+                        We have received a request from your YRC-LBS account to change your password. If you did not initiate this request, please let us know by clicking the link below:
+                    </p>
+                    
+                    <p style="text-align: center;">
+                        <a href="{link}" style="font-size: 16px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 5px;">
+                            Report Issue
+                        </a>
+                    </p>
+                    
+                    <p style="font-size: 16px; color: #333;">
+                        If you did request the password change, please use the following OTP to proceed with updating your password:
+                    </p>
+                    
+                    <p style="font-size: 18px; font-weight: bold; color: #8B0000; text-align: center;">
+                        {one_time_password}
+                    </p>
 
-        We Have got a Request from your YRC-LBS Account for Changing your password.
-        if You haven't generated it , let us Know in the below link
-        {link}
-        if You have requested for it , use the below OTP to change your password
+                    <p style="font-size: 16px; color: #333;">
+                        Please note: Do not share this OTP with any third parties to ensure the security of your account.
+                    </p>
 
-        One Time Password ! Don't Share it with any third parties !
-        {one_time_password}
-
-        Regards,
-        Youth Red Cross Blood Donation Site
+                    <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #555;">
+                        Regards,<br>
+                        <strong>Youth Red Cross Blood Donation Site</strong>
+                    </p>
+                </div>
+            </div>
+        </body>
+        </html>
         """
+
         send_email(subject, recipient, body)
 
         return render_template('otp_validation_admin.html',one_time_password=one_time_password,email=email)
