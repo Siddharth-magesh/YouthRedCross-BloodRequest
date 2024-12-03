@@ -114,7 +114,12 @@
       <input type="email" name="email" value="{{ details.email }}" readonly />
 
       <label for="password">Password:</label>
-      <input type="password" name="password" value="{{ details.password }}" />
+      <input
+        type="password"
+        name="password"
+        value="{{ details.password }}"
+        readonly
+      />
 
       <label for="blood_group">Blood Group:</label>
       <input type="text" name="blood_group" value="{{ details.blood_group }}" />
@@ -136,7 +141,7 @@
 
       <label for="last_donated_date">Last Donated Date:</label>
       <input
-        type="date"
+        type="text"
         name="last_donated_date"
         value="{{ details.last_donated_date }}"
         readonly
@@ -151,7 +156,7 @@
 
       <label for="last_login_date">Last Login Date:</label>
       <input
-        type="date"
+        type="text"
         name="last_login_date"
         value="{{ details.last_login_date }}"
         readonly

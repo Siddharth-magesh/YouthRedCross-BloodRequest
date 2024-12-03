@@ -9,7 +9,7 @@ cred = Config()
 approveNewRequest = Blueprint('approve_new_requests', __name__)
 
 def send_email(subject, recipient, body):
-    msg = MIMEText(body)
+    msg = MIMEText(body,"html")
     msg['Subject'] = subject
     msg['From'] = cred.BASE_MAIL_ADDRESS 
     msg['To'] = recipient
@@ -43,46 +43,70 @@ def SendEmailToDonors():
     
     for email, name in zip(donor_emails, donor_names):
         body = f"""
-        Dear {name},
-
-        We hope this message finds you well. We are reaching out to you as part of our commitment to 
-        ensuring that patients in need of blood transfusions receive timely assistance. 
-        We have received a new blood donation request that matches your blood type: {blood_group}.
-
-        Here are the details of the request:
-        - Patient Name: {patient_name}
-        - Blood Group Needed: {blood_group}
-        - Units Required: {units_required}
-        - Patient Age: {patient_age}
-        - Hospital Name: {hospital_name}
-        - Hospital Address: {hospital_address}
-        - Contact Number: {contact_number}
-        - Attendant Name: {attendant_name}
-        - Due Date for Donation: {due_date}
-        - Reason for Request: {request_reason}
-
-        Your willingness to donate can make a significant difference in saving a life.
-        If you are available and willing to donate, please respond to this email or contact 
-        us directly at the information provided below.
-
-        Thank you for your continued support and willingness to help those in need.
-
-        Best regards,
-        Youth Red Cross (Team LFB)
-
-        For any inquiries, please contact us at:
-        Phone: 9876543210
-        Email: yrclifebloodsupport@gmail.com
+        <html>
+            <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+                <table align="center" width="600" style="margin: 20px auto; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color: #8B0000; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">Urgent Blood Donation Request</h1>
+                        </td>
+                    </tr>
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 30px; color: #333;">
+                            <p style="font-size: 18px; margin: 0 0 15px;">Dear {name},</p>
+                            <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                We hope this message finds you well. We are reaching out to you as part of our ongoing efforts to ensure timely assistance for patients in need of blood transfusions.
+                                We have identified a new blood donation request that matches your blood type: <strong style="color: #8B0000;">{blood_group}</strong>.
+                            </p>
+                            <p style="font-size: 16px; margin: 0 0 15px; font-weight: bold;">Request Details:</p>
+                            <table style="width: 100%; font-size: 16px; color: #333; margin-bottom: 20px;">
+                                <tr><td style="padding: 5px; font-weight: bold;">Patient Name:</td><td style="padding: 5px;">{patient_name}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Blood Group Needed:</td><td style="padding: 5px;">{blood_group}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Units Required:</td><td style="padding: 5px;">{units_required}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Patient Age:</td><td style="padding: 5px;">{patient_age}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Hospital Name:</td><td style="padding: 5px;">{hospital_name}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Hospital Address:</td><td style="padding: 5px;">{hospital_address}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Contact Number:</td><td style="padding: 5px;">{contact_number}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Attendant Name:</td><td style="padding: 5px;">{attendant_name}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Due Date for Donation:</td><td style="padding: 5px;">{due_date}</td></tr>
+                                <tr><td style="padding: 5px; font-weight: bold;">Reason for Request:</td><td style="padding: 5px;">{request_reason}</td></tr>
+                            </table>
+                            <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                If you are willing and available to donate, we kindly request you to respond at the earliest to facilitate this urgent need. 
+                                You may either reach out to one of our <strong>LifeConnect administrators</strong> via phone at <strong>9150450401</strong> or contact the attendant directly using the provided contact information.
+                            </p>
+                            <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                Your generous contribution can make a significant impact in saving lives, and we deeply value your support in this endeavor.
+                            </p>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #f8f9fa; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 14px; color: #555;">
+                            <p style="margin: 0;">
+                                Best regards,<br>
+                                <strong>LifeConnect Team</strong>
+                            </p>
+                            <p style="margin: 10px 0 0; font-size: 12px; color: #888;">
+                                For any additional inquiries, please contact us at:<br>
+                                <strong>Phone:</strong> 9150450401<br>
+                                <strong>Email:</strong> yrclifeconnect@gmail.com
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+        </html>
         """
+
 
         send_email(subject, email, body)
     FetchDetails.update_the_new_requests(request_id)
-    #Also Update which Admin Approved
-
-    success = True  # Set to False if the email sending fails
+    success = True 
     
     if success:
-        # Return success message to JavaScript
         return jsonify({"success": True, "message": "Email requests sent successfully!"})
     else:
         return jsonify({"success": False, "message": "Failed to send email requests."}), 500

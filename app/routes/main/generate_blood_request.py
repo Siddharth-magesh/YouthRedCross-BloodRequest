@@ -8,7 +8,7 @@ cred = Config()
 generate_blood_request = Blueprint('generate_blood_request', __name__)
 
 def send_email(subject, recipient, body):
-    msg = MIMEText(body)
+    msg = MIMEText(body,"html")
     msg['Subject'] = subject
     msg['From'] = cred.BASE_MAIL_ADDRESS 
     msg['To'] = recipient
@@ -95,22 +95,54 @@ def generate_bloodRequest():
         active_admins = AdminDetails.query.filter_by(active_status='Active').all()
         active_admin_emails = [admin.email for admin in active_admins]
 
-        # Send email notification to admin
         for admin_email in active_admin_emails:
             subject = "New Blood Request Generated"
             recipient = admin_email
-            link = "http://127.0.0.1:5000/admin/render_admin_login"  # Placeholder link
+            link = "http://127.0.0.1:5000/admin/render_admin_login" 
             body = f"""
-            Dear Admin,
-
-            A new blood request has been generated and is pending your authorization.
-            Please review the request at the following link:
-
-            {link}
-
-            Regards,
-            Youth Red Cross Blood Donation Site
+            <html>
+                <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+                    <table align="center" width="600" style="margin: 20px auto; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color: #8B0000; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                                <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">Blood Request Notification</h1>
+                            </td>
+                        </tr>
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 30px; color: #333;">
+                                <p style="font-size: 18px; margin: 0 0 15px;">Dear Admin,</p>
+                                <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                    This is to inform you that a new <strong style="color: #8B0000;">blood request</strong> has been initiated and requires your immediate attention. 
+                                </p>
+                                <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                    Kindly review and process the request at your earliest convenience by accessing the link provided below.
+                                </p>
+                                <p style="text-align: center;">
+                                    <a href="{link}" style="display: inline-block; font-size: 16px; text-decoration: none; color: white; background-color: #8B0000; padding: 15px 25px; border-radius: 5px; font-weight: bold;">
+                                        Review Request
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                        <!-- Footer -->
+                        <tr>
+                            <td style="padding: 20px; text-align: center; background-color: #f8f9fa; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 14px; color: #555;">
+                                <p style="margin: 0;">
+                                    Best regards,<br>
+                                    <strong>Youth Red Cross Blood Donation Team</strong>
+                                </p>
+                                <p style="margin: 10px 0 0; font-size: 12px; color: #888;">
+                                    © 2024 Youth Red Cross Blood Donation. All rights reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </body>
+            </html>
             """
+
             send_email(subject, recipient, body)
 
         confirmation_details = [
