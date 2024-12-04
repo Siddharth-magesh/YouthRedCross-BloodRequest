@@ -3,130 +3,1597 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - Life Blood Squad</title>
+    <title>LifeConnect</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+        font-family: "Poppins", sans-serif;
         margin: 0;
         padding: 0;
-        color: #333;
+        background-color: #f3f4f6;
       }
-      .container {
-        max-width: 800px;
+
+      /* Header Styles */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: linear-gradient(90deg, #d32f2f, #b71c1c);
+        color: white;
+      }
+
+      .header-logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .header-logo img {
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+      }
+
+      .header-logo h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .header-logo p {
+        font-size: 1rem;
+        margin: 0;
+        font-style: italic;
+      }
+
+      .header-btn {
+        text-decoration: none;
+        color: white;
+        background: white;
+        color: #b71c1c;
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .header-btn:hover {
+        background: #9a0007;
+        color: white;
+      }
+
+      /* About Section Styles */
+      .about-us {
+        padding: 2rem;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-      h1,
-      h2 {
-        color: #4caf50;
+
+      .about-us h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
       }
-      p {
-        line-height: 1.6;
-      }
-      .section {
-        margin-bottom: 30px;
-      }
-      .statistics,
-      .developers {
+
+      .about-content {
         display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .about-text {
+        flex: 1;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .about-text strong {
+        color: #c62828;
+      }
+
+      .image-carousel {
+        flex: 1;
+        position: relative;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .carousel-images img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        animation: fade 12s infinite ease-in-out;
+        opacity: 0;
+      }
+
+      /* Individual Animation Delays */
+      .carousel-images img:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .carousel-images img:nth-child(2) {
+        animation-delay: 4s;
+      }
+      .carousel-images img:nth-child(3) {
+        animation-delay: 8s;
+      }
+
+      /* Keyframes for Fade Out and Fade In Effect */
+      @keyframes fade {
+        0%,
+        20% {
+          opacity: 1; /* Fade in and hold */
+        }
+        25%,
+        95% {
+          opacity: 0; /* Fade out */
+        }
+        100% {
+          opacity: 0; /* Ensure it's invisible at the end */
+        }
+      }
+
+      /* Youth Red Cross Section Styles */
+      .yrc-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .yrc-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .yrc-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .yrc-text {
+        flex: 1;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .yrc-text strong {
+        color: #c62828;
+      }
+
+      .yrc-image {
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .yrc-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      /* LifeConnect Process Section Styles */
+      .process-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .process-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .process-step {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .process-text {
+        flex: 1;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .process-text h3 {
+        color: #c62828;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .process-image {
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .process-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .process-step:nth-child(even) .process-text {
+        order: 1;
+      }
+
+      .process-step:nth-child(even) .process-image {
+        order: 2;
+      }
+
+      .process-step:nth-child(odd) .process-text {
+        order: 2;
+      }
+
+      .process-step:nth-child(odd) .process-image {
+        order: 1;
+      }
+
+      @media (max-width: 768px) {
+        .process-step {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .process-text,
+        .process-image {
+          flex: none;
+          max-width: 100%;
+        }
+
+        .process-image img {
+          max-width: 100%;
+          object-fit: contain;
+        }
+      }
+
+      /* LifeConnect Actions Section Styles */
+      .actions-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .actions-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .action-step {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-family: "Open Sans", sans-serif;
+        text-align: center;
+        background-color: #c62828;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        margin: 10px 0;
+        transition: background-color 0.3s, transform 0.2s ease-in-out;
+      }
+
+      .square-button {
+        display: inline-block;
+        width: 200px;
+      }
+
+      .button:hover {
+        background-color: #e57373;
+        transform: scale(1.1);
+      }
+
+      .button-description {
+        font-size: 0.9rem;
+        color: #555;
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .square-button {
+          width: 150px;
+        }
+      }
+
+      /* LifeConnect Vision and Mission Section Styles */
+      .vision-mission-section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .vision-mission-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .vision-mission-step {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .vision-mission-text {
+        flex: 1;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .vision-mission-text h3 {
+        color: #c62828;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+      }
+
+      .vision-mission-text p {
+        color: #555;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+      }
+
+      .vision-mission-image {
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .vision-mission-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .vision-mission-image img:hover {
+        transform: scale(1.05);
+      }
+
+      /* Media query for responsiveness */
+      @media (max-width: 768px) {
+        .vision-mission-step {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .vision-mission-image,
+        .vision-mission-text {
+          width: 100%;
+        }
+
+        .vision-mission-text h3 {
+          font-size: 1.8rem;
+        }
+
+        .vision-mission-text p {
+          font-size: 1rem;
+        }
+      }
+
+      /* Donors and Donations Graph Section Styles */
+      .graphs-section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .graphs-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .graph-step {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .graph-text {
+        flex: 1;
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .graph-text h3 {
+        color: #c62828;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+      }
+
+      .graph-text p {
+        color: #555;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+      }
+
+      .graph-image {
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .graph-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .graph-image img:hover {
+        transform: scale(1.05);
+      }
+
+      /* Media query for responsiveness */
+      @media (max-width: 768px) {
+        .graph-step {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .graph-image,
+        .graph-text {
+          width: 100%;
+        }
+
+        .graph-text h3 {
+          font-size: 1.8rem;
+        }
+
+        .graph-text p {
+          font-size: 1rem;
+        }
+      }
+
+      /* Blood Donation Importance Section Styles */
+      .blood-donation-importance {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #f4f7fb, #e8f0f4);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .blood-donation-importance h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .importance-text {
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .benefits-text h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        color: #c62828;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+      }
+
+      .benefits-text ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .benefits-text li {
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 1rem;
+      }
+
+      .quotes-section {
+        margin-top: 3rem;
+      }
+
+      .quote {
+        margin-bottom: 1.5rem;
+        font-family: "Georgia", serif;
+        font-size: 1.5rem;
+        font-style: italic;
+        color: #666;
+        text-align: center;
+        border-left: 5px solid #c62828;
+        padding-left: 1rem;
+      }
+
+      .quote blockquote {
+        margin: 0;
+      }
+
+      .quote strong {
+        display: block;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #c62828;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .blood-donation-importance {
+          padding: 3rem 1rem;
+        }
+
+        .blood-donation-importance h2 {
+          font-size: 2rem;
+        }
+
+        .importance-text,
+        .benefits-text,
+        .quotes-section {
+          font-size: 1rem;
+        }
+
+        .quote {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* Meet the Team Section */
+      .meet-the-team {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .meet-the-team h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .team-members,
+      .admin-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+      }
+
+      .team-member,
+      .admin-member {
+        flex: 1 1 200px;
+        max-width: 300px;
+        margin-bottom: 2rem;
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .member-img {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 1rem;
+      }
+
+      .member-info h3 {
+        color: #c62828;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .role {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: #555;
+      }
+
+      .social-media {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .social-btn {
+        text-decoration: none;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        font-size: 1rem;
+      }
+
+      .social-btn.facebook {
+        background-color: #3b5998;
+      }
+
+      .social-btn.twitter {
+        background-color: #1da1f2;
+      }
+
+      .social-btn.linkedin {
+        background-color: #0077b5;
+      }
+
+      .social-btn:hover {
+        opacity: 0.8;
+      }
+
+      /* General Section Spacing */
+      .section {
+        margin-bottom: 3rem;
+      }
+
+      /* LifeConnect Process Section */
+      .process-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 4rem;
+      }
+
+      .process-section h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .vision-mission-section {
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 4rem;
+      }
+
+      .meet-the-team {
+        padding: 3rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 4rem;
+      }
+
+      .meet-the-team h2 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        color: #c62828;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .admin-section {
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 4rem;
+      }
+
+      .other-section {
+        padding: 2rem;
+        background: #fff;
+        margin-bottom: 4rem;
+      }
+
+      /* Footer Styles */
+      footer {
+        background: #b71c1c;
+        color: white;
+        padding: 2rem 1rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
-        font-size: 1.1em;
-        margin-top: 20px;
+        align-items: center;
+      }
+
+      .footer-text {
+        flex: 1;
+        margin-bottom: 1rem;
+      }
+
+      .footer-text p {
+        margin: 0 0 1rem;
+      }
+
+      .footer-contact {
+        flex: 1;
+      }
+
+      .footer-contact h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .footer-contact p {
+        margin: 0 0 0.5rem;
+      }
+
+      .footer-btn {
+        text-decoration: none;
+        color: #b71c1c;
+        background: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .footer-btn:hover {
+        background: #9a0007;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>About Us</h1>
-
-      <!-- About Life Blood Squad Website -->
-      <div class="section">
-        <h2>About Life Blood Squad</h2>
-        <p>
-          Life Blood Squad is an initiative to simplify and organize blood
-          donations. Our platform connects donors with those in urgent need of
-          blood, facilitating a faster, more efficient process that saves lives.
-          We work alongside hospitals, blood banks, and community partners to
-          bridge the gap in blood donations and make it easy for donors to help.
-        </p>
+    <!-- Header -->
+    <header>
+      <div class="header-logo">
+        <img
+          src="{{ url_for('static', filename='images/index/LBS_home.png') }}"
+          alt="LifeConnect Logo"
+        />
+        <div>
+          <h1>LifeConnect</h1>
+          <p>Bridging the Gap Between Hope and Help</p>
+        </div>
       </div>
+      <a href="{{ url_for('main.index') }}" class="header-btn">Home</a>
+    </header>
 
-      <!-- About Youth Red Cross (YRC) -->
-      <div class="section">
-        <h2>About Youth Red Cross (YRC)</h2>
-        <p>
-          The Youth Red Cross (YRC) is a voluntary humanitarian organization
-          focused on youth involvement in service and community welfare. We
-          encourage young individuals to participate in activities that promote
-          health, aid disaster relief, and support social welfare. Our mission
-          is to inspire responsibility and compassion through service.
-        </p>
+    <!-- About Section -->
+    <div class="section about-us">
+      <h2>Who We Are</h2>
+      <div class="about-content">
+        <!-- Text Section -->
+        <div class="about-text">
+          <p>
+            At <strong>LifeConnect</strong>, we strive to make life-saving blood
+            donations accessible to everyone. Our platform bridges the gap
+            between blood donors and recipients, ensuring timely assistance for
+            those in need.
+          </p>
+          <p>
+            We are a dedicated team of individuals working under the guidance of
+            the Youth Red Cross. Our major focus is to create a seamless
+            experience for managing blood requests, validating donor details,
+            and facilitating connections between hospitals, donors, and
+            recipients.
+          </p>
+          <p>
+            With thousands of lives impacted, we aim to create a system where no
+            one has to wait for a life-saving donation. From connecting donors
+            to validating requests, every aspect of our work is driven by
+            empathy, precision, and transparency.
+          </p>
+        </div>
+
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-images">
+            <img
+              src="{{ url_for('static', filename='images/test.jpeg') }}"
+              alt="Team Collaboration"
+            />
+            <img
+              src="{{ url_for('static', filename='images/test1.jpeg') }}"
+              alt="Donor Helping"
+            />
+            <img
+              src="{{ url_for('static', filename='images/test2.jpg') }}"
+              alt="Hospital Support"
+            />
+          </div>
+        </div>
       </div>
-      <br />
+    </div>
 
-      <a href="{{ url_for('main.index') }}">Return to Home Page</a><br />
-      <a href="{{ url_for('main.render_find_donors_page') }}"
-        >Find Donors Page</a
-      ><br />
-      <a href="{{ url_for('main.render_generate_blood_request') }}"
-        >Generate Blood Request</a
-      >
-      <br />
-      <a href="{{ url_for('main.render_register_new_donor') }}"
-        >New Donor Page</a
-      >
-      <br />
-      <!-- How We Work -->
-      <div class="section">
-        <h2>How We Work</h2>
-        <p>
-          Our team verifies each blood request and coordinates with our network
-          of donors. Requests are matched based on blood group and availability,
-          and our technology ensures requests reach potential donors swiftly. We
-          also provide resources and information to encourage safe and frequent
-          blood donations within the community.
-        </p>
+    <!-- Youth Red Cross Section -->
+    <div class="section yrc-section">
+      <h2>About Youth Red Cross</h2>
+      <div class="yrc-content">
+        <!-- Text Section -->
+        <div class="yrc-text">
+          <p>
+            The <strong>Youth Red Cross (YRC)</strong> is a global humanitarian
+            organization that focuses on improving the well-being of
+            communities, particularly in times of need. It is made up of young
+            volunteers who are dedicated to supporting blood donation drives,
+            health initiatives, and disaster relief efforts. The YRC is
+            committed to serving vulnerable communities and promoting the values
+            of empathy, peace, and cooperation.
+          </p>
+          <p>
+            At LifeConnect, we are proud to be working under the guidance of the
+            Youth Red Cross. Their leadership, expertise, and dedication to
+            social welfare have been instrumental in creating a platform that
+            ensures timely blood donations to those who need them the most.
+          </p>
+          <p>
+            Through its various outreach programs, the Youth Red Cross fosters a
+            sense of community and responsibility, encouraging young people to
+            get involved in meaningful causes. The YRC trains its volunteers to
+            handle crisis situations, and their efforts have saved countless
+            lives through blood donation initiatives and other essential
+            health-related projects.
+          </p>
+          <p>
+            With the backing of the Youth Red Cross, LifeConnect is empowered to
+            continue building a bridge between donors and recipients, ensuring
+            that no one ever has to wait for a life-saving blood donation.
+          </p>
+        </div>
+
+        <!-- Image Section -->
+        <div class="yrc-image">
+          <img
+            src="{{ url_for('static', filename='images/test.jpeg') }}"
+            alt="Youth Red Cross Volunteers"
+            class="yrc-image"
+          />
+        </div>
       </div>
+    </div>
 
-      <!-- Statistics -->
-      <div class="section">
-        <h2>Our Impact</h2>
-        <div class="statistics">
-          <div><strong>Total Donations:</strong> 500+</div>
-          <div><strong>Active Donors:</strong> 200+</div>
+    <!-- LifeConnect Process Section -->
+    <div class="section process-section">
+      <h2>How It Works</h2>
+
+      <!-- Step 1: Find a Donor -->
+      <div class="process-step">
+        <div class="process-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Find a Donor"
+          />
+        </div>
+        <div class="process-text">
+          <h3>Step 1: Find a Donor</h3>
+          <p>
+            The process begins with the recipient or hospital searching for
+            available blood donors. The user can input their required blood
+            group and specify the hospital's address to find the nearest
+            available donors who match the blood type. This search functionality
+            ensures that blood donors are easy to find based on proximity,
+            improving the efficiency of blood donations in critical situations.
+          </p>
         </div>
       </div>
 
-      <!-- Additional Section: Mission and Vision -->
-      <div class="section">
-        <h2>Our Mission & Vision</h2>
-        <p>
-          Our mission is to save lives by making blood donations accessible to
-          all, anytime and anywhere. We envision a world where no one has to
-          wait for blood during critical situations, with the power of a
-          connected and compassionate community ready to support each other.
+      <!-- Step 2: Fill the Request Form -->
+      <div class="process-step">
+        <div class="process-text">
+          <h3>Step 2: Fill the Request Form</h3>
+          <p>
+            Once the recipient or hospital identifies an available donor, they
+            can fill out a simple form providing essential details such as
+            contact information, blood group, hospital address, and additional
+            requirements. This form ensures that all relevant information is
+            collected for the next stage of the process. The form submission is
+            then sent for administrative review.
+          </p>
+        </div>
+        <div class="process-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Fill Request Form"
+          />
+        </div>
+      </div>
+
+      <!-- Step 3: Admin Validation and Approval -->
+      <div class="process-step">
+        <div class="process-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Admin Validation"
+          />
+        </div>
+        <div class="process-text">
+          <h3>Step 3: Admin Validation and Approval</h3>
+          <p>
+            After receiving the request form, the admin reviews all the details
+            to ensure accuracy and verify that the donor is eligible and
+            available. The admin checks the donor’s status, availability, and
+            any required criteria to confirm that the request can be processed.
+            Once the verification is complete, the admin approves the request,
+            ensuring a smooth transition to the next step.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 4: Send Notification to Available Donors -->
+      <div class="process-step">
+        <div class="process-text">
+          <h3>Step 4: Send Notifications to Available Donors</h3>
+          <p>
+            Upon approval, the admin sends notifications to all available donors
+            who match the blood group requested. These notifications inform the
+            donors about the blood donation request, providing them with details
+            about the hospital and the recipient’s needs. The notification is
+            sent through the platform, ensuring donors are alerted in a timely
+            manner, and can act quickly.
+          </p>
+        </div>
+        <div class="process-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Send Notification"
+          />
+        </div>
+      </div>
+
+      <!-- Step 5: Donors Contact the Hospital -->
+      <div class="process-step">
+        <div class="process-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Donors Contact the Hospital"
+          />
+        </div>
+        <div class="process-text">
+          <h3>Step 5: Donors Contact the Hospital</h3>
+          <p>
+            Once the notification is received, the donors reach out directly to
+            the hospital or recipient to arrange the donation. Donors can
+            confirm their availability and schedule the donation process at the
+            specified hospital. This step ensures that the donor and recipient
+            can connect seamlessly and that the blood donation can take place
+            efficiently.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LifeConnect Actions Section -->
+    <div class="section actions-section">
+      <h2>Take Action</h2>
+
+      <!-- Button 1: Look for Donors -->
+      <div class="action-step">
+        <a href="#" class="button square-button">Look for Donors</a>
+        <p class="button-description">
+          Click here to search for available blood donors based on your needs.
         </p>
       </div>
 
-      <!-- Developer Team -->
-      <div class="section">
-        <h2>Meet the Team</h2>
-        <p>
-          Our platform is developed and maintained by a dedicated team of
-          passionate individuals:
+      <!-- Button 2: Generate a Request -->
+      <div class="action-step">
+        <a href="#" class="button square-button">Generate a Request</a>
+        <p class="button-description">
+          Click here to create a blood request for your requirements.
         </p>
-        <ul>
-          <li>Developer 1</li>
-          <li>Developer 2</li>
-          <li>Developer 3</li>
-          <li>Developer 4</li>
-          <li>Developer 5</li>
-        </ul>
       </div>
     </div>
+
+    <!-- LifeConnect Vision and Mission Section -->
+    <div class="section vision-mission-section">
+      <h2>Our Vision and Mission</h2>
+
+      <!-- Vision Section -->
+      <div class="vision-mission-step">
+        <div class="vision-mission-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Our Vision"
+          />
+        </div>
+        <div class="vision-mission-text">
+          <h3>Our Vision: A Future Where No One is Left Behind</h3>
+          <p>
+            At LifeConnect, we envision a future where blood donation is not
+            just a service, but a movement. A world where individuals across all
+            communities come together to support each other, ensuring that no
+            one ever faces a shortage of blood when they need it most. By
+            creating a seamless connection between donors and hospitals, we aim
+            to make blood donation a regular part of everyday life.
+          </p>
+          <p>
+            Our vision is rooted in the belief that together, we can create a
+            compassionate, self-sustaining ecosystem that empowers both donors
+            and recipients. With this vision, we hope to redefine healthcare
+            collaboration, making it easier for donors to give and for hospitals
+            to receive.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mission Section -->
+      <div class="vision-mission-step">
+        <div class="vision-mission-text">
+          <h3>Our Mission: Saving Lives Through Connectivity and Care</h3>
+          <p>
+            Our mission is simple yet powerful – to connect willing blood donors
+            with hospitals in urgent need. By providing an intuitive platform
+            that facilitates blood requests, we are committed to removing
+            barriers between those who are in need of life-saving blood and
+            those who can provide it. Every donation matters, and every step we
+            take brings us closer to a world with better health and well-being
+            for all.
+          </p>
+          <p>
+            LifeConnect’s mission is driven by technology, compassion, and
+            community. We are not just connecting donors with hospitals; we are
+            creating a lasting impact on people’s lives. By ensuring timely
+            communication, easy navigation, and a constant flow of support, we
+            make sure that blood donations are always just a click away.
+          </p>
+        </div>
+        <div class="vision-mission-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Our Mission"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Donors and Donations Graph Section -->
+    <div class="section graphs-section">
+      <h2>Our Impact in Numbers</h2>
+
+      <!-- Graph 1: Total Donors -->
+      <div class="graph-step">
+        <div class="graph-text">
+          <h3>Total Donors</h3>
+          <p>
+            As of today, LifeConnect has successfully connected thousands of
+            individuals who are willing to donate blood. This graph represents
+            the growth in the number of registered donors over time,
+            highlighting the increasing awareness and participation in this
+            life-saving cause.
+          </p>
+          <p>
+            We continue to expand our network of donors, ensuring that we can
+            meet the needs of hospitals and recipients across the region. Each
+            donor makes a difference, and with every new addition to our
+            network, we get closer to a world with zero blood shortages.
+          </p>
+        </div>
+        <div class="graph-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Total Donors Graph"
+          />
+        </div>
+      </div>
+
+      <!-- Graph 2: Total Donations -->
+      <div class="graph-step">
+        <div class="graph-image">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Total Donations Graph"
+          />
+        </div>
+        <div class="graph-text">
+          <h3>Total Donations</h3>
+          <p>
+            The total donations graph showcases the incredible impact that
+            LifeConnect has made by connecting donors with hospitals in need.
+            This graph tracks the number of successful donations made through
+            our platform, representing the lives saved and the hope provided
+            through every donation.
+          </p>
+          <p>
+            With each donation, we get one step closer to building a world where
+            everyone has access to the blood they need in critical moments. The
+            number of donations continues to rise, reflecting the commitment of
+            both donors and hospitals working together for a healthier future.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Importance of Blood Donation Section -->
+    <div class="section blood-donation-importance">
+      <h2>The Importance of Blood Donation</h2>
+
+      <div class="importance-text">
+        <p>
+          Blood donation is a life-saving act that goes beyond just giving a
+          part of yourself – it’s a gift of life to someone in need. With every
+          donation, you become a hero to those who require blood in times of
+          critical health conditions, surgeries, accidents, or medical
+          treatments.
+        </p>
+        <p>
+          Every year, millions of lives are saved through blood donation. It’s
+          the most selfless and simplest act of kindness, which makes a massive
+          difference. By donating blood, you are contributing to a community
+          that is united in the fight against disease and disaster.
+        </p>
+      </div>
+
+      <div class="benefits-text">
+        <h3>Benefits of Donating Blood</h3>
+        <ul>
+          <li>
+            <strong>Saves Lives:</strong> One donation can help save up to three
+            lives.
+          </li>
+          <li>
+            <strong>Improves Health:</strong> Donating blood can reduce the risk
+            of certain health conditions such as heart disease and cancer.
+          </li>
+          <li>
+            <strong>Boosts Blood Circulation:</strong> Regular donation
+            stimulates the production of new blood cells, improving overall
+            circulation.
+          </li>
+          <li>
+            <strong>Gives a Sense of Fulfillment:</strong> Knowing you have
+            helped others brings emotional satisfaction and a sense of purpose.
+          </li>
+          <li>
+            <strong>Acts as a Community Bond:</strong> Blood donation creates a
+            sense of unity and camaraderie in the community, helping people come
+            together for a greater cause.
+          </li>
+        </ul>
+      </div>
+
+      <div class="quotes-section">
+        <h3>Words of Wisdom on Blood Donation</h3>
+        <div class="quote">
+          <blockquote>
+            "The best way to find yourself is to lose yourself in the service of
+            others." - <strong>Mahatma Gandhi</strong>
+          </blockquote>
+        </div>
+        <div class="quote">
+          <blockquote>
+            "Donating blood is not just a responsibility, it’s a gift of life.
+            It is a simple act that saves a life, and that life could be someone
+            you love." - <strong>Unknown</strong>
+          </blockquote>
+        </div>
+        <div class="quote">
+          <blockquote>
+            "We make a living by what we get, but we make a life by what we
+            give." - <strong>Winston Churchill</strong>
+          </blockquote>
+        </div>
+        <div class="quote">
+          <blockquote>
+            "Every blood donation counts. When you donate, you become a part of
+            a life-saving team. One small act can make all the difference." -
+            <strong>Unknown</strong>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meet the Team Section -->
+    <div class="section meet-the-team">
+      <h2>Meet the Team</h2>
+
+      <div class="team-members">
+        <!-- Developer 1 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="John Doe"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>John Doe</h3>
+            <p class="role">Lead Developer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/johndoe"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/johndoe"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/johndoe"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer 2 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Jane Smith"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Jane Smith</h3>
+            <p class="role">Frontend Developer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/janesmith"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/janesmith"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/janesmith"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer 3 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Mark Johnson"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Mark Johnson</h3>
+            <p class="role">Backend Developer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/markjohnson"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/markjohnson"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/markjohnson"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer 4 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Emily Davis"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Emily Davis</h3>
+            <p class="role">Mobile Developer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/emilydavis"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/emilydavis"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/emilydavis"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer 5 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Daniel Lee"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Daniel Lee</h3>
+            <p class="role">Database Developer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/daniellee"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/daniellee"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/daniellee"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer 6 -->
+        <div class="team-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Alice Brown"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Alice Brown</h3>
+            <p class="role">QA Engineer</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/alicebrown"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/alicebrown"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/alicebrown"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Meet the Admins</h2>
+      <div class="admin-members">
+        <!-- Admin 1 -->
+        <div class="admin-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Ramesh Kumar"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Ramesh Kumar</h3>
+            <p class="role">YRC Coordinator</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/rameshkumar"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/rameshkumar"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/rameshkumar"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin 2 -->
+        <div class="admin-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Satish Kumar"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Satish Kumar</h3>
+            <p class="role">YRC Head</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/satishkumar"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/satishkumar"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/satishkumar"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin 3 -->
+        <div class="admin-member">
+          <img
+            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            alt="Admin 3"
+            class="member-img"
+          />
+          <div class="member-info">
+            <h3>Admin 3</h3>
+            <p class="role">Admin Role</p>
+            <div class="social-media">
+              <a
+                href="https://facebook.com/admin3"
+                target="_blank"
+                class="social-btn facebook"
+                >Facebook</a
+              >
+              <a
+                href="https://twitter.com/admin3"
+                target="_blank"
+                class="social-btn twitter"
+                >Twitter</a
+              >
+              <a
+                href="https://linkedin.com/in/admin3"
+                target="_blank"
+                class="social-btn linkedin"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-text">
+          <p>
+            Have questions or need assistance? Contact us today, and we’ll do
+            our best to help you.
+          </p>
+        </div>
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> support@lifeconnect.org</p>
+          <a href="{{ url_for('main.render_query_page') }}" class="footer-btn"
+            >Generate Query</a
+          >
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
