@@ -2,7 +2,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Add box-sizing for better element sizing */
+    box-sizing: border-box; 
     font-family: 'Poppins', sans-serif;
 }
 
@@ -10,8 +10,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column; /* Stack header, body, footer */
-    height: 100%; /* Full viewport height */
+    flex-direction: column; 
+    height: 100%; 
 }
 
 /* Header Section */
@@ -25,9 +25,10 @@ body {
     background-image: url('/static/images/index/bg.png'); 
     background-position: right top;
     background-repeat: no-repeat;
-    background-size: contain; /* Ensure the background fits within the container */
-    overflow: hidden; /* Prevent the header from causing scrolling */
+    background-size: contain; 
+    overflow: hidden; 
 }
+
 
 /* Navigation Bar */
 nav {
@@ -36,7 +37,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
-    background-color: #fff; /* Optional: Navbar background color */
+    background-color: #fff; 
 }
 
 nav img {
@@ -45,10 +46,20 @@ nav img {
     margin-top:10px;
 }
 
-.lbs, .vec, .yrc {
+.vec {
     width: 200px; /* Set uniform width */
     height: auto; /* Maintain aspect ratio */
     margin: 0 15px; /* Add spacing around logos */
+}
+
+.yrc_logo {
+    width: 120px;
+    height: 120px;
+}
+
+.LifeConnect_logo {
+    width: 130px;
+    height: 130px;
 }
 
 .nav-links {
