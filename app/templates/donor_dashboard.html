@@ -4,160 +4,367 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Donor Dashboard</title>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 85%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #a30001;
+      }
+
+      /* Header Section */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #a30001;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+      }
+
+      .header .title {
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .header .btn {
+        background-color: white;
+        color: #a30001;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: solid;
+      }
+
+      .header .btn:hover {
+        background-color: #f4f4f4;
+      }
+
+      /* Section Styling */
+      .section {
+        margin-top: 40px;
+        border-top: 3px solid #a30001;
+        padding-top: 20px;
+      }
+
+      .section h3 {
+        color: #a30001;
+        margin-bottom: 15px;
+      }
+
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        flex-wrap: wrap;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        width: 250px;
+      }
+
+      .form-group input {
+        width: 70%;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+      }
+
+      /* Button */
+      .form-group button {
+        background-color: #a30001;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .form-group button:hover {
+        background-color: #c93e3e;
+      }
+
+      /* Footer Links */
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .footer-links a {
+        color: #a30001;
+        font-size: 16px;
+        text-decoration: none;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .form-group {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .form-group label {
+          width: 100%;
+        }
+
+        .form-group input {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h2>Donor Dashboard</h2>
-    <form
-      action="{{ url_for('add_donor.modify_donor_details') }}"
-      method="POST"
-    >
-      <!-- Donor Detail Fields -->
-      <label for="id">Donor ID:</label>
-      <input type="text" name="id" value="{{ details.id }}" readonly /><br />
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="title">LifeConnect Dashboard</div>
+        <a href="{{ url_for('main.index') }}" class="btn">Back to Home</a>
+      </div>
 
-      <label for="name">Name:</label>
-      <input type="text" name="name" value="{{ details.name }}" /><br />
+      <h2>Donor Dashboard</h2>
 
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        name="email"
-        value="{{ details.email }}"
-        readonly
-      /><br />
+      <!-- Donor Details Section -->
+      <form
+        action="{{ url_for('add_donor.modify_donor_details') }}"
+        method="POST"
+      >
+        <div class="section">
+          <h3>Donor Details</h3>
+          <div class="form-group">
+            <label for="id">Donor ID:</label>
+            <input type="text" name="id" value="{{ details.id }}" readonly />
+          </div>
 
-      <label for="blood_group">Blood Group:</label>
-      <input
-        type="text"
-        name="blood_group"
-        value="{{ details.blood_group }}"
-      /><br />
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ details.name }}" />
+          </div>
 
-      <label for="last_donated_date">Last Donated Date:</label>
-      <input
-        type="text"
-        name="last_donated_date"
-        value="{{ details.last_donated_date }}"
-        readonly
-      /><br />
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value="{{ details.email }}"
+              readonly
+            />
+          </div>
 
-      <label for="active_status">Active Status:</label>
-      <input
-        type="text"
-        name="active_status"
-        value="{{ details.active_status }}"
-        readonly
-      /><br />
+          <div class="form-group">
+            <label for="blood_group">Blood Group:</label>
+            <input
+              type="text"
+              name="blood_group"
+              value="{{ details.blood_group }}"
+            />
+          </div>
 
-      <label for="number_of_times_donated">Times Donated:</label>
-      <input
-        type="number"
-        name="number_of_times_donated"
-        value="{{ details.number_of_times_donated }}"
-        readonly
-      /><br />
+          <div class="form-group">
+            <label for="last_donated_date">Last Donated Date:</label>
+            <input
+              type="text"
+              name="last_donated_date"
+              value="{{ details.last_donated_date }}"
+              readonly
+            />
+          </div>
 
-      <label for="last_login_date">Last Login Date:</label>
-      <input
-        type="text"
-        name="last_login_date"
-        value="{{ details.last_login_date }}"
-        readonly
-      /><br />
+          <div class="form-group">
+            <label for="active_status">Active Status:</label>
+            <input
+              type="text"
+              name="active_status"
+              value="{{ details.active_status }}"
+              readonly
+            />
+          </div>
 
-      <!-- Personal Details Fields -->
-      <h3>Personal Details</h3>
-      <label for="first_name">First Name:</label>
-      <input
-        type="text"
-        name="first_name"
-        value="{{ details.first_name }}"
-      /><br />
+          <div class="form-group">
+            <label for="number_of_times_donated">Times Donated:</label>
+            <input
+              type="number"
+              name="number_of_times_donated"
+              value="{{ details.number_of_times_donated }}"
+              readonly
+            />
+          </div>
 
-      <label for="last_name">Last Name:</label>
-      <input
-        type="text"
-        name="last_name"
-        value="{{ details.last_name }}"
-      /><br />
+          <div class="form-group">
+            <label for="last_login_date">Last Login Date:</label>
+            <input
+              type="text"
+              name="last_login_date"
+              value="{{ details.last_login_date }}"
+              readonly
+            />
+          </div>
+        </div>
 
-      <label for="age">Age:</label>
-      <input type="number" name="age" value="{{ details.age }}" /><br />
+        <!-- Personal Details Section -->
+        <div class="section">
+          <h3>Personal Details</h3>
+          <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input
+              type="text"
+              name="first_name"
+              value="{{ details.first_name }}"
+            />
+          </div>
 
-      <label for="contact_number">Contact Number:</label>
-      <input
-        type="text"
-        name="contact_number"
-        value="{{ details.contact_number }}"
-      /><br />
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input
+              type="text"
+              name="last_name"
+              value="{{ details.last_name }}"
+            />
+          </div>
 
-      <label for="date_of_birth">Date of Birth:</label>
-      <input
-        type="date"
-        name="date_of_birth"
-        value="{{ details.date_of_birth }}"
-      /><br />
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" name="age" value="{{ details.age }}" />
+          </div>
 
-      <label for="marital_status">Marital Status:</label>
-      <input
-        type="text"
-        name="marital_status"
-        value="{{ details.marital_status }}"
-      /><br />
+          <div class="form-group">
+            <label for="contact_number">Contact Number:</label>
+            <input
+              type="text"
+              name="contact_number"
+              value="{{ details.contact_number }}"
+            />
+          </div>
 
-      <label for="secondary_contact_number">Secondary Contact Number:</label>
-      <input
-        type="text"
-        name="secondary_contact_number"
-        value="{{ details.secondary_contact_number }}"
-      /><br />
+          <div class="form-group">
+            <label for="date_of_birth">Date of Birth:</label>
+            <input
+              type="date"
+              name="date_of_birth"
+              value="{{ details.date_of_birth }}"
+            />
+          </div>
 
-      <label for="aadhar_number">Aadhar Number:</label>
-      <input
-        type="text"
-        name="aadhar_number"
-        value="{{ details.aadhar_number }}"
-      /><br />
+          <div class="form-group">
+            <label for="marital_status">Marital Status:</label>
+            <input
+              type="text"
+              name="marital_status"
+              value="{{ details.marital_status }}"
+            />
+          </div>
 
-      <!-- Address Details Fields -->
-      <h3>Address Details</h3>
-      <label for="address">Address:</label>
-      <input type="text" name="address" value="{{ details.address }}" /><br />
+          <div class="form-group">
+            <label for="secondary_contact_number"
+              >Secondary Contact Number:</label
+            >
+            <input
+              type="text"
+              name="secondary_contact_number"
+              value="{{ details.secondary_contact_number }}"
+            />
+          </div>
 
-      <label for="city">City:</label>
-      <input type="text" name="city" value="{{ details.city }}" /><br />
+          <div class="form-group">
+            <label for="aadhar_number">Aadhar Number:</label>
+            <input
+              type="text"
+              name="aadhar_number"
+              value="{{ details.aadhar_number }}"
+            />
+          </div>
+        </div>
 
-      <label for="state">State:</label>
-      <input type="text" name="state" value="{{ details.state }}" /><br />
+        <!-- Address Details Section -->
+        <div class="section">
+          <h3>Address Details</h3>
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" name="address" value="{{ details.address }}" />
+          </div>
 
-      <label for="country">Country:</label>
-      <input type="text" name="country" value="{{ details.country }}" /><br />
+          <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" name="city" value="{{ details.city }}" />
+          </div>
 
-      <label for="pincode">Pincode:</label>
-      <input type="text" name="pincode" value="{{ details.pincode }}" /><br />
+          <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" name="state" value="{{ details.state }}" />
+          </div>
 
-      <!-- Disease Details Fields -->
-      <h3>Disease Details</h3>
-      <label for="disease_name">Disease Name:</label>
-      <input
-        type="text"
-        name="disease_name"
-        value="{{ details.disease_name }}"
-      /><br />
+          <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" name="country" value="{{ details.country }}" />
+          </div>
 
-      <label for="disease_description">Disease Description:</label>
-      <input
-        type="text"
-        name="disease_description"
-        value="{{ details.disease_description }}"
-      /><br />
+          <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="text" name="pincode" value="{{ details.pincode }}" />
+          </div>
+        </div>
 
-      <!-- Submit Button -->
-      <button type="submit">Update Details</button>
-    </form>
-    <a href="{{ url_for('main.index') }}">Back To Home Page</a><br />
-    <a href="{{ url_for('main.render_forget_password_page') }}"
-      >Forget Password</a
-    >
+        <!-- Disease Details Section -->
+        <div class="section">
+          <h3>Disease Details</h3>
+          <div class="form-group">
+            <label for="disease_name">Disease Name:</label>
+            <input
+              type="text"
+              name="disease_name"
+              value="{{ details.disease_name }}"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="disease_description">Disease Description:</label>
+            <input
+              type="text"
+              name="disease_description"
+              value="{{ details.disease_description }}"
+            />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button type="submit">Update Details</button>
+        </div>
+      </form>
+
+      <!-- Footer Links -->
+      <div class="footer-links">
+        <a href="{{ url_for('main.render_forget_password_page') }}"
+          >Forgot Password?</a
+        >
+      </div>
+    </div>
   </body>
 </html>
