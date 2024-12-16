@@ -3,299 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Available Blood Banks</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-      h2 {
-        text-align: center;
-        color: #333;
-      }
-      table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-      a {
-        color: #3498db;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    <title>Hospital Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
-    <a href="{{ url_for('main.index') }}">Return to Main Page</a>
-    <br />
-    <a href="{{ url_for('main.render_generate_blood_request') }}"
-      >Generate Blood Request</a
-    >
-    <br />
-    <a href="{{ url_for('main.render_find_donors_page') }}">Find Donors Page</a>
-    <h2>Blood Banks in the City</h2>
+    <div style="margin: 20px">
+      <h1>Hospital Details</h1>
+      <table id="hospitalTable" class="display" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for hospital in hospitals %}
+          <tr>
+            <td>{{ hospital.NAME }}</td>
+            <td>{{ hospital.ADDRESS }}</td>
+            <td>{{ hospital["Contact Number"] }}</td>
+            <td>
+              <a href="{{ hospital.Website }}" target="_blank">Visit Website</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Contact Number</th>
-          <th>Website</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>City Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=123 Main St, Cityville"
-              target="_blank"
-              >123 Main St, Cityville</a
-            >
-          </td>
-          <td>+1 123-456-7890</td>
-          <td>
-            <a href="https://citybloodbank.com" target="_blank"
-              >citybloodbank.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Central Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=456 Elm St, Cityville"
-              target="_blank"
-              >456 Elm St, Cityville</a
-            >
-          </td>
-          <td>+1 234-567-8901</td>
-          <td>
-            <a href="https://centralbloodbank.org" target="_blank"
-              >centralbloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Healthline Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=789 Maple Ave, Cityville"
-              target="_blank"
-              >789 Maple Ave, Cityville</a
-            >
-          </td>
-          <td>+1 345-678-9012</td>
-          <td>
-            <a href="https://healthlinebloodcenter.com" target="_blank"
-              >healthlinebloodcenter.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Hope Blood Donation</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=101 Oak St, Cityville"
-              target="_blank"
-              >101 Oak St, Cityville</a
-            >
-          </td>
-          <td>+1 456-789-0123</td>
-          <td>
-            <a href="https://hopeblooddonation.com" target="_blank"
-              >hopeblooddonation.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Unity Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=202 Pine St, Cityville"
-              target="_blank"
-              >202 Pine St, Cityville</a
-            >
-          </td>
-          <td>+1 567-890-1234</td>
-          <td>
-            <a href="https://unitybloodbank.org" target="_blank"
-              >unitybloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Helping Hands Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=303 Cedar Ave, Cityville"
-              target="_blank"
-              >303 Cedar Ave, Cityville</a
-            >
-          </td>
-          <td>+1 678-901-2345</td>
-          <td>
-            <a href="https://helpinghandsblood.org" target="_blank"
-              >helpinghandsblood.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>LifeCare Blood Donation</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=404 Birch Rd, Cityville"
-              target="_blank"
-              >404 Birch Rd, Cityville</a
-            >
-          </td>
-          <td>+1 789-012-3456</td>
-          <td>
-            <a href="https://lifecareblooddonation.com" target="_blank"
-              >lifecareblooddonation.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Heartland Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=505 Ash St, Cityville"
-              target="_blank"
-              >505 Ash St, Cityville</a
-            >
-          </td>
-          <td>+1 890-123-4567</td>
-          <td>
-            <a href="https://heartlandbloodbank.com" target="_blank"
-              >heartlandbloodbank.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Red Cross Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=606 Walnut St, Cityville"
-              target="_blank"
-              >606 Walnut St, Cityville</a
-            >
-          </td>
-          <td>+1 901-234-5678</td>
-          <td>
-            <a href="https://redcrossbloodcenter.org" target="_blank"
-              >redcrossbloodcenter.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Sunshine Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=707 Cherry St, Cityville"
-              target="_blank"
-              >707 Cherry St, Cityville</a
-            >
-          </td>
-          <td>+1 012-345-6789</td>
-          <td>
-            <a href="https://sunshinebloodbank.org" target="_blank"
-              >sunshinebloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>LifeBlood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=808 Spruce St, Cityville"
-              target="_blank"
-              >808 Spruce St, Cityville</a
-            >
-          </td>
-          <td>+1 123-456-7890</td>
-          <td>
-            <a href="https://lifebloodcenter.com" target="_blank"
-              >lifebloodcenter.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Global Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=909 Oakwood Dr, Cityville"
-              target="_blank"
-              >909 Oakwood Dr, Cityville</a
-            >
-          </td>
-          <td>+1 234-567-8901</td>
-          <td>
-            <a href="https://globalbloodcenter.org" target="_blank"
-              >globalbloodcenter.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>New Life Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1001 Aspen St, Cityville"
-              target="_blank"
-              >1001 Aspen St, Cityville</a
-            >
-          </td>
-          <td>+1 345-678-9012</td>
-          <td>
-            <a href="https://newlifebloodbank.org" target="_blank"
-              >newlifebloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>City Hope Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1102 Willow St, Cityville"
-              target="_blank"
-              >1102 Willow St, Cityville</a
-            >
-          </td>
-          <td>+1 456-789-0123</td>
-          <td>
-            <a href="https://cityhopeblood.org" target="_blank"
-              >cityhopeblood.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Community Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1203 Magnolia Ave, Cityville"
-              target="_blank"
-              >1203 Magnolia Ave, Cityville</a
-            >
-          </td>
-          <td>+1 567-890-1234</td>
-          <td>
-            <a href="https://communitybloodbank.org" target="_blank"
-              >communitybloodbank.org</a
-            >
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <script>
+      // Initialize DataTables
+      $(document).ready(function () {
+        $("#hospitalTable").DataTable({
+          pageLength: 10,
+        });
+      });
+    </script>
   </body>
 </html>
