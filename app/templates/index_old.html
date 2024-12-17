@@ -32,7 +32,6 @@
     <section class="header">
       <nav>
         <!-- Navigation Logos -->
-
         <a href="{{ url_for('main.index') }}"
           ><img
             src="{{ url_for('static', filename='images/index/LifeConnect_Logo.png') }}"
@@ -125,12 +124,12 @@
       <h3>Follow us on Social media</h3>
       <a href="https://www.instagram.com/yrc_vec/" target="_blank"
         ><img
-          src="/app/static/images/index/instagram_logo_home.png"
+          src="{{ url_for('static', filename='images/index/instagram_logo_home.png ') }}"
           class="insta"
       /></a>
       <a href="https://www.youtube.com/@YouthRedCrossVEC" target="_blank"
         ><img
-          src="/app/static/images/index/youtube_logo_home.png"
+          src="{{ url_for('static', filename='images/index/youtube_logo_home.png') }}"
           class="youtube"
       /></a>
     </div>
@@ -141,13 +140,13 @@
         <span>Powered by Velammal Engineering College</span>
         <!-- Footer Logos -->
         <img
-          src="/app/static/images/index/vec_logo.jpg"
+          src="{{ url_for('static', filename='images/index/vec_logo.jpg') }}"
           class="flog"
           alt="College logo"
         />
         <span>Coordinated by YRC</span>
         <img
-          src="/app/static/images/index/yrc_logo.jpg"
+          src="{{ url_for('static', filename='images/index/yrc_logo.jpg') }}"
           class="tlog"
           alt="YRC logo"
         />
