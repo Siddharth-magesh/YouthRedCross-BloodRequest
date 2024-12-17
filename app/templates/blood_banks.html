@@ -3,17 +3,206 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hospital Details</title>
+    <title>BloodBank Details - LifeConnect</title>
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <style>
+      /* General Body Styling */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+      }
+
+      /* Header Styling */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #8b0000;
+        color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-family: "Georgia", serif;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .header button {
+        background-color: #fff;
+        color: #8b0000;
+        border: none;
+        padding: 8px 16px;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header button:hover {
+        background-color: #f2f2f2;
+      }
+
+      /* Page Title Styling */
+      .page-title {
+        text-align: center;
+        margin: 20px 0;
+        font-family: "Georgia", serif;
+        color: #8b0000;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+      }
+
+      /* Table Container Styling */
+      .table-container {
+        margin: 0 auto;
+        width: 85%;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow-x: auto; /* Horizontal scroll for smaller screens */
+      }
+
+      /* Table Styling */
+      table.dataTable {
+        border: none;
+      }
+
+      table.dataTable thead {
+        background-color: #8b0000;
+        color: #fff;
+      }
+
+      table.dataTable thead th {
+        font-size: 1rem;
+      }
+
+      table.dataTable tbody tr:hover {
+        background-color: #f8d7da;
+        color: #8b0000;
+      }
+
+      a {
+        text-decoration: none;
+        color: #8b0000;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        color: #6a0000;
+      }
+
+      /* Search Bar Adjustment */
+      div.dataTables_filter {
+        margin-bottom: 15px;
+        margin-top: 10px;
+        text-align: right;
+      }
+
+      /* MEDIA QUERIES */
+      @media (max-width: 768px) {
+        /* Header Adjustments */
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .header button {
+          font-size: 0.9rem;
+          padding: 6px 12px;
+        }
+
+        /* Page Title */
+        .page-title {
+          font-size: 1.8rem;
+        }
+
+        /* Table Container */
+        .table-container {
+          width: 95%;
+          padding: 10px;
+        }
+
+        table.dataTable {
+          font-size: 0.8rem; /* Reduce font size */
+        }
+
+        table.dataTable thead th {
+          font-size: 0.9rem;
+        }
+
+        table.dataTable tbody td {
+          font-size: 0.8rem;
+          white-space: nowrap; /* Prevent table row wrapping */
+        }
+
+        /* Center Search Bar */
+        div.dataTables_filter {
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Header Adjustments */
+        .header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .header h1 {
+          font-size: 1.3rem;
+          margin-bottom: 5px;
+        }
+
+        .header button {
+          font-size: 0.8rem;
+          padding: 5px 10px;
+        }
+
+        /* Page Title */
+        .page-title {
+          font-size: 1.5rem;
+          margin: 10px 0;
+        }
+
+        /* Table Font Adjustments */
+        table.dataTable {
+          font-size: 0.7rem;
+        }
+
+        table.dataTable thead th {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div style="margin: 20px">
-      <h1>Hospital Details</h1>
+    <!-- Header -->
+    <div class="header">
+      <h1>LifeConnect</h1>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title">BloodBanks</div>
+
+    <!-- Table -->
+    <div class="table-container">
       <table id="hospitalTable" class="display" style="width: 100%">
         <thead>
           <tr>
@@ -30,7 +219,9 @@
             <td>{{ hospital.ADDRESS }}</td>
             <td>{{ hospital["Contact Number"] }}</td>
             <td>
+              {% if hospital.Website %}
               <a href="{{ hospital.Website }}" target="_blank">Visit Website</a>
+              {% else %} None {% endif %}
             </td>
           </tr>
           {% endfor %}
@@ -38,11 +229,12 @@
       </table>
     </div>
 
+    <!-- Script to Initialize DataTables -->
     <script>
-      // Initialize DataTables
       $(document).ready(function () {
         $("#hospitalTable").DataTable({
           pageLength: 10,
+          responsive: true,
         });
       });
     </script>
