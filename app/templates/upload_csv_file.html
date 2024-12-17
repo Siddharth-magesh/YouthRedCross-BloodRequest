@@ -1,0 +1,184 @@
+{% extends "admin_base_template.html" %} {% block customTitle %} Add Donor and
+Hospital Details {% endblock %} {% block customCSS %}
+<style>
+  * {
+    font-family: "Inter", sans-serif;
+  }
+  .custom-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 30px;
+  }
+
+  .custom-form-container label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    display: block;
+  }
+
+  input[type="file"]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #dc3545;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+
+  input[type="file"]::file-selector-button:hover {
+    background: #c82333;
+  }
+
+  .custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #f3f3f3;
+    padding: 8px 12px;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  .custom-btn-submit {
+    background-color: #198754;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .custom-btn-submit:hover {
+    background-color: #218838;
+    transform: scale(1.02);
+  }
+
+  .custom-btn-submit:active {
+    transform: scale(0.98);
+  }
+
+  .custom-alert {
+    position: relative;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .custom-alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+  }
+
+  .custom-alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+  }
+
+  .custom-alert .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    line-height: 1;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .custom-alert .close-btn:hover {
+    transform: scale(1.2);
+    color: #000;
+  }
+
+  .fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+</style>
+{% endblock %} {% block content %}
+<div id="alert-container">
+  {% for message in get_flashed_messages() %} {% if message == "Donor Details
+  Added Successfully" %}
+  <div class="custom-alert custom-alert-success" id="success-alert">
+    {{ message }}
+    <button class="close-btn" onclick="dismissAlert('success-alert')">
+      &times;
+    </button>
+  </div>
+  {% else %}
+  <div class="custom-alert custom-alert-danger" id="danger-alert">
+    {{ message }}
+    <button class="close-btn" onclick="dismissAlert('danger-alert')">
+      &times;
+    </button>
+  </div>
+  {% endif %} {% endfor %}
+</div>
+
+<div class="custom-form-container">
+  <form method="POST" enctype="multipart/form-data">
+    <br />
+    {{ donor_form.hidden_tag() }}
+    <h3>Upload Donor CSV</h3>
+    {{ donor_form.new_donor_file.label(class="form-label") }} {{
+    donor_form.new_donor_file(class="custom-file-input", accept='.csv') }}
+    <div class="d-flex justify-content-center">
+      {{ donor_form.submit_donor(class="custom-btn-submit") }}
+    </div>
+  </form>
+</div>
+
+<div class="custom-form-container">
+  <form method="POST" enctype="multipart/form-data">
+    <br />
+    {{ hospital_form.hidden_tag() }}
+    <h3>Upload Hospital CSV</h3>
+    {{ hospital_form.new_hospital_file.label(class="form-label") }} {{
+    hospital_form.new_hospital_file(class="custom-file-input", accept='.csv') }}
+    <div class="d-flex justify-content-center">
+      {{ hospital_form.submit_hospital(class="custom-btn-submit") }}
+    </div>
+  </form>
+</div>
+
+{% endblock %} {% block customJS %}
+<script>
+  function dismissAlert(alertId) {
+    const alert = document.getElementById(alertId);
+    if (alert) {
+      alert.classList.add("fade-out");
+      setTimeout(() => {
+        alert.remove();
+      }, 300);
+    }
+  }
+</script>
+{% endblock %}
