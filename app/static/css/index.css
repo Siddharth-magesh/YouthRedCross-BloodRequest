@@ -22,7 +22,7 @@ body {
     min-height: 100vh;
     width: 100%;
     background-color: white; 
-    background-image: url('/static/images/index/bg.png'); 
+    background-image: url('/app/static/images/index/bg.png'); 
     background-position: right top;
     background-repeat: no-repeat;
     background-size: contain; /* Ensure the background fits within the container */
@@ -217,6 +217,15 @@ marquee img {
         position: static;
         padding: 20px;
         text-align: center;
+    }
+
+    .lbs, .vec, .yrc {
+        width: 100px; /* Adjust width for small screens */
+        margin: 10px 0; /* Add spacing around logos */
+    }
+
+    nav img {
+        width: 150px; /* Adjust width for small screens */
     }
 }
 
