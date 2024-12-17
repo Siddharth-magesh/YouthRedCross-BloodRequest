@@ -1,157 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Metadata and Font Links -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LifeConnect</title>
-    <!-- External CSS -->
+    <title>Life Connect - Blood Donation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+    <!-- Font Awesome for Icons -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/index.css') }}"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
-    />
-    <!-- Font Awesome Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
   </head>
   <body>
     <!-- Header Section -->
-    <section class="header">
+    <header>
+      <a href="/" class="logo">
+        <img src="{{ url_for('static', filename='images/revamped/LifeConnect_Logo.png') }}" alt="Life Connect Logo" />
+        <h1>Life Connect</h1>
+      </a>
       <nav>
-        <!-- Navigation Logos -->
-
-        <a href="{{ url_for('main.index') }}"
-          ><img
-            src="{{ url_for('static', filename='images/index/LifeConnect_Logo.png') }}"
-            alt="LifeConnect.png"
-            class="LifeConnect_logo"
-        /></a>
-        <img
-          src="{{ url_for('static', filename='images/index/yrc_logo.jpg') }}"
-          alt="College logo"
-          class="yrc_logo"
-        />
-        <img
-          src="{{ url_for('static', filename='images/index/logo_home.png') }}"
-          alt="College logo"
-          class="vec"
-        />
-
-        <!-- Navigation Links -->
-        <div class="nav-links">
-          <ul>
-            <li>
-              <!-- Register New Donor Link -->
-              <a href="{{ url_for('main.render_query_page') }}">Queries</a>
-            </li>
-            <li>
-              <!-- Register New Donor Link -->
-              <a href="{{ url_for('main.render_register_new_donor') }}"
-                >Register New Donor</a
-              >
-            </li>
-            <li>
-              <!-- Admin Login Link -->
-              <a href="{{ url_for('admin.render_admin_login') }}" class="admin"
-                >Admin Login</a
-              >
-            </li>
-            <li>
-              <!-- Donor Login Link -->
-              <a href="{{ url_for('main.render_donor_login') }}" class="donor"
-                >Donor Login</a
-              >
-            </li>
-            <li>
-              <!-- About Us Link -->
-              <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
-            </li>
-            <li>
-              <!-- Blood Banks Link -->
-              <a href="{{ url_for('main.render_blood_banks_page') }}"
-                >Blood Banks</a
-              >
-            </li>
-          </ul>
-        </div>
+        <button class="nav-toggle" id="nav-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="{{ url_for('main.render_query_page') }}">Queries</a></li>
+          <li><a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a></li>
+          <li><a href="{{ url_for('admin.render_admin_login') }}">Admin Login</a></li>
+          <li><a href="{{ url_for('main.render_donor_login') }}">Donor Login</a></li>
+          <li><a href="{{ url_for('main.render_blood_banks_page') }}">Blood Bank</a></li>
+        </ul>
       </nav>
+      <div class="nav-overlay" id="nav-overlay"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div
+        style="
+          width: 100%;
+          height: 100%;
+          position: relative;
+          margin-bottom: 160px;
+          
+        "
+      >
+        <div
+          style="
+            left: 0px;
+            top: 117px;
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            font-family: Raleway;
+            font-weight: 400;
+            word-wrap: break-word;
+          "
+        >
+          Movement
+        </div>
+        <div
+          style="
+            left: 0px;
+            top: 54px;
+            position: absolute;
+            color: white;
+            font-size: 48px;
+            font-family: Raleway;
+            font-weight: 700;
+            word-wrap: break-word;
+          "
+        >
+          Life-Saving
+        </div>
+        <div
+          style="
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            font-family: Raleway;
+            font-weight: 400;
+            word-wrap: break-word;
+          "
+        >
+          Join the
+        </div>
+      </div>
+      <div class="hero-image">
+
+        <img src="{{ url_for('static', filename='images/revamped/blood-donation.png') }}" alt="Blood Donation"/>
+      </div>
     </section>
 
-    <!-- Body Section -->
-    <div class="body">
-      <!-- Welcome Message -->
-      <h1>Welcome to the LifeConnect</h1>
-      <p>
-        Give blood, ignite a life! Be the light in someone's dark.<br />A single
-        drop can create a ripple of hope , your kindness today saves a heartbeat
-        tomorrow.
-      </p>
-      <!-- Action Buttons -->
-      <a
-        href="{{ url_for('main.render_find_donors_page') }}"
-        class="button"
-        id="button1"
-        >Find Donor</a
-      >
-      <a
-        href="{{ url_for('main.render_generate_blood_request') }}"
-        class="button"
-        id="button2"
-        >Generate Request</a
-      >
-      <!-- Registration Link -->
-      <p>
-        Are you a New Donor? Click Here for
-        <a
-          href="{{ url_for('main.render_register_new_donor') }}"
-          class="register"
-          >Register Form</a
-        >
-      </p>
-      <!-- Social Media Links -->
-      <h3>Follow us on Social media</h3>
-      <a href="https://www.instagram.com/yrc_vec/" target="_blank"
-        ><img
-          src="{{ url_for('static', filename='images/index/instagram_logo_home.png ') }}"
-          class="insta"
-      /></a>
-      <a href="https://www.youtube.com/@YouthRedCrossVEC" target="_blank"
-        ><img
-          src="{{ url_for('static', filename='images/index/youtube_logo_home.png') }}"
-          class="youtube"
-      /></a>
-    </div>
+    <!-- Gift of Life Section -->
+    <section class="gift-of-life">
+      <div class="gift-content">
+        <div class="gift-text">
+          <h3>The Gift of Life: Blood Donation</h3>
+          <p>
+            Give blood, ignite a life! Be the light in someone's dark. A single
+            drop can create a ripple of hope, your kindness today saves a
+            heartbeat tomorrow.
+          </p>
+          <div class="cta-buttons">
+            <a href="{{ url_for('main.render_generate_blood_request') }}">Request a blood</a>
+            <a href="{{ url_for('main.render_find_donors_page') }}">Find a donor</a>
+            <a href="{{ url_for('main.render_register_new_donor') }}">Join as a donor</a>
+          </div>
+        </div>
+        <div class="gift-image">
+          <img src="{{ url_for('static', filename='images/revamped/hand-holding-a-drop-of-blood.png') }}" alt="Gift of Life" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <div class="stat-item">
+        <i class="fas fa-hands-helping"></i>
+        <p><strong>100+</strong><br /><span>Volunteers</span></p>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-users"></i>
+        <p><strong>500+</strong><br /><span>Members</span></p>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-chart-line"></i>
+        <p><strong>1000+</strong><br /><span>Total Served</span></p>
+      </div>
+    </section>
 
     <!-- Footer Section -->
-    <div class="foot">
-      <div class="foot-content">
-        <span>Powered by Velammal Engineering College</span>
-        <!-- Footer Logos -->
-        <img
-          src="{{ url_for('static', filename='images/index/vec_logo.jpg') }}"
-          class="flog"
-          alt="College logo"
-        />
-        <span>Coordinated by YRC</span>
-        <img
-          src="{{ url_for('static', filename='images/index/yrc_logo.jpg') }}"
-          class="tlog"
-          alt="YRC logo"
-        />
+    <footer>
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="life-connect-logo" style="display: flex">
+            <img
+              style="width: 40px; height: 100%"
+              src="{{ url_for('static', filename='images/revamped/LifeConnect_mini_logo.png') }}"
+            />
+            <h2>Life Connect</h2>
+          </div>
+          <div class="about">
+            <p>
+              <strong>Life Connect</strong> is a web app developed by the
+              <strong>YRC team</strong> of
+              <strong>Velammal Engineering College</strong> to connect blood
+              donors and recipients seamlessly. It streamlines request
+              generation, donor matching, and communication, ensuring a safe,
+              transparent, and efficient donation process.
+            </p>
+          </div>
+          <img src="{{ url_for('static', filename='images/revamped/yrc_logo.png') }}" alt="yrc-logo" />
+          <img src="{{ url_for('static', filename='images/revamped/vec_logo.png') }}" alt="Velammal Engineering College" />
+        </div>
+        <div class="footer-right">
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <a href="tel:+1234567890"
+              ><i class="fas fa-phone"></i> +1 234 567 890</a
+            >
+            <a href="mailto:support@lifeconnect.org"
+              ><i class="fas fa-envelope"></i> support@lifeconnect.org</a
+            >
+          </div>
+          <h4>Follow us on:</h4>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/yrc_vec"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@YouthRedCrossVEC"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
       </div>
-    </div>
+    </footer>
+
+    <script>
+      // Toggle Navigation Menu
+      const navToggle = document.getElementById("nav-toggle");
+      const navLinks = document.getElementById("nav-links");
+      const navOverlay = document.getElementById("nav-overlay");
+
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+        navOverlay.classList.toggle("show");
+      });
+
+      navOverlay.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        navOverlay.classList.remove("show");
+      });
+    </script>
   </body>
 </html>
