@@ -43,7 +43,9 @@ def render_forget_password_page():
 
 @main_bp.route('/render_blood_banks_page')
 def render_blood_banks_page():
-    return render_template('blood_banks.html')
+    with open('app/static/json_files/blood_banks_data.json', 'r') as file:
+        blood_banks = json.load(file)
+    return render_template('blood_banks.html', hospitals=blood_banks)
 
 @main_bp.route('/render_forget_password_donor')
 def render_forget_password_donor():

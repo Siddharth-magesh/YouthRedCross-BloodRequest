@@ -3,299 +3,240 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Available Blood Banks</title>
+    <title>BloodBank Details - LifeConnect</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     <style>
+      /* General Body Styling */
       body {
         font-family: Arial, sans-serif;
-      }
-      h2 {
-        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
         color: #333;
       }
-      table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
+
+      /* Header Styling */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #8b0000;
+        color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
       }
-      th,
-      td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
+
+      .header h1 {
+        margin: 0;
+        font-family: "Georgia", serif;
+        font-size: 2rem;
+        font-weight: bold;
       }
-      th {
+
+      .header button {
+        background-color: #fff;
+        color: #8b0000;
+        border: none;
+        padding: 8px 16px;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header button:hover {
         background-color: #f2f2f2;
       }
-      a {
-        color: #3498db;
-        text-decoration: none;
+
+      /* Page Title Styling */
+      .page-title {
+        text-align: center;
+        margin: 20px 0;
+        font-family: "Georgia", serif;
+        color: #8b0000;
+        font-size: 2.5rem;
+        text-transform: uppercase;
       }
+
+      /* Table Container Styling */
+      .table-container {
+        margin: 0 auto;
+        width: 85%;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow-x: auto; /* Horizontal scroll for smaller screens */
+      }
+
+      /* Table Styling */
+      table.dataTable {
+        border: none;
+      }
+
+      table.dataTable thead {
+        background-color: #8b0000;
+        color: #fff;
+      }
+
+      table.dataTable thead th {
+        font-size: 1rem;
+      }
+
+      table.dataTable tbody tr:hover {
+        background-color: #f8d7da;
+        color: #8b0000;
+      }
+
+      a {
+        text-decoration: none;
+        color: #8b0000;
+      }
+
       a:hover {
         text-decoration: underline;
+        color: #6a0000;
+      }
+
+      /* Search Bar Adjustment */
+      div.dataTables_filter {
+        margin-bottom: 15px;
+        margin-top: 10px;
+        text-align: right;
+      }
+
+      /* MEDIA QUERIES */
+      @media (max-width: 768px) {
+        /* Header Adjustments */
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .header button {
+          font-size: 0.9rem;
+          padding: 6px 12px;
+        }
+
+        /* Page Title */
+        .page-title {
+          font-size: 1.8rem;
+        }
+
+        /* Table Container */
+        .table-container {
+          width: 95%;
+          padding: 10px;
+        }
+
+        table.dataTable {
+          font-size: 0.8rem; /* Reduce font size */
+        }
+
+        table.dataTable thead th {
+          font-size: 0.9rem;
+        }
+
+        table.dataTable tbody td {
+          font-size: 0.8rem;
+          white-space: nowrap; /* Prevent table row wrapping */
+        }
+
+        /* Center Search Bar */
+        div.dataTables_filter {
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Header Adjustments */
+        .header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .header h1 {
+          font-size: 1.3rem;
+          margin-bottom: 5px;
+        }
+
+        .header button {
+          font-size: 0.8rem;
+          padding: 5px 10px;
+        }
+
+        /* Page Title */
+        .page-title {
+          font-size: 1.5rem;
+          margin: 10px 0;
+        }
+
+        /* Table Font Adjustments */
+        table.dataTable {
+          font-size: 0.7rem;
+        }
+
+        table.dataTable thead th {
+          font-size: 0.8rem;
+        }
       }
     </style>
   </head>
   <body>
-    <a href="{{ url_for('main.index') }}">Return to Main Page</a>
-    <br />
-    <a href="{{ url_for('main.render_generate_blood_request') }}"
-      >Generate Blood Request</a
-    >
-    <br />
-    <a href="{{ url_for('main.render_find_donors_page') }}">Find Donors Page</a>
-    <h2>Blood Banks in the City</h2>
+    <!-- Header -->
+    <div class="header">
+      <h1>LifeConnect</h1>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Contact Number</th>
-          <th>Website</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>City Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=123 Main St, Cityville"
-              target="_blank"
-              >123 Main St, Cityville</a
-            >
-          </td>
-          <td>+1 123-456-7890</td>
-          <td>
-            <a href="https://citybloodbank.com" target="_blank"
-              >citybloodbank.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Central Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=456 Elm St, Cityville"
-              target="_blank"
-              >456 Elm St, Cityville</a
-            >
-          </td>
-          <td>+1 234-567-8901</td>
-          <td>
-            <a href="https://centralbloodbank.org" target="_blank"
-              >centralbloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Healthline Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=789 Maple Ave, Cityville"
-              target="_blank"
-              >789 Maple Ave, Cityville</a
-            >
-          </td>
-          <td>+1 345-678-9012</td>
-          <td>
-            <a href="https://healthlinebloodcenter.com" target="_blank"
-              >healthlinebloodcenter.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Hope Blood Donation</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=101 Oak St, Cityville"
-              target="_blank"
-              >101 Oak St, Cityville</a
-            >
-          </td>
-          <td>+1 456-789-0123</td>
-          <td>
-            <a href="https://hopeblooddonation.com" target="_blank"
-              >hopeblooddonation.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Unity Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=202 Pine St, Cityville"
-              target="_blank"
-              >202 Pine St, Cityville</a
-            >
-          </td>
-          <td>+1 567-890-1234</td>
-          <td>
-            <a href="https://unitybloodbank.org" target="_blank"
-              >unitybloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Helping Hands Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=303 Cedar Ave, Cityville"
-              target="_blank"
-              >303 Cedar Ave, Cityville</a
-            >
-          </td>
-          <td>+1 678-901-2345</td>
-          <td>
-            <a href="https://helpinghandsblood.org" target="_blank"
-              >helpinghandsblood.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>LifeCare Blood Donation</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=404 Birch Rd, Cityville"
-              target="_blank"
-              >404 Birch Rd, Cityville</a
-            >
-          </td>
-          <td>+1 789-012-3456</td>
-          <td>
-            <a href="https://lifecareblooddonation.com" target="_blank"
-              >lifecareblooddonation.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Heartland Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=505 Ash St, Cityville"
-              target="_blank"
-              >505 Ash St, Cityville</a
-            >
-          </td>
-          <td>+1 890-123-4567</td>
-          <td>
-            <a href="https://heartlandbloodbank.com" target="_blank"
-              >heartlandbloodbank.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Red Cross Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=606 Walnut St, Cityville"
-              target="_blank"
-              >606 Walnut St, Cityville</a
-            >
-          </td>
-          <td>+1 901-234-5678</td>
-          <td>
-            <a href="https://redcrossbloodcenter.org" target="_blank"
-              >redcrossbloodcenter.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Sunshine Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=707 Cherry St, Cityville"
-              target="_blank"
-              >707 Cherry St, Cityville</a
-            >
-          </td>
-          <td>+1 012-345-6789</td>
-          <td>
-            <a href="https://sunshinebloodbank.org" target="_blank"
-              >sunshinebloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>LifeBlood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=808 Spruce St, Cityville"
-              target="_blank"
-              >808 Spruce St, Cityville</a
-            >
-          </td>
-          <td>+1 123-456-7890</td>
-          <td>
-            <a href="https://lifebloodcenter.com" target="_blank"
-              >lifebloodcenter.com</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Global Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=909 Oakwood Dr, Cityville"
-              target="_blank"
-              >909 Oakwood Dr, Cityville</a
-            >
-          </td>
-          <td>+1 234-567-8901</td>
-          <td>
-            <a href="https://globalbloodcenter.org" target="_blank"
-              >globalbloodcenter.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>New Life Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1001 Aspen St, Cityville"
-              target="_blank"
-              >1001 Aspen St, Cityville</a
-            >
-          </td>
-          <td>+1 345-678-9012</td>
-          <td>
-            <a href="https://newlifebloodbank.org" target="_blank"
-              >newlifebloodbank.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>City Hope Blood Center</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1102 Willow St, Cityville"
-              target="_blank"
-              >1102 Willow St, Cityville</a
-            >
-          </td>
-          <td>+1 456-789-0123</td>
-          <td>
-            <a href="https://cityhopeblood.org" target="_blank"
-              >cityhopeblood.org</a
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>Community Blood Bank</td>
-          <td>
-            <a
-              href="https://maps.google.com/?q=1203 Magnolia Ave, Cityville"
-              target="_blank"
-              >1203 Magnolia Ave, Cityville</a
-            >
-          </td>
-          <td>+1 567-890-1234</td>
-          <td>
-            <a href="https://communitybloodbank.org" target="_blank"
-              >communitybloodbank.org</a
-            >
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Page Title -->
+    <div class="page-title">BloodBanks</div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <table id="hospitalTable" class="display" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for hospital in hospitals %}
+          <tr>
+            <td>{{ hospital.NAME }}</td>
+            <td>{{ hospital.ADDRESS }}</td>
+            <td>{{ hospital["Contact Number"] }}</td>
+            <td>
+              {% if hospital.Website %}
+              <a href="{{ hospital.Website }}" target="_blank">Visit Website</a>
+              {% else %} None {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Script to Initialize DataTables -->
+    <script>
+      $(document).ready(function () {
+        $("#hospitalTable").DataTable({
+          pageLength: 10,
+          responsive: true,
+        });
+      });
+    </script>
   </body>
 </html>
