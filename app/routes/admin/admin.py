@@ -1,6 +1,7 @@
 # app/routes/admin.py
 import math
 import os
+import time
 from flask import Blueprint, render_template ,request,flash, session, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import SubmitField ,FileField
@@ -11,7 +12,7 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from datetime import datetime
 from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function , get_next_id_third_function
-from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable , TermsAndConditions
+from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable , TermsAndConditions , HospitalDetails
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -22,7 +23,11 @@ def check_admin_login():
 
 class AddDonorCSV(FlaskForm):
     new_donor_file = FileField('Donor CSV File', validators=[InputRequired()])
-    submit = SubmitField('Upload')
+    submit_donor = SubmitField('Upload Donor CSV')
+
+class AddHospitalCSV(FlaskForm):
+    new_hospital_file = FileField('Hospital CSV File', validators=[InputRequired()])
+    submit_hospital = SubmitField('Upload Hospital CSV')
 
 @admin_bp.route('/render_admin_login')
 def render_admin_login():
@@ -177,125 +182,163 @@ def admin_logout():
     session.clear()
     return redirect(url_for('main.index'))
 
-@admin_bp.route('/add_donor_csv', methods=['POST','GET'])
-def add_donor_csv():
+@admin_bp.route('/upload_csv_files', methods=['POST', 'GET'])
+def upload_csv_files():
     if check_admin_login():
-        form = AddDonorCSV()
-        if request.method == 'POST' and form.validate_on_submit():
-            donor_file = form.new_donor_file.data
-            donor_file.save(os.path.join(os.path.abspath("app/static/files/"),secure_filename(donor_file.filename)))
-            try:
-                donorDetails = pd.read_csv(os.path.join(os.path.abspath("app/static/files/"),secure_filename(donor_file.filename)))
-                first_name = donorDetails['First Name'].astype(str)
-                last_name = donorDetails['Last Name or Initial'].astype(str)
-                # details for personal details table
-                donor_names = [f"{first.strip()} {last.strip()}" for first, last in zip(first_name, last_name)]
-                donor_age = donorDetails['Age'].astype(int)
-                donor_dob = convert_to_date(donorDetails['Date of Birth'])
-                donor_contact = donorDetails['Phone Number'].astype(int)
-                donor_secondary_contact = donorDetails['Secondary Contact Number'].astype(int)
-                donor_martial_status = donorDetails['Martial Status'].astype(str)
-                donor_aadhar = donorDetails['Aadhar Number'].astype(int)
+        donor_form = AddDonorCSV()
+        hospital_form = AddHospitalCSV()
+        print("here maybe")
+        
+        if request.method == 'POST':
+            # Check which form is being submitted
+            if donor_form.validate_on_submit() and 'new_donor_file' in request.files:
+                donor_file = donor_form.new_donor_file.data
+                filename = f"{int(time.time())}_{secure_filename(donor_file.filename)}"
+                donor_file_path = os.path.join(os.path.abspath("app/static/files/"), filename)
+                donor_file.save(donor_file_path)
+                try:
+                    donorDetails = pd.read_csv(donor_file_path)
 
-                # details for address table
-                donor_address = donorDetails['Current Address'].astype(str)
-                donor_pincode = donorDetails['Pincode'].astype(int)
-                donor_city = donorDetails['City'].astype(str)
-                donor_state = donorDetails['State'].astype(str)
-                donor_country = donorDetails['Country'] if 'Country' in donorDetails.columns else ['India'] * len(donorDetails)
-                
-                # details for diseases table
-                donor_disease = donorDetails['Any Disease or Allergies'].astype(str)
-                replaced_disease = [replace_none(str(disease)) for disease in donor_disease]
-                donor_disease_details = donorDetails['Disease Description'].astype(str)
+                    first_name = donorDetails['First Name'].astype(str)
+                    last_name = donorDetails['Last Name or Initial'].astype(str)
+                    donor_names = [f"{first.strip()} {last.strip()}" for first, last in zip(first_name, last_name)]
+                    donor_age = donorDetails['Age'].astype(int)
+                    donor_dob = convert_to_date(donorDetails['Date of Birth'])
+                    donor_contact = donorDetails['Phone Number'].astype(int)
+                    donor_secondary_contact = donorDetails['Secondary Contact Number'].astype(int)
+                    donor_marital_status = donorDetails['Martial Status'].astype(str)
+                    donor_aadhar = donorDetails['Aadhar Number'].astype(int)
 
-                # donor blood details
-                donor_blood_group = donorDetails['Blood Group'].astype(str)
-                # is_blood_donated = donorDetails['Donated Blood Already']
-                donor_last_donation = convert_to_date(donorDetails['Last Blood Donated Date'])
-                donor_donation_count = [0 if math.isnan(x) else int(x) for x in donorDetails['No of Times Donated'].tolist()]
-                donor_status = is_donor_active(donor_last_donation)
+                    donor_address = donorDetails['Current Address'].astype(str)
+                    donor_pincode = donorDetails['Pincode'].astype(int)
+                    donor_city = donorDetails['City'].astype(str)
+                    donor_state = donorDetails['State'].astype(str)
+                    donor_country = donorDetails['Country'] if 'Country' in donorDetails.columns else ['India'] * len(donorDetails)
 
-                # donor login details
-                donor_email = donorDetails['Email Address'].astype(str)
-                donor_password = donorDetails['Password'].astype(str)
-                donor_confirm_password = donorDetails['Confirm Password'].astype(str)
+                    donor_disease = donorDetails['Any Disease or Allergies'].astype(str)
+                    replaced_disease = [replace_none(str(disease)) for disease in donor_disease]
+                    donor_disease_details = donorDetails['Disease Description'].astype(str)
 
-                for i in range(len(donor_names)):
-                    personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
-                    personal_details = PersonalDetailsUser(
-                        id=personal_id,
-                        first_name=first_name[i],
-                        last_name=last_name[i],
-                        age=donor_age[i],
-                        date_of_birth=donor_dob[i],
-                        contact_number=donor_contact[i],
-                        secondary_contact_number=donor_secondary_contact[i],
-                        marital_status=donor_martial_status[i],
-                        aadhar_number=donor_aadhar[i]
-                    )
-                    address_id = get_next_id(AddressDetailsUser, 'ADDR')
-                    address_details = AddressDetailsUser(
-                        id=address_id,
-                        address=donor_address[i],
-                        city=donor_city[i],
-                        state=donor_state[i],
-                        pincode=donor_pincode[i],
-                        country=donor_country[i] if not pd.isnull(donor_country[i]) else 'India'
-                    )
-                    terms_and_conditions_id = get_next_id_third_function(DonorDetail, 'TCDNR')
-                    term_condtions = TermsAndConditions(
-                        id = terms_and_conditions_id,
-                        version = "1.0",
-                        effective_date = datetime.now()
-                    )
-                    disease_id = get_next_id(DiseaseDetailsUser, 'DIS')
-                    disease_details = DiseaseDetailsUser(
-                        id=disease_id,
-                        name=replaced_disease[i],
-                        description=donor_disease_details[i]
-                    )
-                    auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
-                    '''donor_authentication = AuthenticationDetailsDonor(
-                        auth_id=auth_id,
-                        name = donor_names[i],
-                    )'''
-                    if donor_password[i] == donor_confirm_password[i]:
-                        hashed_donor_password = generate_password_hash(donor_password[i],method="scrypt")
-                    donor_id = get_next_id(DonorDetail, 'DNR')
-                    donor_detail = DonorDetail(
-                        id = donor_id,
-                        name = donor_names[i],
-                        email = donor_email[i],
-                        password = hashed_donor_password,
-                        blood_group = donor_blood_group[i],
-                        personal_details_id = personal_id,
-                        terms_and_conditions_id = terms_and_conditions_id,
-                        address_id = address_id,
-                        active_status = donor_status[i],
-                        disease_id = disease_id,
-                        authentication_id = auth_id,
-                        last_donated_date = donor_last_donation[i],
-                        number_of_times_donated = donor_donation_count[i],
-                    )
-                    db.session.add(personal_details)
-                    db.session.commit()
-                    db.session.add(address_details)
-                    db.session.commit()
-                    db.session.add(disease_details)
-                    db.session.commit()
-                    #db.session.add(donor_authentication)
-                    #db.session.commit()
-                    db.session.add(term_condtions)
-                    db.session.commit()
-                    db.session.add(donor_detail)
-                    db.session.commit()
-                    flash("Donor Details Added Successfully")
-            except Exception as e:
-                flash(e)
-        return render_template('add_donors_csv.html', form=form)
+                    donor_blood_group = donorDetails['Blood Group'].astype(str)
+                    donor_last_donation = convert_to_date(donorDetails['Last Blood Donated Date'])
+                    donor_donation_count = [0 if math.isnan(x) else int(x) for x in donorDetails['No of Times Donated'].tolist()]
+                    donor_status = is_donor_active(donor_last_donation)
+
+                    donor_email = donorDetails['Email Address'].astype(str)
+                    donor_password = donorDetails['Password'].astype(str)
+                    donor_confirm_password = donorDetails['Confirm Password'].astype(str)
+
+                    for i in range(len(donor_names)):
+                        personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
+                        personal_details = PersonalDetailsUser(
+                            id=personal_id,
+                            first_name=first_name[i],
+                            last_name=last_name[i],
+                            age=donor_age[i],
+                            date_of_birth=donor_dob[i],
+                            contact_number=donor_contact[i],
+                            secondary_contact_number=donor_secondary_contact[i],
+                            marital_status=donor_marital_status[i],
+                            aadhar_number=donor_aadhar[i]
+                        )
+
+                        address_id = get_next_id(AddressDetailsUser, 'ADDR')
+                        address_details = AddressDetailsUser(
+                            id=address_id,
+                            address=donor_address[i],
+                            city=donor_city[i],
+                            state=donor_state[i],
+                            pincode=donor_pincode[i],
+                            country=donor_country[i] if not pd.isnull(donor_country[i]) else 'India'
+                        )
+
+                        disease_id = get_next_id(DiseaseDetailsUser, 'DIS')
+                        disease_details = DiseaseDetailsUser(
+                            id=disease_id,
+                            name=replaced_disease[i],
+                            description=donor_disease_details[i]
+                        )
+
+                        terms_and_conditions_id = get_next_id_third_function(DonorDetail, 'TCDNR')
+                        term_conditions = TermsAndConditions(
+                            id=terms_and_conditions_id,
+                            version="1.0",
+                            effective_date=datetime.now()
+                        )
+
+                        if donor_password[i] != donor_confirm_password[i]:
+                            flash(f"Passwords do not match for donor: {donor_names[i]}", 'danger')
+                            continue
+                        hashed_password = generate_password_hash(donor_password[i], method="scrypt")
+
+                        donor_id = get_next_id(DonorDetail, 'DNR')
+                        donor_detail = DonorDetail(
+                            id=donor_id,
+                            name=donor_names[i],
+                            email=donor_email[i],
+                            password=hashed_password,
+                            blood_group=donor_blood_group[i],
+                            personal_details_id=personal_id,
+                            terms_and_conditions_id=terms_and_conditions_id,
+                            address_id=address_id,
+                            active_status=donor_status[i],
+                            disease_id=disease_id,
+                            last_donated_date=donor_last_donation[i],
+                            number_of_times_donated=donor_donation_count[i]
+                        )
+
+                        db.session.add_all([personal_details, address_details, disease_details, term_conditions, donor_detail])
+                        db.session.commit()
+
+                    flash("Donor details added successfully!", 'success')
+
+                except Exception as e:
+                    flash(f"Error processing donor CSV: {e}", 'danger')
+
+            elif hospital_form.validate_on_submit() and 'new_hospital_file' in request.files:
+                hospital_file = hospital_form.new_hospital_file.data
+                filename = f"{int(time.time())}_{secure_filename(hospital_file.filename)}"
+                hospital_file_path = os.path.join(os.path.abspath("app/static/files/"), filename)
+                hospital_file.save(hospital_file_path)
+                print("Here 1")
+
+                try:
+                    hospital_data = pd.read_csv(hospital_file_path)
+
+                    hospital_name = hospital_data['HOSPITAL NAME'].astype(str)
+                    hospital_branch = hospital_data['BRANCH'].astype(str) if 'BRANCH' in hospital_data else [None] * len(hospital_data)
+                    hospital_landmark = hospital_data['LANDMARK'].astype(str) if 'LANDMARK' in hospital_data else [None] * len(hospital_data)
+                    hospital_address = hospital_data['ADDRESS'].astype(str)
+                    pincode = hospital_data['PINCODE'].astype(str)
+                    print("Here 11")
+
+                    for i in range(len(hospital_name)):
+                        hospital_id = get_next_id(HospitalDetails, 'HOSP')
+                        print("Here 111")
+                        hospital_detail = HospitalDetails(
+                            id=hospital_id,
+                            hospital_name=hospital_name[i],
+                            hospital_address=hospital_address[i],
+                            pincode = pincode[i],
+                            city = 'Chennai',
+                            state = 'TamilNadu',
+                            country = 'India',
+                            branch=hospital_branch[i],
+                            landmark=hospital_landmark[i],
+                        )
+
+                        db.session.add(hospital_detail)
+                        db.session.commit()
+
+                    flash("Hospital details added successfully!", 'success')
+
+                except Exception as e:
+                    flash(f"Error processing hospital CSV: {e}", 'danger')
+
+        return render_template('upload_csv_file.html', donor_form=donor_form, hospital_form=hospital_form)
     else:
         return redirect(url_for('admin.render_admin_login'))
+
     
 @admin_bp.route('/render_query_page_admin_side')
 def render_query_page_admin_side():
