@@ -6,6 +6,52 @@
     background-size: cover;
 }
 
+.site-name {
+  color: white;
+  text-decoration: none;
+  margin-top: 0px;
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.site-name:hover {
+  text-decoration: none;
+}
+
+header {
+  background-color: darkred;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  height: 50px;
+}
+header a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+}
+.nav-buttons a {
+  background-color: white;
+  color: darkred;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 0px;
+}
+.nav-buttons a:hover {
+  background-color: #ffcccc;
+  text-decoration: none;
+}
+
   h1 {
     text-align: center;
     color: #b30001;
@@ -13,51 +59,6 @@
     font-size: 4rem;
   }
 
-  nav{
-    display: flex;
-    padding:2% 6%;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-
-}
-
-  nav img{
-    width: 250px;
-    left: 5cm;
-}
-
-  .nav-links{
-    flex: 1;
-    font-size: larger;
-    text-align: right;
-}
-
-  .nav-links ul li{
-    list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-}
-  .nav-links ul li a{
-    color: #0a0404;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-  .nav-links ul li::after{
-    content: '';
-    width:0%;
-    height: 2px;
-    background: #b30001;
-    display: block;
-    margin: auto;
-    transition: 0.5s;
-}
-
-  .nav-links ul li:hover::after{
-    width: 100%;
-}
 
   /* Form Container */
   form {
@@ -68,6 +69,7 @@
     background-color: #ffff ;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 0px;
   }
   
   /* Fieldsets */
@@ -186,4 +188,31 @@
     font-weight: 500;
     cursor: pointer; 
   }
+
+  @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .nav-buttons {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .nav-buttons a {
+      font-size: 16px;
+        margin: 5px 0;
+        width: 50%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .site-name {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
   
