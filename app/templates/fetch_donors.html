@@ -1,375 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Find Donor</title>
-<style>
-       body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0; /* Remove default browser margin */
-            padding: 0; /* Remove default browser padding */
-            overflow: hidden; /* Prevent vertical scrolling */
-            height: 100vh; /* Force content to fit within the viewport */
-            display: flex;
-            flex-direction: column; /* Stack elements vertically */
-      }
-       nav {
-            position: relative; /* Relative positioning for quotes alignment */
-            padding: 1% 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-      }
-       nav img {
-        width: 200px;
-      }
-      .top-right-button {
-        position: absolute;
-        top: 30px;
-        right: 50px;
-      }
-      .top-right-button button {
-        background-color: #b30001;
-        color: white;
-        border: none;
-        padding: 15px 20px;
-        font-size: 15px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: bold;
-      }
-      .top-right-button button:hover {
-        background-color: #b30001;
-      }
-      h1 {
-        text-align: center;
-        padding: 20px;
-        color: #b30001; /* Red header text */
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Donor</title>
+
+    <!-- Google Font for LifeConnect -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* General Body Styles */
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f4f4f4;
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      .form-container {
-        margin: 10px auto;
-        padding: 25px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 650px;
-        min-width: 450px;
-        flex: 1;
-        border: 1px solid #ddd;
-      }
-      label {
-        font-weight: bold;
-        color: #b30001;
-        margin-bottom: 8px;
-        display: block;
-      }
-      select,input[type="text"] {
-        width: 100%; /* Full width of the parent container */
-        padding: 10px; /* Ensure consistent padding */
-        margin-bottom: 14px;
-        border-radius: 15px;
-        border: 2px solid #b30001;
-        margin-top: 10px;
-        box-sizing: border-box; /* Includes padding and border in width */
-        font-size: 14px; /* Match font size for consistency */
-      }
-      button {
-        background-color: #b30001; /* Red button */
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        text-align: center;
-        font-weight: bold;
-        border-radius: 15px;
-        padding: 10px 30px; /* Example: 15px for vertical, 30px for horizontal */
-        margin-left:150px;
-        margin-top:15px;
-      }
-      button:hover {
-        background-color: #b30001;
-      }
-      .loading-spinner {
-        display: none; /* Hide by default */
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000;
-      }
-      .spinner {
-        border: 8px solid #f3f3f3; /* Light background for spinner */
-        border-top: 8px solid #b30001; /* Red spinner */
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 2s linear infinite;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      .table-container {
-        display: none; /* Hide table initially */
-        margin: 80px auto;
-        padding: 15px;
-        max-width: 80%;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding: 12px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #b30001;
-        color: white;
-      }
-      .center-button {
-        margin-top: 20px;
-        padding: 20px;
-        text-align: center;
-      }
-      .center-button button{
-        padding: 10px 15px;
-        width:auto;
-        border-radius: 15px;
-        font-weight:bolder;
-        font-size: 17px;
-      }
-      .blurred {
-        filter: blur(5px);
-        pointer-events: none; /* Disable interaction with blurred elements */
-      }
-      .button-link {
-        display: inline-block;
-        background-color: #b30001; /* Red background */
-        color: white; /* White text */
-        text-decoration: none; /* Remove underline */
-        padding: 15px 20px; /* Padding for the button */
-        font-size: 15px; /* Font size */
-        border-radius: 20px; /* Rounded corners */
-        font-weight: bold; /* Bold text */
-        text-align: center; /* Center the text */
-      }
-      .button-link:hover {
-        background-color: #b30001; /* Darker red on hover */
-      }
-      .form-wrapper {
-        margin-top: 150px; /* Adjust to accommodate quotes */
+
+      /* Header Styles */
+      .header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        background-color: #8b0000;
+        color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-family: "Georgia", serif;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .header a {
+        text-decoration: none;
+        color: #f4f4f4;
+      }
+
+      .header button {
+        background-color: #fff;
+        color: #8b0000;
+        font-weight: bold;
+        border: none;
+        padding: 8px 16px;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        width: 150px;
+      }
+
+      .header button:hover {
+        background-color: #f2f2f2;
+      }
+
+      /* Form and Container */
+      .form-container {
+        display: flex;
         justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 20px;
-        max-width: 800px;
-        margin: 20px auto;
+        margin-top: 30px;
+        padding: 20px;
       }
-      .blurred .form-image {
-        filter: blur(5px);
-        pointer-events: none; /* Disable interaction with the image */
-      }
-      .form-image {
+
+      .form-container img {
         width: 350px;
         height: auto;
         border-radius: 8px;
         transition: filter 0.3s ease;
       }
-      .table-container .form-image {
-        display: none; /* Hide the image on the table page */
+
+      .form-content {
+        background-color: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        box-sizing: border-box;
       }
-      .quotes-section {
-        position: absolute; /* Absolute positioning to overlay */
-        top: 40px; /* Place below the navigation bar */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Adjust to center */
+
+      .form-content h2 {
         text-align: center;
-        font-style: italic;
-        color: #b30001;
-        width: 100%; /* Stretch across the screen */
-        max-width: 800px; /* Limit width for readability */
-        margin: 0 auto;
-        padding: 10px 20px;
-        font-weight: bolder;
-        z-index: 1; /* Ensure it stays above the background */
+        margin-bottom: 20px;
+        color: #8b0000;
       }
-</style>
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-      <a href="{{ url_for('main.index') }}">
-        <img src="{{ url_for('static',filename='images/fetch_donors/LBS_home.png') }}" alt="Home Logo" />
-      </a>
-    </nav>
-    <div class="quotes-section">
-      <p>"Life flows from one to another. Be a part of the chain of life by donating blood."</p>
-    </div>
 
-    <!-- Return to Home Page Button -->
-    <div class="top-right-button">
-        <a href="{{ url_for('main.index') }}" class="button-link">Return to Home Page</a>
-    </div>
+      label {
+        font-weight: bold;
+        color: #8b0000;
+        margin-bottom: 10px;
+        display: block;
+      }
 
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loadingSpinner">
-      <div class="spinner"></div>
-    </div>
+      select,
+      input[type="text"] {
+        width: calc(100% - 24px);
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 2px solid #8b0000;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
 
-    <!-- Input Form for Blood Type -->
-    <div class="form-wrapper">
-      <img src="{{ url_for('static',filename='images/fetch_donors/imgs.png') }}" alt="Decorative Image" class="form-image" id="formImage"/>
-    <div class="form-container" id="formContainer">
-      <h1>Find a Donor</h1>
-      <form id="findDonorForm" method="POST" action="{{ url_for('fetch_donors.get_donors') }}" onsubmit="showDonorTable(event)">
-        <label for="bloodType">Blood Type:</label>
-        <select id="bloodType" name="bloodType" required>
-          <option value="">Select Blood Type</option required>
-          <option value="A+">A+</option>
-          <option value="B+">B+</option>
-          <option value="O+">O+</option>
-          <option value="AB+">AB+</option>
-          <option value="A-">A-</option>
-          <option value="B-">B-</option>
-          <option value="O-">O-</option>
-          <option value="AB-">AB-</option>
-        </select>
-        <label for="hospital_address">Hospital Address:</label>
-        <input type="text" id="hospital_address" name="hospital_address" />
-        <button type="submit">Find Donor</button>
-      </form>
-    </div>
-    </div>
+      .submit-btn {
+        width: 150px;
+        padding: 12px;
+        background-color: #8b0000;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 auto;
+        display: block;
+      }
 
-    <!-- Table to Display Donor Results -->
-    <div class="table-container" id="tableContainer">
-      <table id="donorTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Blood Group</th>
-            <th>City</th>
-            <th>Status</th>
-            <th>Distance (km)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if donors %}
-          {% for donor in donors %}
-          <tr>
-            <td>{{ donor.Name }}</td>
-            <td>{{ donor.blood_grp }}</td>
-            <td>{{ donor.city }}</td>
-            <td>{{ donor.status }}</td>
-            <td>{{ donor.distance if donor.distance is not none else "N/A" }}</td>
-          </tr>
-          {% endfor %}
-          {% else %}
-          <tr>
-            <td colspan="5">No donors found.</td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
-      <!-- Generate Blood Request Button -->
-    <div class="center-button">
-        <a href="{{ url_for('main.render_generate_blood_request') }}" class="button-link">Generate Blood Request</a>
-      </div>
-    </div>
+      button:hover {
+        background-color: #9c0001;
+      }
 
+      /* Mobile View */
+      @media (max-width: 768px) {
+        .form-container {
+          flex-direction: column;
+          align-items: center;
+        }
 
-    <!-- JavaScript -->
-    <script>
-      async function showDonorTable(event) {
-        event.preventDefault(); // Prevent form submission
-    
-        const loadingSpinner = document.getElementById("loadingSpinner");
-        const tableContainer = document.getElementById("tableContainer");
-        const formImage = document.querySelector(".form-image");
-        const quotesSection = document.querySelector(".quotes-section"); // Select the quotes section
-        const formWrapper = document.querySelector(".form-wrapper");
-    
-        // Get form data
-        const bloodType = document.getElementById("bloodType").value;
-        const hospitalAddress = document.getElementById("hospital_address").value;
-    
-        // Display loading spinner
-        loadingSpinner.style.display = "block";
-        formWrapper.classList.add("blurred");
-        quotesSection.classList.add("blurred");
-    
-        try {
-          // Make a POST request to fetch donors
-          const response = await fetch("{{ url_for('fetch_donors.get_donors') }}", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              bloodType: bloodType,
-              hospitalAddress: hospitalAddress,
-            }),
-          });
-    
-          if (!response.ok) {
-            throw new Error("Failed to fetch donors.");
-          }
-    
-          // Parse the JSON response
-          const donors = await response.json();
-    
-          // Hide the spinner and update UI
-          loadingSpinner.style.display = "none";
-          formWrapper.style.display = "none"; // Hide the form wrapper
-          tableContainer.style.display = "block"; // Show the table
-          formImage.style.display = "none"; // Hide the image
-          quotesSection.classList.remove("blurred"); // Remove blur effect
-    
-          // Update the table
-          const tableBody = document.querySelector("#donorTable tbody");
-          tableBody.innerHTML = ""; // Clear any existing rows
-    
-          if (donors.length > 0) {
-            // Populate rows dynamically
-            donors.forEach((donor) => {
-              const row = `<tr>
-                            <td>${donor.Name}</td>
-                            <td>${donor.blood_grp}</td>
-                            <td>${donor.city}</td>
-                            <td>${donor.status}</td>
-                            <td>${donor.distance ? donor.distance : "N/A"}</td>
-                          </tr>`;
-              tableBody.innerHTML += row;
-            });
-          } else {
-            // Display "No donors found" if the response is empty
-            tableBody.innerHTML = "<tr><td colspan='5'>No donors found.</td></tr>";
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          alert("Something went wrong while fetching donors.");
-        } finally {
-          // Always hide the spinner
-          loadingSpinner.style.display = "none";
+        .header button {
+          width: 90px;
+          font-size: 14px;
+        }
+
+        .form-container img {
+          display: none;
+        }
+
+        .form-content {
+          width: 100%;
+          max-width: 400px;
+          padding: 15px;
+        }
+
+        .form-content h2 {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
+        }
+
+        label,
+        select,
+        input[type="text"],
+        button {
+          font-size: 14px;
+        }
+
+        button {
+          padding: 10px;
+          font-size: 14px;
         }
       }
-    </script>
-    
-</body>
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <div class="header">
+      <a href="{{ url_for('main.index') }}"> <h1>LifeConnect</h1></a>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-container">
+      <!-- Image Section -->
+      <img
+        src="{{ url_for('static', filename='images/fetch_donors/imgs.png') }}"
+        alt="Decorative Image"
+      />
+
+      <!-- Form Content Section -->
+      <div class="form-content">
+        <h2>Find Donors</h2>
+        <form method="POST" action="{{ url_for('fetch_donors.get_donors') }}">
+          <label for="bloodType">Blood Type:</label>
+          <select id="bloodType" name="bloodType" required>
+            <option value="">Select Blood Type</option>
+            <option value="A+">A+</option>
+            <option value="B+">B+</option>
+            <option value="O+">O+</option>
+            <option value="AB+">AB+</option>
+            <option value="A-">A-</option>
+            <option value="B-">B-</option>
+            <option value="O-">O-</option>
+            <option value="AB-">AB-</option>
+          </select>
+
+          <label for="hospital_address">Hospital Address (Optional):</label>
+          <input
+            type="text"
+            id="hospital_address"
+            name="hospital_address"
+            placeholder="Enter Hospital Address"
+          />
+
+          <button class="submit-btn" type="submit">Find Donor</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

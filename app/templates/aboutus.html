@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta tags for character encoding and responsiveness -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LifeConnect</title>
+
+    <!-- External stylesheets for fonts and icons -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -12,12 +15,19 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Additional styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
     <style>
       body {
         font-family: "Poppins", sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f3f4f6;
+        background-color: #e7dfe2;
       }
 
       /* Header Styles */
@@ -36,9 +46,10 @@
       }
 
       .header-logo img {
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 80px;
         margin-right: 1rem;
+        border-radius: 50px;
       }
 
       .header-logo h1 {
@@ -58,26 +69,27 @@
         color: white;
         background: white;
         color: #b71c1c;
-        padding: 0.5rem 1.5rem;
-        border-radius: 6px;
+        padding: 0.7rem 1.5rem;
+        border-radius: 20px;
         font-size: 1rem;
         font-weight: bold;
         transition: background 0.3s ease, color 0.3s ease;
       }
 
       .header-btn:hover {
-        background: #9a0007;
+        background: #0d0e0d;
         color: white;
       }
 
-      /* About Section Styles */
+      /*About Section Styles */
       .about-us {
         padding: 2rem;
         max-width: 1200px;
         margin: 0 auto;
         background: linear-gradient(to bottom, #fff, #f8f9fa);
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 40px;
       }
 
       .about-us h2 {
@@ -91,7 +103,7 @@
       .about-content {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: 1.1rem;
         align-items: center;
       }
 
@@ -107,6 +119,7 @@
         color: #c62828;
       }
 
+      /* Overall Section Styling */
       .image-carousel {
         flex: 1;
         position: relative;
@@ -173,7 +186,7 @@
       .yrc-content {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: 1rem;
         align-items: center;
       }
 
@@ -181,7 +194,7 @@
         flex: 1;
         font-family: "Open Sans", sans-serif;
         font-size: 1.2rem;
-        line-height: 1.8;
+        line-height: 1.5;
         color: #333;
       }
 
@@ -203,12 +216,11 @@
         object-fit: cover;
       }
 
-      /* LifeConnect Process Section Styles */
       .process-section {
         padding: 2rem;
         max-width: 1200px;
         margin: 0 auto;
-        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        background: linear-gradient(to bottom, #ffffff, #f8f9fa);
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
@@ -217,7 +229,7 @@
         text-align: center;
         font-family: "Poppins", sans-serif;
         color: #c62828;
-        font-size: 2.5rem;
+        font-size: 2rem;
         margin-bottom: 2rem;
       }
 
@@ -226,19 +238,44 @@
         flex-wrap: wrap;
         gap: 2rem;
         margin-bottom: 2rem;
+        background: #ffffff;
+        border-left: 6px solid #c62828;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .process-step:hover {
+        transform: scale(1.03);
+      }
+
+      .process-step::before {
+        content: attr(data-step);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: #c62828;
+        color: #ffffff;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-right: 1rem;
       }
 
       .process-text {
         flex: 1;
         font-family: "Open Sans", sans-serif;
-        font-size: 1.2rem;
-        line-height: 1.8;
+        font-size: 1.1rem;
+        line-height: 1.7;
         color: #333;
       }
 
       .process-text h3 {
-        color: #c62828;
-        font-size: 2rem;
+        color: #d32f2f;
+        font-size: 1.8rem;
         margin-bottom: 1rem;
       }
 
@@ -254,6 +291,12 @@
         width: 100%;
         height: auto;
         object-fit: cover;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .process-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       }
 
       .process-step:nth-child(even) .process-text {
@@ -284,9 +327,12 @@
           max-width: 100%;
         }
 
-        .process-image img {
-          max-width: 100%;
-          object-fit: contain;
+        .process-text h3 {
+          font-size: 1.5rem;
+        }
+
+        .process-text p {
+          font-size: 1rem;
         }
       }
 
@@ -321,7 +367,7 @@
         text-align: center;
         background-color: #c62828;
         color: white;
-        border-radius: 4px;
+        border-radius: 12px;
         text-decoration: none;
         margin: 10px 0;
         transition: background-color 0.3s, transform 0.2s ease-in-out;
@@ -333,7 +379,7 @@
       }
 
       .button:hover {
-        background-color: #e57373;
+        background-color: #0a0909;
         transform: scale(1.1);
       }
 
@@ -351,7 +397,7 @@
 
       /* LifeConnect Vision and Mission Section Styles */
       .vision-mission-section {
-        padding: 4rem 2rem;
+        padding: 2rem 1rem;
         max-width: 1200px;
         margin: 0 auto;
         background: linear-gradient(to bottom, #fff, #f8f9fa);
@@ -364,7 +410,7 @@
         font-family: "Poppins", sans-serif;
         color: #c62828;
         font-size: 2.5rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
@@ -372,8 +418,8 @@
       .vision-mission-step {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
-        margin-bottom: 3rem;
+        gap: 1rem;
+        margin-bottom: 2rem;
         align-items: center;
         justify-content: center;
       }
@@ -561,7 +607,7 @@
 
       .benefits-text h3 {
         font-family: "Poppins", sans-serif;
-        font-size: 2rem;
+        font-size: 1.2rem;
         color: #c62828;
         margin-bottom: 1.5rem;
         font-weight: bold;
@@ -580,17 +626,26 @@
 
       .quotes-section {
         margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .quote {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         font-family: "Georgia", serif;
         font-size: 1.5rem;
         font-style: italic;
         color: #666;
         text-align: center;
         border-left: 5px solid #c62828;
-        padding-left: 1rem;
+        padding: 1rem;
+        width: 70%;
+        transition: transform 0.3s ease;
+      }
+
+      .quote:hover {
+        transform: scale(1.05);
       }
 
       .quote blockquote {
@@ -599,30 +654,51 @@
 
       .quote strong {
         display: block;
-        margin-top: 1rem;
-        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        font-size: 1rem;
         font-weight: bold;
         color: #c62828;
       }
 
+      /* Zig-zag effect */
+      .quote:nth-child(odd) {
+        align-self: flex-start;
+        text-align: left;
+        border-left-color: #2e7d32;
+        background-color: #f9f9f9;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .quote:nth-child(even) {
+        align-self: flex-end;
+        text-align: right;
+        border-right: 5px solid #c62828;
+        border-left: none;
+        background-color: #fff3e0;
+        box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .quote:nth-child(even) blockquote {
+        padding-right: 1rem;
+      }
+
+      .quote:nth-child(odd) blockquote {
+        padding-left: 1rem;
+      }
+
       /* Responsive Design */
       @media (max-width: 768px) {
-        .blood-donation-importance {
-          padding: 3rem 1rem;
-        }
-
-        .blood-donation-importance h2 {
-          font-size: 2rem;
-        }
-
-        .importance-text,
-        .benefits-text,
-        .quotes-section {
-          font-size: 1rem;
-        }
-
         .quote {
+          width: 90%;
           font-size: 1.2rem;
+          text-align: center !important;
+          align-self: center !important;
+          border-left: 5px solid #c62828;
+          border-right: none;
+        }
+
+        .quote:nth-child(even) {
+          background-color: #f9f9f9;
         }
       }
 
@@ -699,20 +775,8 @@
         font-size: 1rem;
       }
 
-      .social-btn.facebook {
-        background-color: #3b5998;
-      }
-
-      .social-btn.twitter {
-        background-color: #1da1f2;
-      }
-
-      .social-btn.linkedin {
-        background-color: #0077b5;
-      }
-
       .social-btn:hover {
-        opacity: 0.8;
+        opacity: 0.5;
       }
 
       /* General Section Spacing */
@@ -747,7 +811,7 @@
       }
 
       .meet-the-team {
-        padding: 3rem 2rem;
+        padding: 4rem 2rem;
         max-width: 1200px;
         margin: 0 auto;
         background: linear-gradient(to bottom, #fff, #f8f9fa);
@@ -777,56 +841,95 @@
         margin-bottom: 4rem;
       }
 
-      /* Footer Styles */
       footer {
-        background: #b71c1c;
-        color: white;
-        padding: 2rem 1rem;
+        background-color: #d32f2f; /* Red background */
+        color: #ffffff; /* White text */
+        padding: 10px 0;
+        border-top: 3px solid #b71c1c; /* Darker red border for contrast */
+        font-family: Arial, sans-serif;
       }
 
       .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         max-width: 1200px;
         margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .footer-text {
-        flex: 1;
-        margin-bottom: 1rem;
+        padding: 0 20px;
       }
 
       .footer-text p {
-        margin: 0 0 1rem;
-      }
-
-      .footer-contact {
-        flex: 1;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1.8;
       }
 
       .footer-contact h3 {
-        margin: 0 0 0.5rem;
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #ffffff; /* White for headings */
+        text-transform: uppercase;
       }
 
       .footer-contact p {
-        margin: 0 0 0.5rem;
+        font-size: 16px;
+        margin: 5px 0;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: #ffffff; /* White icon color */
       }
 
       .footer-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        color: #d32f2f; /* Red text for contrast */
+        background-color: #ffffff; /* White button background */
+        border: none;
+        border-radius: 5px;
         text-decoration: none;
-        color: #b71c1c;
-        background: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 6px;
         font-weight: bold;
-        transition: background 0.3s ease, color 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       .footer-btn:hover {
-        background: #9a0007;
-        color: white;
+        background-color: #0e0d0d; /* Darker red on hover */
+        color: #ffffff; /* White text on hover */
+      }
+
+      @media screen and (max-width: 768px) {
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .footer-contact {
+          margin-top: 20px;
+        }
+      }
+      /* Animation Styles */
+      .hidden {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 14px; /* Adjust font size for smaller screens */
+        }
+        .container {
+          padding: 10px; /* Reduce padding */
+        }
       }
     </style>
   </head>
@@ -877,15 +980,15 @@
         <div class="image-carousel">
           <div class="carousel-images">
             <img
-              src="{{ url_for('static', filename='images/test.jpeg') }}"
+              src="{{ url_for('static', filename='images/aboutus/teamcollab.jpg') }}"
               alt="Team Collaboration"
             />
             <img
-              src="{{ url_for('static', filename='images/test1.jpeg') }}"
+              src="{{ url_for('static', filename='images/aboutus/donorhelping.jpg') }}"
               alt="Donor Helping"
             />
             <img
-              src="{{ url_for('static', filename='images/test2.jpg') }}"
+              src="{{ url_for('static', filename='images/aboutus/hospitalsupport.jpg') }}"
               alt="Hospital Support"
             />
           </div>
@@ -915,27 +1018,30 @@
             ensures timely blood donations to those who need them the most.
           </p>
           <p>
-            Through its various outreach programs, the Youth Red Cross fosters a
-            sense of community and responsibility, encouraging young people to
-            get involved in meaningful causes. The YRC trains its volunteers to
-            handle crisis situations, and their efforts have saved countless
-            lives through blood donation initiatives and other essential
-            health-related projects.
-          </p>
-          <p>
-            With the backing of the Youth Red Cross, LifeConnect is empowered to
-            continue building a bridge between donors and recipients, ensuring
-            that no one ever has to wait for a life-saving blood donation.
+            LifeConnect, guided by the YRC, ensures timely blood donations.
+            YRC's leadership and outreach programs empower young people and
+            support our mission to connect donors with recipients, saving
+            countless lives.
           </p>
         </div>
 
         <!-- Image Section -->
-        <div class="yrc-image">
-          <img
-            src="{{ url_for('static', filename='images/test.jpeg') }}"
-            alt="Youth Red Cross Volunteers"
-            class="yrc-image"
-          />
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-images">
+            <img
+              src="{{ url_for('static', filename='images/aboutus/yrc volun1.jpg') }}"
+              alt="YRC volunteers"
+            />
+            <img
+              src="{{ url_for('static', filename='images/aboutus/yrc volun2.jpg') }}"
+              alt="YRC volunteers"
+            />
+            <img
+              src="{{ url_for('static', filename='images/aboutus/yrc volun3.jpg') }}"
+              alt="YRC volunteers"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -945,15 +1051,15 @@
       <h2>How It Works</h2>
 
       <!-- Step 1: Find a Donor -->
-      <div class="process-step">
+      <div class="process-step" data-step="1">
         <div class="process-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/finddonorimg.png') }}"
             alt="Find a Donor"
           />
         </div>
         <div class="process-text">
-          <h3>Step 1: Find a Donor</h3>
+          <h3>Find a Donor</h3>
           <p>
             The process begins with the recipient or hospital searching for
             available blood donors. The user can input their required blood
@@ -966,9 +1072,9 @@
       </div>
 
       <!-- Step 2: Fill the Request Form -->
-      <div class="process-step">
+      <div class="process-step" data-step="2">
         <div class="process-text">
-          <h3>Step 2: Fill the Request Form</h3>
+          <h3>Fill the Request Form</h3>
           <p>
             Once the recipient or hospital identifies an available donor, they
             can fill out a simple form providing essential details such as
@@ -980,22 +1086,22 @@
         </div>
         <div class="process-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/fillreqimg.jpg') }}"
             alt="Fill Request Form"
           />
         </div>
       </div>
 
       <!-- Step 3: Admin Validation and Approval -->
-      <div class="process-step">
+      <div class="process-step" data-step="3">
         <div class="process-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/admin valid img.jpg') }}"
             alt="Admin Validation"
           />
         </div>
         <div class="process-text">
-          <h3>Step 3: Admin Validation and Approval</h3>
+          <h3>Admin Validation and Approval</h3>
           <p>
             After receiving the request form, the admin reviews all the details
             to ensure accuracy and verify that the donor is eligible and
@@ -1008,9 +1114,9 @@
       </div>
 
       <!-- Step 4: Send Notification to Available Donors -->
-      <div class="process-step">
+      <div class="process-step" data-step="4">
         <div class="process-text">
-          <h3>Step 4: Send Notifications to Available Donors</h3>
+          <h3>Send Notifications to Available Donors</h3>
           <p>
             Upon approval, the admin sends notifications to all available donors
             who match the blood group requested. These notifications inform the
@@ -1022,22 +1128,22 @@
         </div>
         <div class="process-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/notific.avif') }}"
             alt="Send Notification"
           />
         </div>
       </div>
 
       <!-- Step 5: Donors Contact the Hospital -->
-      <div class="process-step">
+      <div class="process-step" data-step="5">
         <div class="process-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/hospitalsupp.jpg') }}"
             alt="Donors Contact the Hospital"
           />
         </div>
         <div class="process-text">
-          <h3>Step 5: Donors Contact the Hospital</h3>
+          <h3>Donors Contact the Hospital</h3>
           <p>
             Once the notification is received, the donors reach out directly to
             the hospital or recipient to arrange the donation. Donors can
@@ -1051,25 +1157,79 @@
     </div>
 
     <!-- LifeConnect Actions Section -->
-    <div class="section actions-section">
-      <h2>Take Action</h2>
+    <div
+      class="section actions-section"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      "
+    >
+      <!-- Left Animation -->
+      <div
+        id="lottie-animation-left"
+        style="flex-shrink: 0; width: 300px; height: 400px"
+      ></div>
 
-      <!-- Button 1: Look for Donors -->
-      <div class="action-step">
-        <a href="#" class="button square-button">Look for Donors</a>
-        <p class="button-description">
-          Click here to search for available blood donors based on your needs.
-        </p>
+      <!-- Content Section -->
+      <div style="flex-grow: 1; text-align: center; max-width: 400px">
+        <h2>Take Action</h2>
+
+        <!-- Button 1: Look for Donors -->
+        <div class="action-step">
+          <a
+            href="{{ url_for('main.render_find_donors_page') }}"
+            class="button square-button"
+            >Look for Donors</a
+          >
+          <p class="button-description">
+            Click here to search for available blood donors based on your needs.
+          </p>
+        </div>
+
+        <!-- Button 2: Generate a Request -->
+        <div class="action-step">
+          <a
+            href="{{ url_for('main.render_generate_blood_request') }}"
+            class="button square-button"
+            >Generate a Request</a
+          >
+          <p class="button-description">
+            Click here to create a blood request for your requirements.
+          </p>
+        </div>
       </div>
 
-      <!-- Button 2: Generate a Request -->
-      <div class="action-step">
-        <a href="#" class="button square-button">Generate a Request</a>
-        <p class="button-description">
-          Click here to create a blood request for your requirements.
-        </p>
-      </div>
+      <!-- Right Animation -->
+      <div
+        id="lottie-animation-right"
+        style="flex-shrink: 0; width: 300px; height: 400px"
+      ></div>
     </div>
+
+    <!-- Include Lottie Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
+    <script>
+      // Left Animation
+      lottie.loadAnimation({
+        container: document.getElementById("lottie-animation-left"), // Left Animation container
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "./animations/Animation - 1734416791535.json", // Path to the left animation JSON
+      });
+
+      // Right Animation
+      lottie.loadAnimation({
+        container: document.getElementById("lottie-animation-right"), // Right Animation container
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "./animations/Animation - 1734420053371.json", // Path to the right animation JSON
+      });
+    </script>
 
     <!-- LifeConnect Vision and Mission Section -->
     <div class="section vision-mission-section">
@@ -1079,7 +1239,7 @@
       <div class="vision-mission-step">
         <div class="vision-mission-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/vision.jpg') }}"
             alt="Our Vision"
           />
         </div>
@@ -1126,7 +1286,7 @@
         </div>
         <div class="vision-mission-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/mission.jpg') }}"
             alt="Our Mission"
           />
         </div>
@@ -1157,7 +1317,7 @@
         </div>
         <div class="graph-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/totdonorgrp.jpg') }}"
             alt="Total Donors Graph"
           />
         </div>
@@ -1167,7 +1327,7 @@
       <div class="graph-step">
         <div class="graph-image">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
+            src="{{ url_for('static', filename='images/aboutus/totdonationgrp.jpg') }}"
             alt="Total Donations Graph"
           />
         </div>
@@ -1277,32 +1437,41 @@
         <!-- Developer 1 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="John Doe"
+            src="{{ url_for('static', filename='images/aboutus/siddharth.jpg') }}"
+            alt="Siddharth M"
             class="member-img"
           />
           <div class="member-info">
-            <h3>John Doe</h3>
+            <h3>Siddharth M</h3>
             <p class="role">Lead Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/johndoe"
+                href="https://instagram.com/siddharth_magesh"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/johndoe"
+                href="https://github.com/Siddharth-magesh"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/johndoe"
+                href="https://linkedin.com/in/siddharth-magesh-76688a246"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1310,32 +1479,41 @@
         <!-- Developer 2 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="Jane Smith"
+            src="{{ url_for('static', filename='images/aboutus/tarakesh.jpg') }}"
+            alt="Tarakeshwaran S"
             class="member-img"
           />
           <div class="member-info">
-            <h3>Jane Smith</h3>
-            <p class="role">Frontend Developer</p>
+            <h3>Tarakeshwaran S</h3>
+            <p class="role">Backend Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/janesmith"
+                href="https://instagram.com/life_of_tarakesh"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/janesmith"
+                href="https://github.com/Tarakesh-sampath"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/janesmith"
+                href="https://linkedin.com/in/tarakeshwaran-sampath"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1343,32 +1521,41 @@
         <!-- Developer 3 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="Mark Johnson"
+            src="{{ url_for('static', filename='images/aboutus/vishvaa.jpg') }}"
+            alt="Vishvaa K"
             class="member-img"
           />
           <div class="member-info">
-            <h3>Mark Johnson</h3>
+            <h3>Vishvaa K</h3>
             <p class="role">Backend Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/markjohnson"
+                href="https://instagram.com/_.vishvaa.sh"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/markjohnson"
+                href="https://github.com/vishvaa-vsk"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/markjohnson"
+                href="https://linkedin.com/in/vishvaa-k"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1376,32 +1563,41 @@
         <!-- Developer 4 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="Emily Davis"
+            src="{{ url_for('static', filename='images/aboutus/dakshan.jpg') }}"
+            alt="Dakshan B"
             class="member-img"
           />
           <div class="member-info">
-            <h3>Emily Davis</h3>
-            <p class="role">Mobile Developer</p>
+            <h3>Dakshan B</h3>
+            <p class="role">Frontend Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/emilydavis"
+                href="https://instagram.com/dakshan01_"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/emilydavis"
+                href="https://github.com/Dakshan45"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/emilydavis"
+                href="https://linkedin.com/in/dakshan-b-1b9401329"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1409,32 +1605,41 @@
         <!-- Developer 5 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="Daniel Lee"
+            src="{{ url_for('static', filename='images/aboutus/andal.jpg') }}"
+            alt="Andalpriyadharshini A"
             class="member-img"
           />
           <div class="member-info">
-            <h3>Daniel Lee</h3>
-            <p class="role">Database Developer</p>
+            <h3>Andalpriyadharshini</h3>
+            <p class="role">Frontend Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/daniellee"
+                href="https://instagram.com/itzmy_steriousgurl"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/daniellee"
+                href="https://github.com/anspriya"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/daniellee"
+                href="https://linkedin.com/in/andalpriyadharshini-a-b94519297"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1442,32 +1647,41 @@
         <!-- Developer 6 -->
         <div class="team-member">
           <img
-            src="{{ url_for('static', filename='images/test2.jpg') }}"
-            alt="Alice Brown"
+            src="{{ url_for('static', filename='images/aboutus/sujhan.jpg') }}"
+            alt="Sujhan S"
             class="member-img"
           />
           <div class="member-info">
-            <h3>Alice Brown</h3>
-            <p class="role">QA Engineer</p>
+            <h3>Sujhan S</h3>
+            <p class="role">Frontend Developer</p>
             <div class="social-media">
               <a
-                href="https://facebook.com/alicebrown"
+                href="https://instagram.com/sujh__an"
                 target="_blank"
-                class="social-btn facebook"
-                >Facebook</a
-              >
+                class="social-btn instagram"
+                ><i
+                  class="fab fa-instagram"
+                  style="font-size: 35px; color: #e4405f"
+                ></i
+              ></a>
               <a
-                href="https://twitter.com/alicebrown"
+                href="https://github.com/Sujhan-64"
                 target="_blank"
-                class="social-btn twitter"
-                >Twitter</a
-              >
+                class="social-btn github"
+                ><i
+                  class="fab fa-github"
+                  style="font-size: 35px; color: #333"
+                ></i
+              ></a>
               <a
-                href="https://linkedin.com/in/alicebrown"
+                href="https://linkedin.com/in/sujhan-s-6987han"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1490,20 +1704,29 @@
                 href="https://facebook.com/rameshkumar"
                 target="_blank"
                 class="social-btn facebook"
-                >Facebook</a
-              >
+                ><i
+                  class="fab fa-facebook"
+                  style="font-size: 35px; color: #1877f2"
+                ></i
+              ></a>
               <a
                 href="https://twitter.com/rameshkumar"
                 target="_blank"
                 class="social-btn twitter"
-                >Twitter</a
-              >
+                ><i
+                  class="fab fa-twitter"
+                  style="font-size: 35px; color: #1da1f2"
+                ></i
+              ></a>
               <a
                 href="https://linkedin.com/in/rameshkumar"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1523,20 +1746,29 @@
                 href="https://facebook.com/satishkumar"
                 target="_blank"
                 class="social-btn facebook"
-                >Facebook</a
-              >
+                ><i
+                  class="fab fa-facebook"
+                  style="font-size: 35px; color: #1877f2"
+                ></i
+              ></a>
               <a
                 href="https://twitter.com/satishkumar"
                 target="_blank"
                 class="social-btn twitter"
-                >Twitter</a
-              >
+                ><i
+                  class="fab fa-twitter"
+                  style="font-size: 35px; color: #1da1f2"
+                ></i
+              ></a>
               <a
                 href="https://linkedin.com/in/satishkumar"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1556,20 +1788,29 @@
                 href="https://facebook.com/admin3"
                 target="_blank"
                 class="social-btn facebook"
-                >Facebook</a
-              >
+                ><i
+                  class="fab fa-facebook"
+                  style="font-size: 35px; color: #1877f2"
+                ></i
+              ></a>
               <a
                 href="https://twitter.com/admin3"
                 target="_blank"
                 class="social-btn twitter"
-                >Twitter</a
-              >
+                ><i
+                  class="fab fa-twitter"
+                  style="font-size: 35px; color: #1da1f2"
+                ></i
+              ></a>
               <a
                 href="https://linkedin.com/in/admin3"
                 target="_blank"
                 class="social-btn linkedin"
-                >LinkedIn</a
-              >
+                ><i
+                  class="fab fa-linkedin"
+                  style="font-size: 35px; color: #0a66c2"
+                ></i
+              ></a>
             </div>
           </div>
         </div>
@@ -1596,4 +1837,28 @@
       </div>
     </footer>
   </body>
+  <!-- JavaScript for animations -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll(".section");
+
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove("hidden");
+              entry.target.classList.add("fade-in");
+              observer.unobserve(entry.target); // Stop observing once the section is in view
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      sections.forEach((section) => {
+        section.classList.add("hidden"); // Initially hide all sections
+        observer.observe(section); // Start observing each section
+      });
+    });
+  </script>
 </html>
