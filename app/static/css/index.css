@@ -1,315 +1,417 @@
 /* General Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column; 
-    height: 100%; 
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Header Section */
-.header {
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    width: 100%;
-    background-color: white; 
-    background-image: url('/app/static/images/index/bg.png'); 
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: contain; 
-    overflow: hidden; 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  color: #BF0001;
+  text-decoration: none;
+}
+
+header .logo img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.logo a{
+  text-decoration: none;
 }
 
 
-/* Navigation Bar */
 nav {
-    display: flex;
-    padding: 5px;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    background-color: #fff; 
+  position: relative;
 }
 
-nav img {
-    width: 190px;
-    height: auto; /* Ensure aspect ratio is maintained */
-    margin-top:10px;
+nav ul {
+  display: flex;
+  list-style: none;
 }
 
-.vec {
-    width: 200px; /* Set uniform width */
-    height: auto; /* Maintain aspect ratio */
-    margin: 0 15px; /* Add spacing around logos */
+nav ul li {
+  margin-left: 20px;
 }
 
-.yrc_logo {
-    width: 120px;
-    height: 120px;
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  position: relative;
 }
 
-.LifeConnect_logo {
-    width: 130px;
-    height: 130px;
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #C12626;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
+  background: #C12626;
 }
 
 .nav-links {
-    flex: 1;
-    text-align: right;
-    margin-right: 15px;
+  display: none;
+  list-style: none;
+  position: fixed;
+  right: -250px;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #fff;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 60px;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
 }
 
-.nav-links ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end; /* Ensure items align right */
-    margin: 0;
-    padding: 0;
+.nav-links.show {
+  right: 0;
 }
 
-.nav-links ul li {
-    padding: 8px 10px;
-    position: relative;
+.nav-overlay {
+  display: none;
 }
 
-.nav-links ul li a {
-    color: #0a0404;
-    text-decoration: none;
-    font-size: 17px;
-    font-weight: 600;
-    transition: color 0.3s ease;
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-.nav-links ul li a:hover {
-    color: #b30001;
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #C12626;
+  color: #fff;
+  padding: 30px;
+  flex-direction: row;
+  width: 100%; /* Ensure the hero section takes full width */
 }
 
-.nav-links ul li::after {
-    content: '';
-    width: 0;
-    height: 2px;
-    background: #b30001;
-    display: block;
-    margin: auto;
-    transition: width 0.5s;
+.hero-text {
+  text-align: center;
+  margin-right: 20px; /* Adjust the margin to reduce the distance */
 }
 
-.nav-links ul li:hover::after {
-    width: 100%;
+.hero-text h2 {
+  font-size: 2.5rem;
 }
 
-/* Buttons */
-.getdonor, .request {
-    font-size: 12px;
-    text-decoration: none;
-    display: inline-block;
-    border: 2px solid black;
-    padding: 7px 14px;
-    border-radius: 14px;
-    transition: all 0.5s ease;
+.hero-image {
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
 }
 
-.getdonor {
-    color: #0a0404;
-    margin-right: 8px;
+.hero-image img {
+  width: 300px;
+  margin-right: 0;
 }
 
-.request {
-    color: #000;
-    margin-left: 5px;
+/* Gift of Life Section */
+.gift-of-life {
+  padding: 40px 20px;
 }
 
-.getdonor:hover, .request:hover {
-    color: #fff;
-    background: black;
-    border-color: black;
+.gift-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Content Section */
-.body {
-    width: auto;
-    position: absolute;
-    top: 18%;
-    left: 5%;
-    right: 50%;
-    flex: 1;
+.gift-text {
+  max-width: 50%;
 }
 
-.body h1 {
-    font-size: 35px;
-    margin-bottom: 20px; /* Add spacing */
-    top: 15px;
+.gift-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
 }
 
-.body p {
-    font-size: 20px;
-    margin: 16px 0;
+.cta-buttons button {
+  margin: 10px 10px 0 0;
+  padding: 10px 20px;
+  background-color: #C12626;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
 }
 
-.button {
-    text-decoration: none;
-    color: #b30001;
-    border: 2px solid #b30001;
-    padding: 12px 20px;
-    font-size: 17px;
-    border-radius: 20px;
-    background: transparent;
-    transition: all 0.4s ease;
-    cursor: pointer;
-    display: inline-block;
-    margin: 10px;
+.cta-buttons button:hover {
+  background-color: #a51818;
 }
 
-.button:hover {
-    color: #fff;
-    background: #b30001;
-    border: 1px solid #b30001;
+.cta-buttons a {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  padding: 10px 20px;
+  background-color: #C12626;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
 }
 
-.register {
-    color: #b30001;
-    font-weight: bold;
-    text-decoration: none;
+.cta-buttons a:hover {
+  background-color: #a51818;
 }
 
-/* Social Media Icons */
-.insta, .youtube {
-    width: 35px;
-    height: 35px;
-    border: 2px solid black;
-    padding: 5px;
-    border-radius: 50%;
-    margin-top: 10px;
-    transition: all 0.4s ease;
+.gift-image img {
+  width: 300px;
 }
 
-.insta:hover, .youtube:hover {
-    background: #b30001;
-    border-color: black;
+/* Stats Section */
+.stats {
+  display: flex;
+  justify-content:space-evenly;
+  padding: 40px;
+  background-color: #F8F4F4;
+  text-align: center;
 }
 
-/* Marquee */
-marquee {
-    height: 50px;
-}
-
-marquee img {
-    width: auto;
-    height: 50px;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        text-align: left;
-        margin-right: 0;
-    }
-
-    .nav-links ul {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .body {
-        position: static;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .lbs, .vec, .yrc {
-        width: 100px; /* Adjust width for small screens */
-        margin: 10px 0; /* Add spacing around logos */
-    }
-
-    nav img {
-        width: 150px; /* Adjust width for small screens */
-    }
-}
-
-#button1 {
-    margin-right: 10px;
-}
-
-#button2 {
-    margin-left: 10px;
-}
-
-.yrc {
-    width: 100px;
-    margin-left: 50px;
-}
-
-body h3 {
-    margin-top: 15px;
-    font-size: 22px;
+.stat-item i {
+  font-size: 2rem;
+  color: #C12626;
 }
 
 /* Footer Section */
-.foot {
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 40px;
+}
+
+.footer-content p {
+  font-size: 16px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about {
+  word-wrap: break-word;
+  width: 95%;
+}
+
+.footer-contact p {
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+.footer-contact a {
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-contact i {
+  margin-right: 10px;
+}
+
+.social-icons a {
+  color: #fff;
+  margin-right: 10px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #C12626;
+}
+
+/* Ensure nav links are visible on larger screens */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
+    position: static;
+    height: auto;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0;
+    background-color: transparent;
+    transition: none;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-overlay {
+    display: none;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+  }
+
+  nav ul.show {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    display: none;
     position: fixed;
-    bottom: 0;
+    right: -250px;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 60px;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .nav-links.show {
+    display: flex;
+    right: 0;
+  }
+
+  .nav-links li a {
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .nav-links li {
+    margin-bottom: 12px;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-overlay.show {
+    display: block;
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: #b30001; /* Dark background for contrast */
-    color: white; /* Text color */
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 500;
+  }
+
+  .hero,
+  .gift-content {
+    flex-direction: column;
     text-align: center;
-    padding: 3px 0; /* Increase padding for better readability */
-    font-size: 16px; /* Adjust font size */
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
-    overflow: hidden; /* Hide overflowing content for smooth animation */
+    width: 100%; /* Ensure the hero section takes full width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  .hero-text,
+  .hero-image {
+    width: 100%;
+    margin-right: 20%;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: 80%;
+    max-width: 250px;
+    margin-top: 20px;
+  }
+
+  .gift-text,
+  .gift-image {
+    max-width: 100%;
+  }
+
+  .stats {
+    flex-direction: row;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  header .logo img {
+    width: 40px;
+    margin-right: 5px;
+  }
+
+  .footer-contact p {
+    justify-content: center;
+  }
+
+  .footer-contact a {
+    justify-content: center;
+  }
 }
 
-.foot-content {
-    display: flex; /* Arrange items in a row */
-    gap: 20px; /* Add spacing between items if needed */
-    white-space: nowrap; /* Prevent text wrapping */
-    margin-left: 365px;
-    animation: scroll-marquee 20s linear infinite; /* Continuous horizontal scroll */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
 }
 
-@keyframes scroll-marquee {
-    0% {
-        transform: translateX(-100%); /* Start off-screen to the right */
-    }
-    45% {
-        transform: translateX(0); /* Center the content */
-    }
-    55% {
-        transform: translateX(0); /* Pause at the center */
-    }
-    100% {
-        transform: translateX(100%); /* Move off-screen to the left */
-    }
+::-webkit-scrollbar-track {
+  background: #f4f4f4;
 }
 
-.flog, .tlog {
-    height: 30px; /* Adjust image size */
-    vertical-align: middle; /* Align with text */
+::-webkit-scrollbar-thumb {
+  background-color: #C12626;
+  border-radius: 10px;
+  border: 3px solid #f4f4f4;
 }
 
-.tlog {
-    width: 30px;
-    vertical-align: middle; /* Align images with text */
-    margin-left: 5px;
-}
-
-.flog {
-    width: 30px;
-    vertical-align: middle; /* Align images with text */
-    margin-left: 5px;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a51818;
 }
