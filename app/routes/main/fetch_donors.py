@@ -15,10 +15,8 @@ distance_calculator = DistanceConfiguration(
 @fetch_availabe_donors.route('/get_donors', methods=['POST'])
 def get_donors():
     try:
-        # Parse incoming JSON data
-        data = request.get_json()
-        blood_group = data.get('bloodType')
-        hospital_address = data.get('hospitalAddress')
+        blood_group = request.form.get('bloodType')
+        hospital_address = request.form.get('hospitalAddress')
 
         if not blood_group:
             return jsonify({"error": "Blood group is required"}), 400
@@ -26,20 +24,20 @@ def get_donors():
         unsorted_data = distance_calculator.fetch_matched_data(blood_group)
 
         if not unsorted_data or unsorted_data[0].get("Name") is None:
-            return jsonify([])
+            return render_template('available_donors.html',data=[]) 
 
         if hospital_address:
             sorted_data = distance_calculator.sorted_array_min_distance(
                 available_donars=unsorted_data,
                 target_address=hospital_address
             )
-            return jsonify(sorted_data) 
+            return render_template('available_donors.html',data=sorted_data) 
         else:
             for donor in unsorted_data:
                 donor['distance'] = None
-            return jsonify(unsorted_data) 
+            return render_template('available_donors.html',data=unsorted_data) 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return "Error in Fetching the Donors"
 
 @fetch_availabe_donors.route('/get_user_query', methods=['POST', 'GET'])
 def get_user_query():
