@@ -38,6 +38,11 @@
         font-weight: bold;
       }
 
+      .header a {
+        text-decoration: none;
+        color: #f4f4f4;
+      }
+
       .header button {
         background-color: #fff;
         color: #8b0000;
@@ -169,7 +174,7 @@
   <body>
     <!-- Header Section -->
     <div class="header">
-      <h1>LifeConnect</h1>
+      <a href="{{ url_for('main.index') }}"> <h1>LifeConnect</h1></a>
       <button onclick="window.location.href='/'">Back to Home</button>
     </div>
 
