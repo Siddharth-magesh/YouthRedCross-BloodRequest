@@ -7,6 +7,15 @@
     <title>Donor Login</title>
   </head>
   <body>
+    <!-- Navbar for smaller screens -->
+    <nav class="navbar">
+      <div class="navbar-logo">Life Connect</div>
+      <div class="navbar-buttons">
+        <a href="{{ url_for('main.render_register_new_donor') }}" class="navbar-btn">Sign Up</a>
+        <a href="{{ url_for('main.index') }}" class="navbar-btn">Home</a>
+      </div>
+    </nav>
+
     <!-- Button linking back to the home page -->
     <button class="top-right-btn">
       <a href="{{ url_for('main.index') }}">Go to Home Page</a>
@@ -37,6 +46,17 @@
 
     <!-- Login form container -->
     <div class="container">
+      <!-- Flash messages for errors -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      
       <h2>Donor Login</h2>
       <!-- Login form -->
       <form
@@ -86,6 +106,52 @@
         overflow: hidden;
       }
 
+      /* Navbar styling for smaller screens */
+      .navbar {
+        display: none;
+        width: 100%;
+        background-color: #b30001;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .navbar-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .navbar-buttons a {
+        text-decoration: none;
+      }
+
+      .navbar-btn {
+        color: #b30001;
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: bold;
+        text-decoration: none;
+        word-wrap: break-word;
+      }
+
+      .navbar-btn:hover {
+        background-color: #BF0001;
+        color: white;
+        text-decoration: none;
+      }
+
       /* Styling the container for the login form */
       .container {
         width: 350px;
@@ -97,6 +163,27 @@
         position: absolute;
         bottom: 150px;
         right: 250px;
+      }
+
+      /* Flash messages styling */
+      .flash-messages {
+        margin-bottom: 20px;
+      }
+
+      .flash-message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .flash-message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .flash-message.success {
+        background-color: #d4edda;
+        color: #155724;
       }
 
       /* Styling the form layout */
@@ -275,17 +362,83 @@
       }
 
       @media (max-width: 768px) {
+        .navbar {
+          display: flex; /* Show navbar on smaller screens */
+        }
+
         .container {
           width: 90%;
           padding: 15px;
-          right: 5%;
-          bottom: 5%;
+          top: 15%; /* Move form slightly down */
+          right: 50%;
+          transform: translateX(50%);
+        }
+
+        .container::before {
+          content: none; /* Remove the background circular shape */
+          height: 1000px;
+          width: 1000px;
+          top: -20%;
+          right: 50%;
+          transform: translate(50%, -50%);
         }
 
         .red-shape-content {
-          width: 100%;
-          top: 5%;
-          left: 5%;
+          display: none; /* Hide red shape content on smaller screens */
+          width: 90%;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center;
+        }
+
+        .red-shape-content h3,
+        .red-shape-content p {
+          text-align: center; /* Center align text */
+        }
+
+        .top-right-btn {
+          display: none; /* Hide return button on smaller screens */
+          top: 10px;
+          right: 10px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .navbar {
+          display: none; /* Hide navbar on larger screens */
+        }
+
+        .container {
+          width: 350px;
+          bottom: auto;
+          top: 25%; /* Move form slightly down */
+          right: 250px;
+        }
+
+        .container::before {
+          height: 1500px;
+          width: 1500px;
+          top: -10%;
+          right: 48%;
+          transform: translate(-20%, -60%);
+        }
+
+        .red-shape-content {
+          width: 430px;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center; /* Center align text */
+        }
+
+        .red-shape-content h3,
+        .red-shape-content p {
+          text-align: center; /* Center align text */
+          margin: 0 auto; /* Center align text */
+        }
+
+        .top-right-btn {
+          top: 20px;
+          right: 20px;
         }
       }
     </style>

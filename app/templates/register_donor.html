@@ -24,20 +24,31 @@
     <title>Add New Donor</title>
   </head>
 
-  <body>
-    <header>
-      <a href="{{ url_for('main.index') }}" class="site-name">LifeConnect</a>
-      <div class="nav-buttons">
-        <a href="{{ url_for('main.index') }}" class="home-button"
-          >Back to Home</a
-        >
-        <a href="{{ url_for('main.render_donor_login') }}" class="login-button"
-          >Login</a
-        >
+  <body onclick="closeNav(event)">
+    <nav>
+      <a href="index.html"><img src="{{ url_for('static', filename='images/index/LifeConnect_logo.png') }}" alt="logo_home.png" class="vec"></a>
+      <span style="color: white; font-size:larger;">Life Connect</span>
+      <div class="nav-links" id="navLinks">
+        <i class="fa fa-times" onclick="toggleNav(event)"></i>
+        <ul>   
+          <li>
+            <a href="{{ url_for('main.index') }}">Home</a>
+          </li> 
+          <li>
+            <a href="{{ url_for('main.render_find_donors_page') }}">Get Donor</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.render_blood_banks_page') }}">Blood Banks</a>
+          </li>
+        </ul>
       </div>
-    </header>
+      <i class="fa fa-bars" onclick="toggleNav(event)"></i>
+    </nav>
 
-    <h1>Register as Donor</h1>
+    <h1>Add New Donor</h1>
     <form action="{{ url_for('add_donor.register_new_donors') }}" method="POST">
       <!-- Section 1: Login Credentials -->
       <fieldset class="login">
@@ -381,8 +392,109 @@
         const input = document.getElementById(id);
         input.type = input.type === "password" ? "text" : "password";
       }
+
+      function toggleNav(event) {
+        event.stopPropagation(); // Prevent the event from bubbling up to the body
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      function closeNav(event) {
+        const navLinks = document.getElementById("navLinks");
+        if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+      }
     </script>
     <br />
     <a href="{{ url_for('main.index') }}">Return to Home Page</a>
+
+    <style>
+      /* Navbar styling for smaller screens */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px; /* Reduce padding to make navbar height lesser */
+        background-color: #b30001;
+      }
+
+      .vec {
+        width: 40px; /* Reduce logo size */
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: #b30001;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .fa-bars, .fa-times {
+        display: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          position: fixed;
+          right: 0;
+          top: 0;
+          height: 100%;
+          width: 200px;
+          background-color: white; /* Change background color to white */
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transform: translateX(100%);
+          transition: transform 0.3s ease-in-out;
+          z-index: 1001; /* Ensure sidebar is on top of everything */
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Add shadow for modern look */
+        }
+
+        .nav-links.active {
+          transform: translateX(0);
+        }
+
+        .nav-links ul {
+          flex-direction: column;
+          gap: 10px; /* Reduce space between links */
+        }
+
+        .nav-links a {
+          padding: 10px 20px;
+          border-radius: 5px;
+          transition: background-color 0.3s, color 0.3s; /* Add transition for hover effect */
+        }
+
+        .nav-links a:hover {
+          background-color: #b30001;
+          color: white;
+        }
+
+        .fa-bars {
+          display: block;
+        }
+
+        .fa-times {
+          display: block;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+      }
+    </style>
   </body>
 </html>
