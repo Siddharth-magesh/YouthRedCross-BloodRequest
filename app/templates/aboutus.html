@@ -119,52 +119,81 @@
         color: #c62828;
       }
 
-      /* Overall Section Styling */
+      /* Carousel Styles */
       .image-carousel {
-        flex: 1;
-        position: relative;
-        width: 100%;
-        height: 300px;
-        overflow: hidden;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      .carousel-images img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        animation: fade 12s infinite ease-in-out;
-        opacity: 0;
-      }
-
-      /* Individual Animation Delays */
-      .carousel-images img:nth-child(1) {
-        animation-delay: 0s;
-      }
-      .carousel-images img:nth-child(2) {
-        animation-delay: 4s;
-      }
-      .carousel-images img:nth-child(3) {
-        animation-delay: 8s;
-      }
-
-      /* Keyframes for Fade Out and Fade In Effect */
-      @keyframes fade {
-        0%,
-        20% {
-          opacity: 1; /* Fade in and hold */
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 1rem;
         }
-        25%,
-        95% {
-          opacity: 0; /* Fade out */
-        }
-        100% {
-          opacity: 0; /* Ensure it's invisible at the end */
-        }
-      }
 
+        .carousel-images {
+            display: flex;
+            width: 300%; /* 3 images, each taking 100% of the container */
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 33.33%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+      
+      /* Media Queries for Mobile View */
+      @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .image-carousel {
+                height: 300px;
+            }
+
+            .carousel-images img {
+                width: 33.33%;
+                height: 100%;
+            }
+        }
+        @media (min-width: 1024px) {
+          .image-carousel {
+              height: 300px; /* Adjust the height */
+              width: 60%;    /* Adjust the width */
+              margin: 0 auto; /* Center align the carousel */
+          }
+
+          .carousel-images img {
+            width: 33.33%; /* Divide equally for 3 images */
+            height: 100%;  /* Fit within the carousel height */
+            object-fit: cover; /* Maintain aspect ratio */
+          }
+        }
+        /* Arrows for Navigation */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-30%);
+            font-size: 2rem;
+            color: white;
+            background: rgba(156, 3, 3, 0.5);
+            border-radius:12px;
+            padding: 0.4rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+      
       /* Youth Red Cross Section Styles */
       .yrc-section {
         padding: 2rem;
@@ -931,16 +960,158 @@
           padding: 10px; /* Reduce padding */
         }
       }
-    </style>
+
+      /* General Mobile Adjustments */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .header-logo {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .header-logo img {
+    width: 60px; /* Smaller logo size for mobile */
+    height: 50px;
+    margin: 0;
+  }
+
+  .header-logo h1 {
+    font-size: 1.2rem; /* Smaller text for mobile */
+  }
+
+  .header-logo p {
+    font-size: 0.8rem; /* Smaller text for mobile */
+  }
+
+  .header-btn {
+    padding: 0.5rem 1rem; /* Smaller button padding */
+    font-size: 0.9rem;
+  }
+
+
+  .about-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+
+  .image-carousel {
+    height: 200px;
+  }
+
+  .yrc-content, .vision-mission-step, .graph-step {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .yrc-image img,
+  .vision-mission-image img,
+  .graph-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .process-step {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .process-text {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .meet-the-team .team-member,
+  .admin-members .admin-member {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Smaller Devices (e.g., phones) */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .about-text {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .square-button {
+    width: 120px;
+  }
+
+  .footer-contact h3, .footer-contact p {
+    font-size: 14px;
+  }
+
+  .footer-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Adjust carousel image size for desktop */
+@media (min-width: 769px) {
+  .image-carousel {
+    height: 300px;
+    width:50%;
+    margin:0 auto; /* Reduced height for desktop */
+  }
+
+  .carousel-images img {
+    width: 33.33%; /* Maintain the same width */
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Maintain current style for mobile */
+@media (max-width: 768px) {
+  .image-carousel {
+    height: 200px; /* Keep mobile size */
+  }
+}
+
+  </style>
   </head>
   <body>
     <!-- Header -->
     <header>
       <div class="header-logo">
-        <img
-          src="{{ url_for('static', filename='images/index/LifeConnect_Logo.png') }}"
+       <img
+          src="{{ url_for('static', filename='images/aboutus/LifeConnect_Logo.png') }}"
           alt="LifeConnect Logo"
-        />
+        /> 
         <div>
           <h1>LifeConnect</h1>
           <p>Bridging the Gap Between Hope and Help</p>
@@ -977,7 +1148,7 @@
         </div>
 
         <!-- Image Carousel -->
-        <div class="image-carousel">
+        <div class="image-carousel carousel1">
           <div class="carousel-images">
             <img
               src="{{ url_for('static', filename='images/aboutus/teamcollab.jpg') }}"
@@ -990,8 +1161,11 @@
             <img
               src="{{ url_for('static', filename='images/aboutus/hospitalsupport.jpg') }}"
               alt="Hospital Support"
-            />
+            /> 
           </div>
+          <!-- Arrows for mobile view -->
+          <span class="prev" onclick="moveSlide(-1, 'carousel1')">&#10094;</span>
+          <span class="next" onclick="moveSlide(1, 'carousel1')">&#10095;</span>
         </div>
       </div>
     </div>
@@ -1027,7 +1201,7 @@
 
         <!-- Image Section -->
         <!-- Image Carousel -->
-        <div class="image-carousel">
+        <div class="image-carousel carousel2">
           <div class="carousel-images">
             <img
               src="{{ url_for('static', filename='images/aboutus/yrc volun1.jpg') }}"
@@ -1040,11 +1214,45 @@
             <img
               src="{{ url_for('static', filename='images/aboutus/yrc volun3.jpg') }}"
               alt="YRC volunteers"
-            />
+            /> 
           </div>
+          <span class="prev" onclick="moveSlide(-1, 'carousel2')">&#10094;</span>
+          <span class="next" onclick="moveSlide(1, 'carousel2')">&#10095;</span>
         </div>
       </div>
     </div>
+  <script>
+    // Global object to track current slide for each carousel
+        const currentSlides = {
+        carousel1: 0,
+        carousel2: 0,
+    };
+
+function moveSlide(step, carouselId) {
+  const carousel = document.querySelector(`.${carouselId} .carousel-images`);
+  const slides = carousel.querySelectorAll('img');
+  const totalSlides = slides.length;
+
+  // Check if the carouselId exists in currentSlides
+  if (!(carouselId in currentSlides)) {
+    console.error(`Carousel ID '${carouselId}' not recognized.`);
+    return;
+  }
+
+  // Update current slide for the specific carousel
+  currentSlides[carouselId] += step;
+
+  // Handle wrap-around logic
+  if (currentSlides[carouselId] < 0) {
+    currentSlides[carouselId] = totalSlides - 1;
+  } else if (currentSlides[carouselId] >= totalSlides) {
+    currentSlides[carouselId] = 0;
+  }
+
+  // Apply the transformation
+  carousel.style.transform = `translateX(-${currentSlides[carouselId] * (100 / totalSlides)}%)`;
+}
+  </script>
 
     <!-- LifeConnect Process Section -->
     <div class="section process-section">
@@ -1056,7 +1264,7 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/finddonorimg.png') }}"
             alt="Find a Donor"
-          />
+          /> 
         </div>
         <div class="process-text">
           <h3>Find a Donor</h3>
@@ -1088,7 +1296,7 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/fillreqimg.jpg') }}"
             alt="Fill Request Form"
-          />
+          /> 
         </div>
       </div>
 
@@ -1099,6 +1307,7 @@
             src="{{ url_for('static', filename='images/aboutus/admin valid img.jpg') }}"
             alt="Admin Validation"
           />
+          
         </div>
         <div class="process-text">
           <h3>Admin Validation and Approval</h3>
@@ -1131,6 +1340,7 @@
             src="{{ url_for('static', filename='images/aboutus/notific.avif') }}"
             alt="Send Notification"
           />
+          
         </div>
       </div>
 
@@ -1140,7 +1350,8 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/hospitalsupp.jpg') }}"
             alt="Donors Contact the Hospital"
-          />
+          /> 
+          
         </div>
         <div class="process-text">
           <h3>Donors Contact the Hospital</h3>
@@ -1241,7 +1452,8 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/vision.jpg') }}"
             alt="Our Vision"
-          />
+          /> 
+          
         </div>
         <div class="vision-mission-text">
           <h3>Our Vision: A Future Where No One is Left Behind</h3>
@@ -1288,7 +1500,8 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/mission.jpg') }}"
             alt="Our Mission"
-          />
+          /> 
+          
         </div>
       </div>
     </div>
@@ -1320,6 +1533,7 @@
             src="{{ url_for('static', filename='images/aboutus/totdonorgrp.jpg') }}"
             alt="Total Donors Graph"
           />
+          
         </div>
       </div>
 
@@ -1329,7 +1543,7 @@
           <img
             src="{{ url_for('static', filename='images/aboutus/totdonationgrp.jpg') }}"
             alt="Total Donations Graph"
-          />
+          /> 
         </div>
         <div class="graph-text">
           <h3>Total Donations</h3>
@@ -1441,6 +1655,7 @@
             alt="Siddharth M"
             class="member-img"
           />
+         
           <div class="member-info">
             <h3>Siddharth M</h3>
             <p class="role">Lead Developer</p>

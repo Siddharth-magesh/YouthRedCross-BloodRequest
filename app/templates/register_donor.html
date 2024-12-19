@@ -25,6 +25,7 @@
   </head>
 
   <body onclick="closeNav(event)">
+    
     <nav>
       <a href="/"><img src="{{ url_for('static', filename='images/index/LifeConnect_logo.png') }}" alt="logo_home.png" class="vec"></a>
       <span style="color: white; font-size:larger;">Life Connect</span>
@@ -401,8 +402,11 @@
 
       function closeNav(event) {
         const navLinks = document.getElementById("navLinks");
-        if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
+        if (
+          !event.target.closest("nav") &&
+          navLinks.classList.contains("active")
+        ) {
+          navLinks.classList.remove("active");
         }
       }
     </script>
@@ -440,7 +444,8 @@
         font-weight: bold;
       }
 
-      .fa-bars, .fa-times {
+      .fa-bars,
+      .fa-times {
         display: none;
         color: white;
         font-size: 1.5rem;

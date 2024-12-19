@@ -19,37 +19,50 @@
   text-decoration: none;
 }
 
-header {
-  background-color: darkred;
-  color: white;
+/* Header Styles */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 15px;
-  height: 50px;
+  background-color: #8b0000;
+  color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
-header a {
-  color: white;
-  text-decoration: none;
-  font-family: 'Georgia', serif;
-  font-size: 20px;
-}
-.nav-buttons a {
-  background-color: white;
-  color: darkred;
-  border: none;
-  border-radius: 5px;
-  padding: 6px 10px;
-  margin-left: 10px;
-  text-decoration: none;
+
+.header h1 {
+  margin: 0;
+  font-family: "Georgia", serif;
+  font-size: 2rem;
   font-weight: bold;
-  display: inline-block;
-  cursor: pointer;
+}
+
+.header a {
+  text-decoration: none;
+  color: #f4f4f4;
   margin-top: 0px;
 }
-.nav-buttons a:hover {
-  background-color: #ffcccc;
-  text-decoration: none;
+
+.Site-name {
+  color: whitesmoke;
+}
+
+.header button {
+  background-color: #fff;
+  color: #8b0000;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  width: 150px;
+  margin-right: 0px;
+}
+
+.header button:hover {
+  background-color: #f2f2f2;
 }
 
   h1 {
@@ -196,23 +209,16 @@ header a {
         padding: 10px;
     }
 
-    .nav-buttons {
-        margin-top: 10px;
-        text-align: center;
+    .header button {
+      text-align:center;
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 8px 16px;
+      margin-left: -1px;
     }
 
-    .nav-buttons a {
-      font-size: 16px;
-        margin: 5px 0;
-        width: 50%;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .site-name {
-        font-size: 24px;
-        text-align: center;
-        margin-bottom: 10px;
+    .header .Site-name {
+      font-size: 24px;
     }
 }
   
