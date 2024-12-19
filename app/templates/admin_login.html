@@ -365,7 +365,6 @@
       .container {
         width: 90%;
         bottom: auto; /* Remove bottom positioning */
-        top: 10%; /* Move form towards the top */
         margin: 20px auto; /* Center the container horizontally */
         z-index: 2; /* Ensure the form appears above the red shape */
         position: relative; /* Ensure proper positioning */
@@ -388,7 +387,51 @@
       }
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .navbar {
+        display: none; /* Hide navbar on larger screens */
+      }
+
+      .container {
+        width: 350px;
+        bottom: auto; /* Remove bottom positioning */
+        top: 20%; /* Move form towards the top */
+        right: 10%; /* Adjust right positioning */
+      }
+
+      .container::before {
+        height: 1200px; /* Increase height */
+        width: 1200px; /* Increase width */
+        top: -10%;
+        right: 25%; /* Adjust right positioning */
+        transform: translate(-20%, -60%);
+      }
+
+      .red-shape-content {
+        width: 90%; /* Increase width */
+        left: 50%; /* Center horizontally */
+        top: 10%; /* Adjust vertical placement */
+        text-align: center; /* Center align text */
+        transform: translateX(-50%); /* Center horizontally */
+      }
+
+      .red-shape-content h3,
+      .red-shape-content p {
+        text-align: center; /* Center align text */
+        margin: 0 auto; /* Center align text */
+      }
+
+      .red-shape-content .image {
+        max-width: 300px; /* Increase max-width */
+      }
+
+      .top-right-btn {
+        top: 20px;
+        right: 20px;
+      }
+    }
+
+    @media (min-width: 1025px) {
       .navbar {
         display: none; /* Hide navbar on larger screens */
       }
@@ -410,9 +453,10 @@
 
       .red-shape-content {
         width: 430px;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 5%; /* Adjust horizontal placement */
+        top: 10%; /* Adjust vertical placement */
         text-align: center; /* Center align text */
+        transform: none; /* Remove transform */
       }
 
       .red-shape-content h3,

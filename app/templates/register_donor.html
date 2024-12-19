@@ -25,12 +25,29 @@
   </head>
 
   <body onclick="closeNav(event)">
-    <div class="header">
-      <a href="{{ url_for('main.index') }}"
-        ><h1 class="Site-name">LifeConnect</h1>
-      </a>
-      <button onclick="window.location.href='/'">Back to Home</button>
-    </div>
+    
+    <nav>
+      <a href="/"><img src="{{ url_for('static', filename='images/index/LifeConnect_logo.png') }}" alt="logo_home.png" class="vec"></a>
+      <span style="color: white; font-size:larger;">Life Connect</span>
+      <div class="nav-links" id="navLinks">
+        <i class="fa fa-times" onclick="toggleNav(event)"></i>
+        <ul>   
+          <li>
+            <a href="{{ url_for('main.index') }}">Home</a>
+          </li> 
+          <li>
+            <a href="{{ url_for('main.render_find_donors_page') }}">Get Donor</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.render_AboutUs_Page') }}">About Us</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.render_blood_banks_page') }}">Blood Banks</a>
+          </li>
+        </ul>
+      </div>
+      <i class="fa fa-bars" onclick="toggleNav(event)"></i>
+    </nav>
 
     <h1>Add New Donor</h1>
     <form action="{{ url_for('add_donor.register_new_donors') }}" method="POST">
