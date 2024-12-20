@@ -401,3 +401,13 @@ body {
     font-size: 12px; /* Adjust font size */
   }
 }
+
+.category.manage-activities {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .category.manage-activities {
+    display: none;
+  }
+}
