@@ -37,7 +37,7 @@
   .form-container button {
     width: 100%;
     padding: 12px;
-    background-color: #003f88;
+    background-color: #bf0001;
     color: white;
     border: none;
     border-radius: 5px;
@@ -47,20 +47,41 @@
   }
 
   .form-container button:hover {
-    background-color: #003f88;
+    background-color: #c82f3d;
   }
 
   .back-link {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #007bff;
+    color: #bf0001;
     text-decoration: none;
     font-size: 14px;
   }
 
   .back-link:hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .form-container {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .form-container h2 {
+      font-size: 20px;
+    }
+
+    .form-container input,
+    .form-container button {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .back-link {
+      font-size: 12px;
+    }
   }
 </style>
 
