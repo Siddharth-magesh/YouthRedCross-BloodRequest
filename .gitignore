@@ -151,6 +151,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# images
+app/static/images/admin_analytics/*.png
+
 # pytype static type analyzer
 .pytype/
 

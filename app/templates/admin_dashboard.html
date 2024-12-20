@@ -24,13 +24,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
       </div>
     </div>
     <div class="card">
-      <h2>Total Inactive Donors</h2>
-      <div class="card-data">
-        <span class="card-number">{{Inactive_donors_count}}</span>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Total Requests Recieved</h2>
+      <h2>Total Requests Received</h2>
       <div class="card-data">
         <span class="card-number">{{Total_Requests}}</span>
       </div>
@@ -104,7 +98,7 @@ Request Dashboard{% endblock %} {% block customCSS %}
   </section>
 
   <!-- Second Category: Manage Activities -->
-  <section class="category">
+  <!-- <section class="category">
     <h2>Manage Activities</h2>
     <div class="tiles">
       <a href="{{ url_for('admin.render_analytics_page') }}" class="tile-link">
@@ -152,6 +146,6 @@ Request Dashboard{% endblock %} {% block customCSS %}
         </div>
       </a>
     </div>
-  </section>
+  </section> -->
 </main>
 {% endblock %}
