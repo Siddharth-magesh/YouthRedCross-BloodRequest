@@ -61,8 +61,13 @@
   margin-right: 0px;
 }
 
+.header a:hover {
+  text-decoration: none;
+}
+
 .header button:hover {
   background-color: #f2f2f2;
+  text-decoration: none;
 }
 
   h1 {
