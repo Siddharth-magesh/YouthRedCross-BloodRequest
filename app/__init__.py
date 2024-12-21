@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask
 from .config import Config
 from .models import db
 from .routes import init_blueprints
@@ -6,20 +6,9 @@ from datetime import timedelta
 from flask_session import Session
 from flask_session_captcha import FlaskSessionCaptcha
 from flask_apscheduler import APScheduler
-from app.utils.scheduled_automations import expire_blood_requests , increment_age , activate_donor_status
-import os,time
+from app.utils.scheduled_automations import expire_blood_requests , increment_age , activate_donor_status , clean_expired_sessions
 
 scheduler = APScheduler()
-
-def clean_expired_sessions():
-    session_dir = os.path.join(os.getcwd(), 'flask_session')
-    now = time.time()
-    for filename in os.listdir(session_dir):
-        file_path = os.path.join(session_dir, filename)
-        if os.path.isfile(file_path):
-            file_age = now - os.path.getmtime(file_path)
-            if file_age > current_app.permanent_session_lifetime.total_seconds():
-                os.remove(file_path)
 
 def create_app():
     app = Flask(__name__)

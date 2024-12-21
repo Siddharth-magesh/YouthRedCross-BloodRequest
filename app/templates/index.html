@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Life Connect - Blood Donation</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
     <!-- Font Awesome for Icons -->
     <link
       rel="stylesheet"
@@ -12,7 +15,11 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon/favicon.ico') }}"
+      type="image/x-icon"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
@@ -22,7 +29,10 @@
     <!-- Header Section -->
     <header>
       <a href="/" class="logo">
-        <img src="{{ url_for('static', filename='images/index/LifeConnect_Logo.png') }}" alt="Life Connect Logo" />
+        <img
+          src="{{ url_for('static', filename='images/index/LifeConnect_Logo.png') }}"
+          alt="Life Connect Logo"
+        />
         <h1>Life Connect</h1>
       </a>
       <nav>
@@ -104,9 +114,10 @@
         </div>
       </div>
       <div class="hero-image">
-
-
-        <img src="{{ url_for('static', filename='images/index/blood-donation.png') }}" alt="Blood Donation"/>
+        <img
+          src="{{ url_for('static', filename='images/index/blood-donation.png') }}"
+          alt="Blood Donation"
+        />
       </div>
     </section>
 
@@ -133,8 +144,10 @@
           </div>
         </div>
         <div class="gift-image">
-
-          <img src="{{ url_for('static', filename='images/index/hand-holding-a-drop-of-blood.png') }}" alt="Gift of Life" />
+          <img
+            src="{{ url_for('static', filename='images/index/hand-holding-a-drop-of-blood.png') }}"
+            alt="Gift of Life"
+          />
         </div>
       </div>
     </section>
@@ -176,9 +189,24 @@
               transparent, and efficient donation process.
             </p>
           </div>
-          <img src="{{ url_for('static', filename='images/index/yrc_logo.png') }}" alt="yrc-logo" />
-          <img src="{{ url_for('static', filename='images/index/vec_logo.png') }}" alt="Velammal Engineering College" />
-
+          <a
+            href="https://velammal.edu.in/"
+            style="text-decoration: none"
+            target="_blank"
+          >
+            <img
+              src="{{ url_for('static', filename='images/index/yrc_logo.png') }}"
+              alt="yrc-logo"
+            />
+          </a>
+          <a
+            href="https://velammal.edu.in/"
+            style="text-decoration: none"
+            target="_blank"
+            ><img
+              src="{{ url_for('static', filename='images/index/vec_logo.png') }}"
+              alt="Velammal Engineering College"
+          /></a>
         </div>
         <div class="footer-right">
           <h4>Contact</h4>
@@ -190,10 +218,10 @@
           </div>
           <h4>Follow us on:</h4>
           <div class="social-icons">
-            <a href="https://www.instagram.com/yrc_vec"
+            <a href="https://www.instagram.com/yrc_vec" target="_blank"
               ><i class="fab fa-instagram"></i
             ></a>
-            <a href="https://www.youtube.com/@YouthRedCrossVEC"
+            <a href="https://www.youtube.com/@YouthRedCrossVEC" target="_blank"
               ><i class="fab fa-youtube"></i
             ></a>
           </div>

@@ -1,5 +1,7 @@
 from app.models import db, BloodRequestDetails , PersonalDetailsUser , DonorDetail
 from datetime import date , datetime , timedelta
+import os,time
+from flask import current_app
 
 def expire_blood_requests():
     try:
@@ -67,3 +69,12 @@ def activate_donor_status():
         db.session.rollback()
         raise
    
+def clean_expired_sessions():
+    session_dir = os.path.join(os.getcwd(), 'flask_session')
+    now = time.time()
+    for filename in os.listdir(session_dir):
+        file_path = os.path.join(session_dir, filename)
+        if os.path.isfile(file_path):
+            file_age = now - os.path.getmtime(file_path)
+            if file_age > current_app.permanent_session_lifetime.total_seconds():
+                os.remove(file_path)
