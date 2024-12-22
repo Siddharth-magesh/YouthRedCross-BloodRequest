@@ -90,65 +90,61 @@ def register_new_admin():
         admin_id = get_next_id(AdminDetails, 'ADMIN')
         authentication_id = get_next_id_secondary(AdminDetails,'AUTHADM')
 
-
         if password != confirm_password:
             flash('Make sure you enter similar passwords', 'danger')
-            return render_template('register_donor.html')
+            return render_template('admin_signup.html')
         
         one_time_password = generate_secure_numeric_otp()
 
-        active_admins = AdminDetails.query.filter_by(active_status='Active').all()
-        active_admin_emails = [admin.email for admin in active_admins]
-        for admin_email in active_admin_emails:
-            subject = "New Admin Registration Request"
-            recipient = admin_email
-            body = f"""
-            <!DOCTYPE html>
-            <html>
-            <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; margin: 0; padding: 0;">
-                <div style="background-color: #ffffff; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                    <div style="background-color: #8B0000; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; font-size: 20px; font-weight: bold;">
-                        New Admin Sign-Up Verification
-                    </div>
-                    <div style="padding: 20px; font-size: 16px; color: #333;">
-                        <p>Dear Admin,</p>
-                        
-                        <p style="font-size: 16px; color: #333;">
-                            A new admin sign-up has been generated. Kindly verify the admin details and share the OTP only if the information is valid.
-                        </p>
-                        
-                        <p style="font-size: 16px; color: #333;">
-                            <strong style="color: #8B0000;">New Admin Details:</strong>
-                        </p>
-                        <ul style="font-size: 16px; color: #333;">
-                            <li><strong>Email:</strong> {email}</li>
-                            <li><strong>Name:</strong> {username}</li>
-                            <li><strong>VEC Registration Number:</strong> {vec_registration_number}</li>
-                            <li><strong>Date of Birth:</strong> {date_of_birth}</li>
-                            <li><strong>Mobile Number:</strong> {mobile_number}</li>
-                            <li><strong>Department:</strong> {department}</li>
-                            <li><strong>Generated Admin ID:</strong> {admin_id}</li>
-                            <li><strong>Generated Authentication ID:</strong> {authentication_id}</li>
-                        </ul>
-                        
-                        <p style="font-size: 16px; color: #333;">
-                            Please share the below credentials with the new admin for further verification:
-                        </p>
-                        <p style="font-size: 18px; font-weight: bold; color: #8B0000;">
-                            {one_time_password}
-                        </p>
-
-                        <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #555;">
-                            Regards,<br>
-                            <strong>Youth Red Cross Blood Donation Site</strong>
-                        </p>
-                    </div>
+        subject = "New Admin Registration Request"
+        recipient = cred.BASE_MAIL_ADDRESS
+        body = f"""
+        <!DOCTYPE html>
+        <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; margin: 0; padding: 0;">
+            <div style="background-color: #ffffff; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div style="background-color: #8B0000; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; font-size: 20px; font-weight: bold;">
+                    New Admin Sign-Up Verification
                 </div>
-            </body>
-            </html>
-            """
+                <div style="padding: 20px; font-size: 16px; color: #333;">
+                    <p>Dear Admin,</p>
+                    
+                    <p style="font-size: 16px; color: #333;">
+                        A new admin sign-up has been generated. Kindly verify the admin details and share the OTP only if the information is valid.
+                    </p>
+                    
+                    <p style="font-size: 16px; color: #333;">
+                        <strong style="color: #8B0000;">New Admin Details:</strong>
+                    </p>
+                    <ul style="font-size: 16px; color: #333;">
+                        <li><strong>Email:</strong> {email}</li>
+                        <li><strong>Name:</strong> {username}</li>
+                        <li><strong>VEC Registration Number:</strong> {vec_registration_number}</li>
+                        <li><strong>Date of Birth:</strong> {date_of_birth}</li>
+                        <li><strong>Mobile Number:</strong> {mobile_number}</li>
+                        <li><strong>Department:</strong> {department}</li>
+                        <li><strong>Generated Admin ID:</strong> {admin_id}</li>
+                        <li><strong>Generated Authentication ID:</strong> {authentication_id}</li>
+                    </ul>
+                    
+                    <p style="font-size: 16px; color: #333;">
+                        Please share the below credentials with the new admin for further verification:
+                    </p>
+                    <p style="font-size: 18px; font-weight: bold; color: #8B0000;">
+                        {one_time_password}
+                    </p>
 
-            send_email(subject, recipient, body)
+                    <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #555;">
+                        Regards,<br>
+                        <strong>Youth Red Cross Blood Donation Site</strong>
+                    </p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+
+        send_email(subject, recipient, body)
 
         return render_template(
             'admin_otp_verification_page.html',

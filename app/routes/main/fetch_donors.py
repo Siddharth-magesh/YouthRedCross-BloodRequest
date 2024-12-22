@@ -16,7 +16,7 @@ distance_calculator = DistanceConfiguration(
 def get_donors():
     try:
         blood_group = request.form.get('bloodType')
-        hospital_address = request.form.get('hospitalAddress')
+        hospital_address = request.form.get('hospital_address')
 
         if not blood_group:
             return jsonify({"error": "Blood group is required"}), 400

@@ -1,6 +1,6 @@
 import requests
 import re
-from app.models import *
+from app.models import PersonalDetailsUser , DonorDetail , AddressDetailsUser , db
 
 class DistanceConfiguration:
     def __init__(self, api_key, base_url, ) -> None:
@@ -29,15 +29,14 @@ class DistanceConfiguration:
             data = response.json()
             if data['status'] == "OK" and data['rows']:
                 distance_text = data['rows'][0]['elements'][0]['distance']['text']
-                # Extract numeric part of the distance and convert it to float
                 distance_value = float(re.findall(r"[\d\.]+", distance_text)[0])
                 return distance_value
             else:
                 print('Request Failed')
-                return float('inf')  # Return infinity on failure to signify an uncalculable distance
+                return float('inf') 
         else:
             print("Failed to make Request")
-            return float('inf')  # Return infinity if the API request fails
+            return float('inf')
 
     def fetch_matched_data(self, blood_group_provided):
         """
@@ -128,8 +127,7 @@ class DistanceConfiguration:
                 start_location=target_address,
                 end_location=donar['address']
             )
-            donar['distance'] = distance  # Add the distance to each donor's data
-        
-        # Sort donors by the calculated distance in ascending order
+            donar['distance'] = distance
+
         donars_sorted = sorted(available_donars, key=lambda x: x['distance'])
         return donars_sorted

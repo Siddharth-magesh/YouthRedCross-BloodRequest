@@ -52,7 +52,7 @@ def configure_scheduler(app):
         with app.app_context():
             activate_donor_status()
 
-    @scheduler.task('interval', id='clean_expired_sessions_job', minutes=5)
+    @scheduler.task('interval', id='clean_expired_sessions_job', minutes=30)
     def clean_expired_sessions_job():
         with app.app_context():
             clean_expired_sessions()
