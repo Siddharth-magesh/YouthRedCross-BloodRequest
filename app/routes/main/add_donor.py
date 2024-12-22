@@ -28,38 +28,29 @@ def send_email(subject, recipient, body):
         server.sendmail(cred.BASE_MAIL_ADDRESS, recipient, msg.as_string())
 
 def get_next_id(table, prefix):
-    # Fetch the current maximum ID, strip the prefix and convert to an integer
     max_id = db.session.query(table.id).order_by(table.id.desc()).first()
     next_id_num = 1
     if max_id:
-        # Extract the numeric part of the ID
         current_num = int(max_id[0][len(prefix):])
         next_id_num = current_num + 1
-    # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
 #used only for generating authentication ID
 def get_next_id_secondary_function(table, prefix):
-    # Fetch the current maximum ID, strip the prefix and convert to an integer
     max_id = db.session.query(table.authentication_id).order_by(table.authentication_id.desc()).first()
     next_id_num = 1
     if max_id:
-        # Extract the numeric part of the ID
         current_num = int(max_id[0][len(prefix):])
         next_id_num = current_num + 1
-    # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
 #used only for generating Terms and Conditions ID
 def get_next_id_third_function(table, prefix):
-    # Fetch the current maximum ID, strip the prefix and convert to an integer
     max_id = db.session.query(table.terms_and_conditions_id).order_by(table.terms_and_conditions_id.desc()).first()
     next_id_num = 1
     if max_id:
-        # Extract the numeric part of the ID
         current_num = int(max_id[0][len(prefix):])
         next_id_num = current_num + 1
-    # Format the new ID
     return f"{prefix}{str(next_id_num).zfill(3)}"
 
 @new_donor.route('/register_new_donors', methods=['GET', 'POST'])
@@ -99,7 +90,6 @@ def register_new_donors():
             if last_donation == '':
                 last_donation=None
 
-            # Create and add PersonalDetails entry
             personal_id = get_next_id(PersonalDetailsUser, 'PDDNR')
             personal_details = PersonalDetailsUser(
                 id=personal_id,
@@ -122,7 +112,6 @@ def register_new_donors():
             country = request.form.get('country')
             full_address = f"{address}, {city}, {state}, {pincode}".strip()
 
-            # Create and add AddressDetails entry
             address_id = get_next_id(AddressDetailsUser, 'ADDR')
             address_details = AddressDetailsUser(
                 id=address_id,
@@ -138,7 +127,6 @@ def register_new_donors():
             disease_name = request.form.get('disease_name')
             description = request.form.get('description')
 
-            # Create and add DiseaseDetails entry
             disease_id = get_next_id(DiseaseDetailsUser, 'DIS')
             disease_details = DiseaseDetailsUser(
                 id=disease_id,
@@ -147,7 +135,6 @@ def register_new_donors():
             )
             db.session.add(disease_details)
 
-            # Create and add AuthenticationDetails entry
             auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
             
             # terms and Conditions

@@ -11,8 +11,9 @@ from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import pandas as pd
 from datetime import datetime
-from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function , get_next_id_third_function
+from app.utils.helper import get_next_id, convert_to_date, is_donor_active, replace_none, get_next_id_secondary_function , get_next_id_third_function , process_aadhar ,process_bloodgroup
 from app.models import db,PersonalDetailsUser, AddressDetailsUser, DiseaseDetailsUser, AuthenticationDetailsDonor, DonorDetail ,QueryTable , TermsAndConditions , HospitalDetails
+import traceback
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -44,7 +45,6 @@ def render_main_admin_page():
     if check_admin_login():
         data , active_donors_count , Inactive_donors_count ,Total_Requests = FetchDetails.generate_notifications()
         name = session.get('admin_name')
-        print(active_donors_count,Inactive_donors_count)
         return render_template(
             'admin_dashboard.html',
             notifications = data, 
@@ -187,10 +187,8 @@ def upload_csv_files():
     if check_admin_login():
         donor_form = AddDonorCSV()
         hospital_form = AddHospitalCSV()
-        print("here maybe")
         
         if request.method == 'POST':
-            # Check which form is being submitted
             if donor_form.validate_on_submit() and 'new_donor_file' in request.files:
                 donor_file = donor_form.new_donor_file.data
                 filename = f"{int(time.time())}_{secure_filename(donor_file.filename)}"
@@ -205,9 +203,9 @@ def upload_csv_files():
                     donor_age = donorDetails['Age'].astype(int)
                     donor_dob = convert_to_date(donorDetails['Date of Birth'])
                     donor_contact = donorDetails['Phone Number'].astype(int)
-                    donor_secondary_contact = donorDetails['Secondary Contact Number'].astype(int)
+                    donor_secondary_contact = donorDetails['Secondary Contact Number'].apply(lambda x: None if pd.isna(x) else int(x))
                     donor_marital_status = donorDetails['Martial Status'].astype(str)
-                    donor_aadhar = donorDetails['Aadhar Number'].astype(int)
+                    donor_aadhar = donorDetails['Aadhar Number'].apply(process_aadhar)
 
                     donor_address = donorDetails['Current Address'].astype(str)
                     donor_pincode = donorDetails['Pincode'].astype(int)
@@ -219,7 +217,7 @@ def upload_csv_files():
                     replaced_disease = [replace_none(str(disease)) for disease in donor_disease]
                     donor_disease_details = donorDetails['Disease Description'].astype(str)
 
-                    donor_blood_group = donorDetails['Blood Group'].astype(str)
+                    donor_blood_group = donorDetails['Blood Group'].astype(str).apply(process_bloodgroup)
                     donor_last_donation = convert_to_date(donorDetails['Last Blood Donated Date'])
                     donor_donation_count = [0 if math.isnan(x) else int(x) for x in donorDetails['No of Times Donated'].tolist()]
                     donor_status = is_donor_active(donor_last_donation)
@@ -270,6 +268,7 @@ def upload_csv_files():
                             flash(f"Passwords do not match for donor: {donor_names[i]}", 'danger')
                             continue
                         hashed_password = generate_password_hash(donor_password[i], method="scrypt")
+                        auth_id = get_next_id_secondary_function(DonorDetail, 'AUTHDNR')
 
                         donor_id = get_next_id(DonorDetail, 'DNR')
                         donor_detail = DonorDetail(
@@ -283,17 +282,31 @@ def upload_csv_files():
                             address_id=address_id,
                             active_status=donor_status[i],
                             disease_id=disease_id,
+                            authentication_id=auth_id,
                             last_donated_date=donor_last_donation[i],
                             number_of_times_donated=donor_donation_count[i]
                         )
 
-                        db.session.add_all([personal_details, address_details, disease_details, term_conditions, donor_detail])
+                        db.session.add(personal_details)
+                        db.session.commit()
+
+                        db.session.add(address_details)
+                        db.session.commit()
+
+                        db.session.add(disease_details)
+                        db.session.commit()
+
+                        db.session.add(term_conditions)
+                        db.session.commit()
+
+                        db.session.add(donor_detail)
                         db.session.commit()
 
                     flash("Donor details added successfully!", 'success')
 
                 except Exception as e:
-                    flash(f"Error processing donor CSV: {e}", 'danger')
+                    error_trace = traceback.format_exc()
+                    flash(f"Error processing donor CSV: {e}\n\nTraceback:\n{error_trace}", 'danger')
 
             elif hospital_form.validate_on_submit() and 'new_hospital_file' in request.files:
                 hospital_file = hospital_form.new_hospital_file.data

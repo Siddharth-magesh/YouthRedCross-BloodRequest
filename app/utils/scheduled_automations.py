@@ -27,8 +27,6 @@ def expire_blood_requests():
         print(f"An error occurred while expiring requests: {e}")
 
 
-from datetime import datetime
-
 def increment_age():
     current_date = datetime.now().date()
     
