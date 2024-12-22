@@ -50,12 +50,13 @@
         margin: 10px 0;
       }
       .image-placeholder {
-        margin: 10px 0;
-        padding: 20px;
+        margin: 8px 0;
+        padding: 10px;
         background-color: #ececec;
         text-align: center;
         border: 1px dashed gray;
         color: gray;
+        max-height: 500px;
       }
       .faq-list {
         margin-left: 20px;
@@ -71,7 +72,11 @@
   <body>
     <header>
       <div class="sitename">LifeConnect</div>
-      <a href="/dashboard" class="back-to-dashboard">Back to Dashboard</a>
+      <a
+        href="{{ url_for('admin.render_main_admin_page') }}"
+        class="back-to-dashboard"
+        >Back to Dashboard</a
+      >
     </header>
 
     <h1>LifeConnect Guide/Help Book</h1>
@@ -84,22 +89,30 @@
           Request for blood and add an image field for uploading relevant
           images.
         </li>
-        <div class="image-placeholder">Image Placeholder for Blood Request</div>
-
+        <img
+          class="image-placeholder"
+          src="../static/images/guide/blood-request.png"
+          alt="blood-request"
+        />
         <li>Find donors by mentioning hospitals for locating nearby donors.</li>
-        <div class="image-placeholder">
-          Image Placeholder for Finding Donors
-        </div>
+        <img
+          src="../static/images/guide/find-donor.png"
+          alt="find-donor"
+          class="image-placeholder"
+        />
 
         <li>Join as a donor to contribute to the community.</li>
-        <div class="image-placeholder">
-          Image Placeholder for Joining as Donor
-        </div>
+        <img
+          src="../static/images/guide/add-donor.png"
+          alt="join-as-donor"
+          class="image-placeholder"
+        />
 
         <li>View available blood banks for donations or requests.</li>
-        <div class="image-placeholder">
-          Image Placeholder for Viewing Blood Banks
-        </div>
+        <img
+          src="../static/images/guide/blood-banks.png"
+          alt="blood-bank"
+          class="image-placeholder" />
       </ul>
     </section>
 
