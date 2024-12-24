@@ -313,7 +313,6 @@ def upload_csv_files():
                 filename = f"{int(time.time())}_{secure_filename(hospital_file.filename)}"
                 hospital_file_path = os.path.join(os.path.abspath("app/static/files/"), filename)
                 hospital_file.save(hospital_file_path)
-                print("Here 1")
 
                 try:
                     hospital_data = pd.read_csv(hospital_file_path)
@@ -323,11 +322,9 @@ def upload_csv_files():
                     hospital_landmark = hospital_data['LANDMARK'].astype(str) if 'LANDMARK' in hospital_data else [None] * len(hospital_data)
                     hospital_address = hospital_data['ADDRESS'].astype(str)
                     pincode = hospital_data['PINCODE'].astype(str)
-                    print("Here 11")
 
                     for i in range(len(hospital_name)):
                         hospital_id = get_next_id(HospitalDetails, 'HOSP')
-                        print("Here 111")
                         hospital_detail = HospitalDetails(
                             id=hospital_id,
                             hospital_name=hospital_name[i],

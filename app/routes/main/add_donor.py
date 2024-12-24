@@ -17,7 +17,7 @@ def generate_secure_numeric_otp(length=6):
     return otp
 
 def send_email(subject, recipient, body):
-    msg = MIMEText(body)
+    msg = MIMEText(body,"html")
     msg['Subject'] = subject
     msg['From'] = cred.BASE_MAIL_ADDRESS
     msg['To'] = recipient
@@ -336,18 +336,56 @@ def manage_forget_password_donor():
         recipient = email
         link = "http://127.0.0.1:5000/main/render_query_page"
         body = f"""
-        Dear User,
-
-        We Have got a Request from your YRC-LBS Account for Changing your password.
-        if You haven't generated it , let us Know in the below link
-        {link}
-        if You have requested for it , use the below OTP to change your password
-
-        One Time Password ! Don't Share it with any third parties !
-        {one_time_password}
-
-        Regards,
-        Youth Red Cross Blood Donation Site
+        <html>
+            <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+                <table align="center" width="600" style="margin: 20px auto; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color: #8B0000; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">Password Reset Request</h1>
+                        </td>
+                    </tr>
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 30px; color: #333;">
+                            <p style="font-size: 18px; margin: 0 0 15px;">Dear User,</p>
+                            <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                We have received a request from your <strong style="color: #8B0000;">LifeConnect Account</strong> to change your password. 
+                            </p>
+                            <p style="font-size: 16px; margin: 0 0 20px; line-height: 1.6;">
+                                If you did not generate this request, please let us know by clicking the link below:
+                            </p>
+                            <p style="text-align: center;">
+                                <a href="{link}" style="display: inline-block; font-size: 16px; text-decoration: none; color: white; background-color: #8B0000; padding: 15px 25px; border-radius: 5px; font-weight: bold;">
+                                    Report Unauthorized Request
+                                </a>
+                            </p>
+                            <p style="font-size: 16px; margin: 20px 0; line-height: 1.6;">
+                                If you did request this change, use the OTP below to reset your password:
+                            </p>
+                            <p style="text-align: center; font-size: 20px; font-weight: bold; color: #8B0000; margin: 20px 0;">
+                                {one_time_password}
+                            </p>
+                            <p style="font-size: 14px; color: #555; margin: 0;">
+                                <em>Note: Do not share this OTP with any third parties.</em>
+                            </p>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #f8f9fa; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 14px; color: #555;">
+                            <p style="margin: 0;">
+                                Best regards,<br>
+                                <strong>Youth Red Cross Blood Donation Team</strong>
+                            </p>
+                            <p style="margin: 10px 0 0; font-size: 12px; color: #888;">
+                                © 2024 Youth Red Cross Blood Donation. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+        </html>
         """
         send_email(subject, recipient, body)
 
