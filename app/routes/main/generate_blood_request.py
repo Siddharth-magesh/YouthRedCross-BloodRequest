@@ -131,10 +131,10 @@ def generate_bloodRequest():
                             <td style="padding: 20px; text-align: center; background-color: #f8f9fa; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 14px; color: #555;">
                                 <p style="margin: 0;">
                                     Best regards,<br>
-                                    <strong>Youth Red Cross Blood Donation Team</strong>
+                                    <strong>LifeConnect Team</strong>
                                 </p>
                                 <p style="margin: 10px 0 0; font-size: 12px; color: #888;">
-                                    © 2024 Youth Red Cross Blood Donation. All rights reserved.
+                                    © 2024 LifeConnect Donation Team. All rights reserved.
                                 </p>
                             </td>
                         </tr>

@@ -269,7 +269,6 @@ def otp_validation_admin():
     generate_otp = request.form.get('generated_otp')
     typed_otp = request.form.get('typed_otp')
     email = request.form.get('email')
-    print("here also")
 
     if str(generate_otp) == str(typed_otp):
         return render_template('admin_new_password.html',email=email)
@@ -287,7 +286,6 @@ def new_password_admin():
         hashed_password = generate_password_hash(password)
         donor.password = hashed_password
         db.session.commit()
-        print("here")
         return redirect(url_for('admin.render_admin_login'))
     else:
         return "Couldnt Update the password"
