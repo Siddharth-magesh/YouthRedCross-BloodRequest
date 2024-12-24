@@ -1,4 +1,4 @@
-use test1;
+use main;
 
 -- Inserting into PersonalDetailsUser
 INSERT INTO PersonalDetailsUser (id, first_name, last_name, age, date_of_birth, contact_number, secondary_contact_number, marital_status, aadhar_number) VALUES
