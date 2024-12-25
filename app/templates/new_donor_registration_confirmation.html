@@ -8,11 +8,11 @@
       /* Color Theme */
       :root {
         --primary-color: #bf0001; /* Red (main color) */
-        --secondary-color: #2c3e50; /* Dark gray */
-        --background-color: #f4f4f4; /* Light background */
+        --secondary-color: #333; /* Dark text color */
+        --background-color: #f4f4f4; /* Light gray background */
         --highlight-color: #a30001; /* Darker red */
-        --text-color: #333; /* Dark text */
-        --green-color: #28a745; /* Success green */
+        --button-hover-color: #a30001;
+        --text-color: #555; /* Light gray text */
       }
 
       body {
@@ -38,7 +38,7 @@
       }
 
       h1 {
-        color: var(--green-color);
+        color: var(--primary-color);
         font-size: 2.5em;
         margin-bottom: 20px;
       }
@@ -56,7 +56,7 @@
       }
 
       .contact-info a {
-        color: var(--green-color);
+        color: var(--primary-color);
         text-decoration: none;
         font-weight: bold;
       }
@@ -97,6 +97,40 @@
       .back-links a:hover {
         text-decoration: underline;
       }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+
+        .container {
+          padding: 20px;
+          width: 100%;
+          box-shadow: none; /* Remove shadow for a cleaner mobile look */
+        }
+
+        h1 {
+          font-size: 2em;
+        }
+
+        p {
+          font-size: 1em;
+        }
+
+        .details {
+          font-size: 1em;
+          padding-top: 10px;
+        }
+
+        .back-links a {
+          display: block;
+          margin: 10px 0;
+          font-size: 1em;
+        }
+
+        .contact-info {
+          font-size: 1em;
+        }
+      }
     </style>
   </head>
   <body>
@@ -109,8 +143,8 @@
       </p>
 
       <div class="contact-info">
-        <p>Phone: 9876543210</p>
-        <p>Email: yrclifebloodsupport@gmail.com</p>
+        <p>Phone: 9150450401</p>
+        <p>Email: yrclifeconnect@gmail.com</p>
       </div>
 
       <div class="details">
