@@ -8,6 +8,8 @@ import secrets
 import smtplib
 from email.mime.text import MIMEText
 from app.config import Config
+import csv
+import os
 
 cred = Config()
 new_donor = Blueprint('add_donor', __name__)
@@ -167,6 +169,26 @@ def register_new_donors():
             db.session.add(donor_detail)
 
             db.session.commit()
+
+            csv_file_path = '/YouthRedCross-BloodRequest/docs/donorsdata.csv'
+            csv_header = [
+                'Email', 'Name', 'Age', 'DOB', 'Contact Number', 'Secondary Contact',
+                'Marital Status', 'Aadhar Number', 'Blood Group', 'Full Address',
+                'Disease Name', 'Description', 'Last Donation', 'Blood Donation Count'
+            ]
+            if not os.path.exists(csv_file_path):
+                with open(csv_file_path, mode='w', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(csv_header)
+
+            with open(csv_file_path, mode='a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([
+                    email, name, age, dob, contact_number, secondary_contact,
+                    marital_status, aadhar_number, blood_group, full_address,
+                    disease_name, description, last_donation, blood_donation_count
+                ])
+
             flash('Donor successfully added!', 'success')
             confirmation_details = [
                 email,
