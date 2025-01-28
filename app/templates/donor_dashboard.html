@@ -52,6 +52,8 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        height: 10px;
+        width: 200px;
         text-decoration: solid;
       }
 
@@ -129,14 +131,42 @@
         .form-group {
           flex-direction: column;
           align-items: flex-start;
+          margin-bottom: 15px;
         }
 
         .form-group label {
           width: 100%;
+          font-size: 14px;
+          margin-bottom: 5px;
         }
 
         .form-group input {
           width: 100%;
+          padding: 10px;
+          border: 2px solid #ccc;
+          border-radius: 5px;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+
+        .section h3 {
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          padding: 12px;
+          background-color: #4caf50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #45a049;
         }
       }
     </style>
@@ -146,7 +176,7 @@
       <!-- Header -->
       <div class="header">
         <div class="title">LifeConnect Dashboard</div>
-        <a href="{{ url_for('main.index') }}" class="btn">Back to Home</a>
+        <a href="{{ url_for('main.index') }}" class="btn">Home</a>
       </div>
 
       <h2>Donor Dashboard</h2>

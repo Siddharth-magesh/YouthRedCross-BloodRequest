@@ -172,8 +172,8 @@ def register_new_donors():
 
             csv_file_path = '/YouthRedCross-BloodRequest/docs/donorsdata.csv'
             csv_header = [
-                'Email', 'Name', 'Age', 'DOB', 'Contact Number', 'Secondary Contact',
-                'Marital Status', 'Aadhar Number', 'Blood Group', 'Full Address',
+                'Email', 'Password', 'ConfirmPassword','Name', 'Age', 'DOB', 'Contact Number', 'Secondary Contact',
+                'Marital Status', 'Aadhar Number', 'Blood Group', 'Full Address','State', 'City', 'Pincode'
                 'Disease Name', 'Description', 'Last Donation', 'Blood Donation Count'
             ]
             if not os.path.exists(csv_file_path):
@@ -184,8 +184,8 @@ def register_new_donors():
             with open(csv_file_path, mode='a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([
-                    email, name, age, dob, contact_number, secondary_contact,
-                    marital_status, aadhar_number, blood_group, full_address,
+                    email, password , confirm_password,name, age, dob, contact_number, secondary_contact,
+                    marital_status, aadhar_number, blood_group, full_address, state, city, pincode ,
                     disease_name, description, last_donation, blood_donation_count
                 ])
 

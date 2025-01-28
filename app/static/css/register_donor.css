@@ -118,12 +118,13 @@
   input[type="date"],
   textarea,
   select {
-    width: 98%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #b30001;
-    border-radius: 4px;
-    font-size: 1rem;
+    width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+        margin: 8px 0;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
   }
   
   input[type="radio"] {
@@ -131,12 +132,16 @@
     margin-right: 15px;
     padding: 2%;
     display: inline;
-
   }
 
   textarea {
-    resize: none;
-    height: 80px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
   /* Buttons */
@@ -177,23 +182,39 @@
     text-decoration: underline;
   }
   
-  /* Radio Buttons */
-.radio-group {
+  .radio-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; 
-    margin-bottom: 15px;
-  }
-  
-  .radio-group input[type="radio"] {
-    margin-right: 5px; 
-  }
-  
-  .radio-group label {
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer; 
-  }
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 50px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: #ce7676;
+    border-color: #9f2c2c;
+}
+
+.radio-group input[type="radio"]:focus + label {
+    outline: 2px solid #007BFF;
+    outline-offset: 2px;
+}
   
   .yesno-group {
     display: flex;
@@ -215,15 +236,76 @@
     }
 
     .header button {
-      text-align:center;
-      margin-top: 10px;
-      font-size: 12px;
-      padding: 8px 16px;
-      margin-left: -1px;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 12px;
+        padding: 8px 16px;
+        margin-left: -1px;
     }
 
     .header .Site-name {
-      font-size: 24px;
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+        margin: 8px 0;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    fieldset {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .radio-group input[type="radio"] {
+        display: none;
+    }
+
+    .radio-group label {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        min-width: 50px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .radio-group input[type="radio"]:checked + label {
+        background-color: #ce7676;
+        border-color: #9f2c2c;
+    }
+
+    .radio-group input[type="radio"]:focus + label {
+        outline: 2px solid #007BFF;
+        outline-offset: 2px;
     }
 }
-  
+
