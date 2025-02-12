@@ -599,3 +599,19 @@ class FetchDetails:
         except Exception as e:
             print(f"An error occurred: {e}")
             raise
+
+    @staticmethod
+    def check_user_existance(email):
+        try:
+            exist = (
+                db.session.query(
+                    DonorDetail.email,
+                    DonorDetail.name
+                )
+                .filter(DonorDetail.email == email)
+                .first()
+            )
+            return exist is not None
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise

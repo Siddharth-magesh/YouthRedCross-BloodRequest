@@ -63,9 +63,14 @@ def register_new_donors():
             email = request.form.get('Email')
             password = request.form.get('password')
             confirm_password = request.form.get('confirm_password')
-            
+
+            user_existance = FetchDetails.check_user_existance(email)
+            if user_existance:
+                flash(f"User already exists with this email id {email}, kindly login with this account or try with another email", "info")
+                return redirect(url_for('main.render_donor_login'))
+        
             if password != confirm_password:
-                flash('Make sure you enter similar passwords', 'danger')
+                flash('The Passwords needs to be similar', 'danger')
                 return render_template('register_donor.html')
 
             hashed_password = generate_password_hash(password)
