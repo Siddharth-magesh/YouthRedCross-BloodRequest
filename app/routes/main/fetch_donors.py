@@ -27,11 +27,11 @@ def get_donors():
             return render_template('available_donors.html',data=[]) 
 
         if hospital_address:
-            sorted_data = distance_calculator.sorted_array_min_distance(
+            '''sorted_data = distance_calculator.sorted_array_min_distance(
                 available_donars=unsorted_data,
                 target_address=hospital_address
-            )
-            return render_template('available_donors.html',data=sorted_data) 
+            )'''
+            return render_template('available_donors.html',data=unsorted_data) 
         else:
             for donor in unsorted_data:
                 donor['distance'] = None

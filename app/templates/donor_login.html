@@ -11,7 +11,11 @@
     <nav class="navbar">
       <div class="navbar-logo">Life Connect</div>
       <div class="navbar-buttons">
-        <a href="{{ url_for('main.render_register_new_donor') }}" class="navbar-btn">Sign Up</a>
+        <a
+          href="{{ url_for('main.render_register_new_donor') }}"
+          class="navbar-btn"
+          >Sign Up</a
+        >
         <a href="{{ url_for('main.index') }}" class="navbar-btn">Home</a>
       </div>
     </nav>
@@ -46,17 +50,28 @@
 
     <!-- Login form container -->
     <div class="container">
-      <!-- Flash messages for errors -->
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="flash-messages">
-            {% for category, message in messages %}
-              <div class="flash-message {{ category }}">{{ message }}</div>
-            {% endfor %}
+      <!-- Bootstrap Toast Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        {% for category, message in messages %}
+        <div
+          class="toast align-items-center text-white bg-{{ 'success' if category=='info' else 'danger' }} border-0 show"
+          role="alert"
+        >
+          <div class="d-flex">
+            <div class="toast-body">{{ message }}</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+            ></button>
           </div>
-        {% endif %}
-      {% endwith %}
-      
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+
       <h2>Donor Login</h2>
       <!-- Login form -->
       <form
@@ -83,6 +98,23 @@
         >Forget Password</a
       >
     </div>
+    <!-- Bootstrap JS for Toast -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var toastElList = [].slice.call(document.querySelectorAll(".toast"));
+        var toastList = toastElList.map(function (toastEl) {
+          return new bootstrap.Toast(toastEl);
+        });
+        toastList.forEach((toast) => toast.show());
+      });
+    </script>
+
+    <!-- Include Bootstrap CSS & JS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Internal CSS for styling -->
     <style>
@@ -147,7 +179,7 @@
       }
 
       .navbar-btn:hover {
-        background-color: #BF0001;
+        background-color: #bf0001;
         color: white;
         text-decoration: none;
       }

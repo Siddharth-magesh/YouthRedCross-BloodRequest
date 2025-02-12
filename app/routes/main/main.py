@@ -1,4 +1,3 @@
-# app/routes/main.py
 from flask import Blueprint, render_template,send_from_directory
 from app.models import QueryTable
 from app.utils.data_manipulations_toDB import FetchDetails

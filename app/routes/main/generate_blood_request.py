@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request , flash , redirect , url_for
 from app.models import db, BloodRequestDetails, HospitalDetails, ResponseDetails , AdminDetails
 from app.config import Config
 import smtplib
 from email.mime.text import MIMEText
+import os
+import csv
 
 cred = Config() 
 generate_blood_request = Blueprint('generate_blood_request', __name__)
@@ -29,6 +31,7 @@ def get_next_id(table, prefix):
 @generate_blood_request.route('/generate_bloodRequest', methods=['POST', 'GET'])
 def generate_bloodRequest():
     if request.method == 'POST':
+        CSV_FILE = r'D:\YouthRedCross-BloodRequest\docs\requestdata.csv'
         patient_name = request.form.get('patient_name')
         attendant_name = request.form.get('attendant_name')
         blood_group = request.form.get('blood_group')
@@ -42,6 +45,28 @@ def generate_bloodRequest():
         due_date = request.form.get('due_date')
         request_reason = request.form.get('request_reason')
         units_required = request.form.get('units_required')
+
+        #Replace the below code before going into production
+        headers = [
+            "Patient Name", "Attendant Name", "Blood Group", "Hospital ID", "Hospital Name",
+            "Contact Number", "Patient Age", "Hospital Address", "Pincode", "Landmark",
+            "Due Date", "Request Reason", "Units Required"
+        ]
+        data_row = [
+            patient_name, attendant_name, blood_group, hospital_id, hospital_name,
+            contact_number, patient_age, hospital_address, pincode, landmark,
+            due_date, request_reason, units_required
+        ]
+        file_exists = os.path.isfile(CSV_FILE)
+        with open(CSV_FILE, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            if not file_exists:
+                writer.writerow(headers)
+            writer.writerow(data_row)
+
+        flash("Blood request generated successfully!", "success")
+        return redirect(url_for('main.index'))
+        #Remove till here
 
         if hospital_id in [None, '', 'None']: 
             new_hospital_id = get_next_id(HospitalDetails, 'HOSP')
